@@ -1,33 +1,18 @@
-﻿using System;
-using System.Linq;
+﻿using AnimalFarm.Contracts;
+using System;
 
 namespace AnimalFarm.Models
 {
-    public class Engine
+    public class Engine : IEngine
     {
         private Chicken chicken;
         private string name;
-        private string ageInput;
         private int age;
 
         public void Run()
         {
             name = Console.ReadLine();
-            ageInput = Console.ReadLine().ToLower();
-
-            while (ageInput.Any(x => !char.IsDigit(x)) && ageInput != "exit")
-            {
-                Console.WriteLine("The ages must be an integer number!");
-
-                ageInput = Console.ReadLine().ToLower();
-            }
-
-            if (ageInput == "exit")
-            {
-                return;
-            }
-
-            bool isAge = int.TryParse(ageInput, out age);
+            bool isAge = int.TryParse(Console.ReadLine(), out age);
 
             try
             {

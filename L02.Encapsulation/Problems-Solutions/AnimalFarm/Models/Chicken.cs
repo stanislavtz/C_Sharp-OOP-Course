@@ -1,9 +1,10 @@
-﻿using System;
+﻿using AnimalFarm.Contracts;
+using System;
 using System.Text;
 
 namespace AnimalFarm.Models
 {
-    public class Chicken
+    public class Chicken : IChicken
     {
         private const int MinAge = 0;
         private const int MaxAge = 15;
