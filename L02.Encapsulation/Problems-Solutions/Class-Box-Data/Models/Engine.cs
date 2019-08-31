@@ -16,15 +16,11 @@ namespace Class_Box_Data.Models
             try
             {
                 box = new Box(length, width, height);
+                Console.WriteLine(box);
             }
             catch (ArgumentException ex)
             {
                 Console.WriteLine(ex.Message);
-            }
-
-            if (box != null)
-            {
-                Console.WriteLine(box);
             }
         }
     }

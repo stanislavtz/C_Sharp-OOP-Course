@@ -4,7 +4,7 @@ namespace Class_Box_Data.Validators
 {
     public class ValidateValue
     {
-        public double Validator(string side,double valueToValidate)
+        public double Validator(string side, double valueToValidate)
         {
             if (valueToValidate <= 0)
             {
