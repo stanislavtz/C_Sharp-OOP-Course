@@ -6,4 +6,8 @@
     <RootNamespace>Pizza_Calories</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Contracts\" />
+  </ItemGroup>
+
 </Project>
