@@ -6,5 +6,9 @@ namespace Pizza_Calories.Models.Toppings.Types
 {
     public class Cheese : Topping
     {
+        public Cheese(string type, double weight) 
+            : base(type, weight)
+        {
+        }
     }
 }
