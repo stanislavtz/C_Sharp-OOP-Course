@@ -6,8 +6,4 @@
     <RootNamespace>Football_Team_Generator</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
