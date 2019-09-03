@@ -1,98 +1,52 @@
-﻿using Pizza_Calories.Core.Contracts;
+﻿using System;
 using Pizza_Calories.Models;
-using System;
-using System.Collections.Generic;
+using Pizza_Calories.Core.Contracts;
 
 namespace Pizza_Calories.Core
 {
     public class Engine : IEngine
     {
-        private readonly IList<Topping> toppings;
-        private double callories;
         private Pizza pizza;
-        private bool IsExceptionAvailable;
+        private Dough dough;
 
-        public Engine()
-        {
-            this.toppings = new List<Topping>();
-        }
         public void Run()
         {
-            string input = Console.ReadLine();
+            string[] pizzaArgs = Console.ReadLine().Split();
+            string pizzaName = pizzaArgs[1];
 
-            while (input != "END")
+            string[] doughArgs = Console.ReadLine().Split();
+            string doughType = doughArgs[1];
+            string backingTechnique = doughArgs[2];
+            double doughWeight = double.Parse(doughArgs[3]);
+
+            try
             {
-                IsExceptionAvailable = false;
+                this.dough = new Dough(doughType, backingTechnique, doughWeight);
 
-                string[] args = input
-                     .Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                this.pizza = new Pizza(pizzaName, dough);
 
-                if (args[0] == "Pizza")
+                string input = Console.ReadLine();
+
+                while (input != "END")
                 {
-                    var name = args[1];
+                    string[] args = input
+                        .Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
-                    try
-                    {
-                        pizza = new Pizza(name);
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        IsExceptionAvailable = true;
-                        Console.WriteLine(ex.Message);
-                        break;
-                    }
-                }
-                else if (args[0] == "Dough")
-                {
-                    var mainType = args[1];
-                    var additionalType = args[2];
-                    var weight = double.Parse(args[3]);
-
-                    try
-                    {
-                        var dought = new Dough(mainType, additionalType, weight);
-                        callories += dought.ClculateCalories();
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        IsExceptionAvailable = true;
-                        Console.WriteLine(ex.Message);
-                        break;
-                    }
-
-                }
-                else if (args[0] == "Topping")
-                {
                     var type = args[1];
                     var weight = double.Parse(args[2]);
 
-                    try
-                    {
-                        var topping = new Topping(type, weight);
+                    Topping topping = new Topping(type, weight);
 
-                        if (toppings.Count > 10)
-                        {
-                            IsExceptionAvailable = true;
-                            throw new ArgumentException("Number of toppings should be in range [0..10].");
-                        }
+                    pizza.AddTopping(topping);
 
-                        toppings.Add(topping);
-                        callories += topping.CalculateCalories();
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        IsExceptionAvailable = true;
-                        Console.WriteLine(ex.Message);
-                        break;
-                    }
+                    input = Console.ReadLine();
                 }
 
-                input = Console.ReadLine();
+                Console.WriteLine($"{this.pizza.Name} - {this.pizza.GetTotalCalories():f2} Calories.");
             }
-
-            if (!IsExceptionAvailable)
+            catch (Exception ex)
             {
-                Console.WriteLine($"{this.pizza.Name} - {this.callories:f2} Calories.");
+                Console.WriteLine(ex.Message);
             }
         }
     }

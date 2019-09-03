@@ -1,36 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Pizza_Calories.Models
 {
     public class Dough
     {
+        private const int BaseCalories = 2;
         private const double MinWeight = 1;
         private const double MaxWeight = 200;
 
-        private readonly Dictionary<string, double> mainDoughTypes = new Dictionary<string, double>
-        {
-            {"white", 1.5},
-            {"wholegrain", 1.0}
-        };
-
-        private readonly Dictionary<string, double> additionalDoughTypes = new Dictionary<string, double>
-        {
-            {"chewy", 1.1},
-            {"homemade", 1.0},
-            {"crispy", 0.9}
-        };
-
+        private string flourType;
+        private string backingTechnique;
         private double weight;
-        private string mainType;
-        private string additionalType;
 
-        public Dough(string mainType, string additionalType, double weight)
+        private readonly Dictionary<string, double> currentFlourTypes;
+        private readonly Dictionary<string, double> currentBackingTechniques;
+
+        public Dough(string type, string technique, double weight)
         {
+            this.currentFlourTypes = new Dictionary<string, double>();
+            this.currentBackingTechniques = new Dictionary<string, double>();
+            this.SeedFlourTypes();
+            this.SeedBackingTechniques();
+
+            this.FlourType = type;
+            this.BackingTechnique = technique;
             this.Weight = weight;
-            this.MainType = mainType;
-            this.AdditionalType = additionalType;
         }
 
         public double Weight
@@ -47,29 +42,45 @@ namespace Pizza_Calories.Models
             }
         }
 
-        public string MainType
+        public string FlourType
         {
-            get => this.mainType;
+            get => this.flourType;
             private set
             {
-                DouhtTypeValidator(value.ToLower(), mainDoughTypes);
-                this.mainType = value;
+                DouhtTypeValidator(value.ToLower(), currentFlourTypes);
+                this.flourType = value;
             }
         }
 
-        public string AdditionalType
+        public string BackingTechnique
         {
-            get => this.additionalType;
+            get => this.backingTechnique;
             private set
             {
-                DouhtTypeValidator(value.ToLower(), additionalDoughTypes);
-                this.additionalType = value;
+                DouhtTypeValidator(value.ToLower(), currentBackingTechniques);
+                this.backingTechnique = value;
             }
         }
 
         public double ClculateCalories()
         {
-            return 2 * this.Weight * this.mainDoughTypes[MainType.ToLower()] * this.additionalDoughTypes[AdditionalType.ToLower()];
+            return BaseCalories 
+                * this.Weight 
+                * this.currentFlourTypes[this.FlourType.ToLower()] 
+                * this.currentBackingTechniques[this.BackingTechnique.ToLower()];
+        }
+
+        private void SeedFlourTypes()
+        {
+            this.currentFlourTypes.Add("white", 1.5);
+            this.currentFlourTypes.Add("wholegrain", 1.0);
+        }
+
+        private void SeedBackingTechniques()
+        {
+            this.currentBackingTechniques.Add("chewy", 1.1);
+            this.currentBackingTechniques.Add("homemade", 1.0);
+            this.currentBackingTechniques.Add("crispy", 0.9);
         }
 
         private void DouhtTypeValidator(string value, Dictionary<string, double> doughtType)

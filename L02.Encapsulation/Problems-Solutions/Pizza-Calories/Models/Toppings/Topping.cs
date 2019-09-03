@@ -1,26 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Pizza_Calories.Models
 {
     public class Topping
     {
+        private const int baseCalories = 2;
         private const double MinWeight = 1;
         private const double MaxWeight = 50;
 
         private string toppingType;
         private double weight;
-        private readonly Dictionary<string, double> toppingTypes = new Dictionary<string, double>
-        {
-            {"meat", 1.2},
-            {"veggies", 0.8},
-            {"cheese", 1.1},
-            {"sauce", 0.9},
-        };
+        private readonly Dictionary<string, double> toppingTypes;
 
         public Topping(string type, double weight)
         {
+            this.toppingTypes = new Dictionary<string, double>();
+            this.SeedToppings();
+
             this.ToppingType = type;
             this.Weight = weight;
         }
@@ -28,7 +25,7 @@ namespace Pizza_Calories.Models
         public double Weight
         {
             get => this.weight;
-            set
+            private set
             {
                 if (value < 1 || value > 50)
                 {
@@ -53,7 +50,17 @@ namespace Pizza_Calories.Models
 
         public double CalculateCalories()
         {
-            return 2 * this.Weight * this.toppingTypes[ToppingType.ToLower()];
+            return baseCalories 
+                * this.Weight 
+                * this.toppingTypes[this.ToppingType.ToLower()];
+        }
+
+        private void SeedToppings()
+        {
+            this.toppingTypes.Add("meat", 1.2);
+            this.toppingTypes.Add("veggies", 0.8);
+            this.toppingTypes.Add("cheese", 1.1);
+            this.toppingTypes.Add("sauce", 0.9);
         }
     }
 }
