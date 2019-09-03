@@ -37,8 +37,8 @@ namespace Pizza_Calories.Core
                     }
                     catch (ArgumentException ex)
                     {
-                        Console.WriteLine(ex.Message);
                         IsExceptionAvailable = true;
+                        Console.WriteLine(ex.Message);
                         break;
                     }
                 }
@@ -55,8 +55,8 @@ namespace Pizza_Calories.Core
                     }
                     catch (ArgumentException ex)
                     {
-                        Console.WriteLine(ex.Message);
                         IsExceptionAvailable = true;
+                        Console.WriteLine(ex.Message);
                         break;
                     }
 
@@ -81,8 +81,8 @@ namespace Pizza_Calories.Core
                     }
                     catch (ArgumentException ex)
                     {
-                        Console.WriteLine(ex.Message);
                         IsExceptionAvailable = true;
+                        Console.WriteLine(ex.Message);
                         break;
                     }
                 }
