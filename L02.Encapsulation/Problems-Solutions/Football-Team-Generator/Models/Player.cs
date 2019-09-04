@@ -9,7 +9,12 @@ namespace Football_Team_Generator.Models
         private string name;
         private readonly List<Stat> stats;
 
-        internal double TotalRating()
+        public void AddStats(Stat stat)
+        {
+            stats.Add(stat);
+        }
+
+        public double TotalRating()
         {
             return Math.Round(stats.Average(s => s.StatValue));
         }
