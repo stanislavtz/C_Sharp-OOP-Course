@@ -62,7 +62,8 @@ namespace Football_Team_Generator.Core
                             player.AddStats(stat);
                         }
 
-                        var result = player.PlayerRating();
+                        // to remove this check
+                        var playerRating = player.PlayerRating();
                     }
                     else if (args[0] == "Remove")
                     {
