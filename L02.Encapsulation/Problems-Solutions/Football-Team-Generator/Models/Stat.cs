@@ -1,5 +1,5 @@
-﻿using Football_Team_Generator.Exceptions;
-using System;
+﻿using System;
+using Football_Team_Generator.Exceptions;
 
 namespace Football_Team_Generator.Models
 {

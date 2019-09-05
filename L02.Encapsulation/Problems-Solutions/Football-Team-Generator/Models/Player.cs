@@ -1,7 +1,7 @@
-﻿using Football_Team_Generator.Exceptions;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using System.Collections.Generic;
+using Football_Team_Generator.Exceptions;
 
 namespace Football_Team_Generator.Models
 {

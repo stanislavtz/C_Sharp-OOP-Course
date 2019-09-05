@@ -1,8 +1,7 @@
-﻿using Football_Team_Generator.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
+using System.Collections.Generic;
+using Football_Team_Generator.Models;
 
 namespace Football_Team_Generator.Core
 {
@@ -31,7 +30,16 @@ namespace Football_Team_Generator.Core
                 {
                     if (args[0] == "Rating")
                     {
-                        ;
+                        teamName = args[1];
+
+                        var currentTeam = teamList.FirstOrDefault(x => x.Name == teamName);
+
+                        if (currentTeam == null)
+                        {
+                            throw new NullReferenceException($"Team {teamName} does not exist.");
+                        }
+
+                        Console.WriteLine(currentTeam);
                     }
                     else if (args[0] == "Team")
                     {
@@ -64,15 +72,34 @@ namespace Football_Team_Generator.Core
 
                         // to remove this check
                         var playerRating = player.PlayerRating();
+
+                        var currentTeam = teamList.FirstOrDefault(x => x.Name == teamName);
+
+                        if (currentTeam == null)
+                        {
+                            throw new NullReferenceException($"Team {teamName} does not exist.");
+                        }
+
+                        currentTeam.AddPlayer(player);
+
                     }
                     else if (args[0] == "Remove")
                     {
+                        teamName = args[1];
+                        playerName = args[2];
+                        var currentTeam = teamList.First(x => x.Name == teamName);
+                        var currentPlayer = new Player(playerName);
 
+                        currentTeam.RemovePlayer(currentPlayer);
                     }
                 }
                 catch (ArgumentException ex)
                 {
                     Console.WriteLine(ex.Message);
+                }
+                catch (NullReferenceException nex)
+                {
+                    Console.WriteLine(nex.Message);
                 }
 
                 input = Console.ReadLine();

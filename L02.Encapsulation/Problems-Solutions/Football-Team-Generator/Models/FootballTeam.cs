@@ -1,20 +1,19 @@
-﻿using Football_Team_Generator.Exceptions;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
+using System.Collections.Generic;
+using Football_Team_Generator.Exceptions;
 
 namespace Football_Team_Generator.Models
 {
     public class FootballTeam
     {
         private string name;
-        private int rating;
         private readonly List<Player> players;
 
         public FootballTeam(string name)
         {
             this.Name = name;
+            this.players = new List<Player>();
         }
 
         public string Name
@@ -31,10 +30,32 @@ namespace Football_Team_Generator.Models
             } 
         }
 
-        public double CalculateRating(List<Player> players)
+        public void AddPlayer(Player player)
+        {
+            players.Add(player);
+        }
+
+        public double CalculateRating()
         {
 
-            return players.Sum(p => p.PlayerRating());
+            return this.players.Sum(p => p.PlayerRating());
+        }
+
+        public void RemovePlayer(Player player)
+        {
+            var playerToRemove = players.FirstOrDefault(p => p.Name == player.Name);
+
+            if (playerToRemove == null)
+            {
+                throw new NullReferenceException($"Player {player.Name} is not in {this.Name} team.");
+            }
+
+            players.Remove(playerToRemove);
+        }
+
+        public override string ToString()
+        {
+            return $"{this.Name} - {this.CalculateRating()}";
         }
     }
 }
