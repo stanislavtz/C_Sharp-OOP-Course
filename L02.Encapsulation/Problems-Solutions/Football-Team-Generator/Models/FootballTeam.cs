@@ -34,7 +34,7 @@ namespace Football_Team_Generator.Models
         public double CalculateRating(List<Player> players)
         {
 
-            return players.Sum(p => p.TotalRating());
+            return players.Sum(p => p.PlayerRating());
         }
     }
 }

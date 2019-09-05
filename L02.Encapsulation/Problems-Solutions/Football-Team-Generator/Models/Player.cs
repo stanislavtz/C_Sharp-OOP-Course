@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Football_Team_Generator.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,14 +10,33 @@ namespace Football_Team_Generator.Models
         private string name;
         private readonly List<Stat> stats;
 
-        public void AddStats(Stat stat)
+        public Player(string name)
         {
-            stats.Add(stat);
+            this.Name = name;
+            this.stats = new List<Stat>();
         }
 
-        public double TotalRating()
+        public string Name
         {
-            return Math.Round(stats.Average(s => s.StatValue));
+            get => this.name;
+            private set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException(DataValidationExceptions.InvalidNameException());
+                }
+                this.name = value;
+            }
+        }
+
+        public double PlayerRating()
+        {
+            return Math.Round(this.stats.Average(s => s.StatValue));
+        }
+
+        public void AddStats(Stat stat)
+        {
+            this.stats.Add(stat);
         }
     }
 }
