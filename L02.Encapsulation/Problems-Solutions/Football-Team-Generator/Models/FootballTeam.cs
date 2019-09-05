@@ -41,7 +41,7 @@ namespace Football_Team_Generator.Models
 
             if (playerToRemove == null)
             {
-                throw new NullReferenceException($"Player {player.Name} is not in {this.Name} team.");
+                throw new NullReferenceException(string.Format(DataValidationExceptions.UnavailablePlayerException(), player.Name, this.Name));
             }
 
             team.Remove(playerToRemove);

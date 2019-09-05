@@ -32,11 +32,11 @@ namespace Football_Team_Generator.Core
                     {
                         this.teamName = args[1];
 
-                        var currentTeam = teamList.FirstOrDefault(x => x.Name == this.teamName);
+                        var currentTeam = this.teamList.FirstOrDefault(x => x.Name == this.teamName);
 
                         if (currentTeam == null)
                         {
-                            throw new NullReferenceException($"Team { this.teamName} does not exist.");
+                            throw new NullReferenceException($"Team {this.teamName} does not exist.");
                         }
 
                         Console.WriteLine(currentTeam);
@@ -76,17 +76,18 @@ namespace Football_Team_Generator.Core
 
                         if (currentTeam == null)
                         {
-                            throw new NullReferenceException($"Team {teamName} does not exist.");
+                            throw new NullReferenceException($"Team {this.teamName} does not exist.");
                         }
 
                         currentTeam.AddPlayer(player);
                     }
                     else if (args[0] == "Remove")
                     {
-                        teamName = args[1];
-                        playerName = args[2];
-                        var currentTeam = teamList.First(x => x.Name == teamName);
-                        var currentPlayer = new Player(playerName);
+                        this.teamName = args[1];
+                        this.playerName = args[2];
+
+                        var currentTeam = this.teamList.First(x => x.Name == this.teamName);
+                        var currentPlayer = new Player(this.playerName);
 
                         currentTeam.RemovePlayer(currentPlayer);
                     }
