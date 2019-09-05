@@ -7,7 +7,7 @@ namespace Football_Team_Generator.Core
 {
     public class Engine
     {
-        private List<FootballTeam> teamList;
+        private readonly List<FootballTeam> teamList;
         private FootballTeam team;
         private string teamName;
         private string playerName;
@@ -30,29 +30,29 @@ namespace Football_Team_Generator.Core
                 {
                     if (args[0] == "Rating")
                     {
-                        teamName = args[1];
+                        this.teamName = args[1];
 
-                        var currentTeam = teamList.FirstOrDefault(x => x.Name == teamName);
+                        var currentTeam = teamList.FirstOrDefault(x => x.Name == this.teamName);
 
                         if (currentTeam == null)
                         {
-                            throw new NullReferenceException($"Team {teamName} does not exist.");
+                            throw new NullReferenceException($"Team { this.teamName} does not exist.");
                         }
 
                         Console.WriteLine(currentTeam);
                     }
                     else if (args[0] == "Team")
                     {
-                        teamName = args[1];
-                        team = new FootballTeam(teamName);
-                        teamList.Add(team);
+                        this.teamName = args[1];
+                        this.team = new FootballTeam(this.teamName);
+                        this.teamList.Add(this.team);
                     }
                     else if (args[0] == "Add")
                     {
-                        teamName = args[1];
-                        playerName = args[2];
+                        this.teamName = args[1];
+                        this.playerName = args[2];
 
-                        var player = new Player(playerName);
+                        var player = new Player(this.playerName);
 
                         var stats = args.Skip(3).Select(int.Parse).ToList();
 
@@ -68,10 +68,11 @@ namespace Football_Team_Generator.Core
                         for (int i = 0; i < stats.Count; i++)
                         {
                             var stat = new Stat(statsNames[i], stats[i]);
+
                             player.AddStats(stat);
                         }
 
-                        var currentTeam = teamList.FirstOrDefault(x => x.Name == teamName);
+                        var currentTeam = this.teamList.FirstOrDefault(x => x.Name == this.teamName);
 
                         if (currentTeam == null)
                         {
@@ -79,7 +80,6 @@ namespace Football_Team_Generator.Core
                         }
 
                         currentTeam.AddPlayer(player);
-
                     }
                     else if (args[0] == "Remove")
                     {
