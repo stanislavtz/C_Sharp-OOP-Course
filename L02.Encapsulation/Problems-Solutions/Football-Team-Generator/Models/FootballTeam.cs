@@ -8,12 +8,12 @@ namespace Football_Team_Generator.Models
     public class FootballTeam
     {
         private string name;
-        private readonly List<Player> players;
+        private readonly List<Player> team;
 
         public FootballTeam(string name)
         {
             this.Name = name;
-            this.players = new List<Player>();
+            this.team = new List<Player>();
         }
 
         public string Name
@@ -32,25 +32,24 @@ namespace Football_Team_Generator.Models
 
         public void AddPlayer(Player player)
         {
-            players.Add(player);
-        }
-
-        public double CalculateRating()
-        {
-
-            return this.players.Sum(p => p.PlayerRating());
+            team.Add(player);
         }
 
         public void RemovePlayer(Player player)
         {
-            var playerToRemove = players.FirstOrDefault(p => p.Name == player.Name);
+            var playerToRemove = team.FirstOrDefault(p => p.Name == player.Name);
 
             if (playerToRemove == null)
             {
                 throw new NullReferenceException($"Player {player.Name} is not in {this.Name} team.");
             }
 
-            players.Remove(playerToRemove);
+            team.Remove(playerToRemove);
+        }
+
+        public double CalculateRating()
+        {
+            return this.team.Average(p => p.PlayerRating());
         }
 
         public override string ToString()
