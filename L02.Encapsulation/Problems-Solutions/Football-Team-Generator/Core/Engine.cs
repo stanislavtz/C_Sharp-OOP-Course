@@ -55,6 +55,7 @@ namespace Football_Team_Generator.Core
                         var player = new Player(playerName);
 
                         var stats = args.Skip(3).Select(int.Parse).ToList();
+
                         var statsNames = new List<string>
                         {
                             "Endurance",
@@ -69,9 +70,6 @@ namespace Football_Team_Generator.Core
                             var stat = new Stat(statsNames[i], stats[i]);
                             player.AddStats(stat);
                         }
-
-                        // to remove this check
-                        var playerRating = player.PlayerRating();
 
                         var currentTeam = teamList.FirstOrDefault(x => x.Name == teamName);
 
