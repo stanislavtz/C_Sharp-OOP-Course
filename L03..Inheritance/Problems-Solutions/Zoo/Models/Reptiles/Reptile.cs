@@ -1,10 +1,10 @@
-﻿namespace Zoo.Reptiles
+﻿namespace Zoo.Models.Reptiles
 {
     public class Reptile : Animal
     {
-        public Reptile(string name) : base(name)
+        public Reptile(string name)
+            : base(name)
         {
-
         }
     }
 }
