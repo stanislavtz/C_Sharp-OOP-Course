@@ -23,20 +23,21 @@ namespace Football_Team_Generator.Models
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException(DataValidationExceptions.InvalidNameException());
+                    throw new ArgumentException
+                        (DataValidationExceptions.InvalidNameException());
                 }
                 this.name = value;
             }
         }
 
-        public double PlayerRating()
-        {
-            return Math.Round(this.stats.Average(s => s.StatValue));
-        }
-
         public void AddStats(Stat stat)
         {
             this.stats.Add(stat);
+        }
+
+        public double PlayerRating()
+        {
+            return Math.Round(this.stats.Average(s => s.StatValue));
         }
     }
 }

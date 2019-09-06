@@ -21,7 +21,8 @@ namespace Football_Team_Generator.Models
             {
                 if (value < 0 || value > 100)
                 {
-                    throw new ArgumentException(string.Format(DataValidationExceptions.InvalidStatException(), this.name));
+                    throw new ArgumentException
+                        (string.Format(DataValidationExceptions.InvalidStatException(), this.name));
                 }
                 this.statValue = value;
             }

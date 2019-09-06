@@ -8,12 +8,12 @@ namespace Football_Team_Generator.Models
     public class FootballTeam
     {
         private string name;
-        private readonly List<Player> team;
+        private readonly List<Player> players;
 
         public FootballTeam(string name)
         {
             this.Name = name;
-            this.team = new List<Player>();
+            this.players = new List<Player>();
         }
 
         public string Name
@@ -23,7 +23,8 @@ namespace Football_Team_Generator.Models
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException(DataValidationExceptions.InvalidNameException());
+                    throw new ArgumentException
+                        (DataValidationExceptions.InvalidNameException());
                 }
 
                 this.name = value;
@@ -32,29 +33,39 @@ namespace Football_Team_Generator.Models
 
         public void AddPlayer(Player player)
         {
-            team.Add(player);
+            players.Add(player);
         }
 
         public void RemovePlayer(Player player)
         {
-            var playerToRemove = team.FirstOrDefault(p => p.Name == player.Name);
+            var playerToRemove = players.FirstOrDefault(p => p.Name == player.Name);
 
             if (playerToRemove == null)
             {
-                throw new NullReferenceException(string.Format(DataValidationExceptions.UnavailablePlayerException(), player.Name, this.Name));
+                throw new NullReferenceException
+                    (string.Format(DataValidationExceptions.UnavailablePlayerException(), player.Name, this.Name));
             }
 
-            team.Remove(playerToRemove);
-        }
-
-        public double CalculateRating()
-        {
-            return this.team.Average(p => p.PlayerRating());
+            while (playerToRemove != null)
+            {
+                players.Remove(playerToRemove);
+                playerToRemove = players.FirstOrDefault(p => p.Name == player.Name);
+            }
         }
 
         public override string ToString()
         {
-            return $"{this.Name} - {this.CalculateRating()}";
+            return $"{this.Name} - {this.CalculateRating():f0}";
+        }
+
+        private double CalculateRating()
+        {
+            if (players.Count > 0)
+            {
+                return Math.Round(this.players.Average(p => p.PlayerRating()));
+            }
+
+            return 0;
         }
     }
 }
