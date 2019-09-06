@@ -27,7 +27,6 @@ namespace Person
                     if (nex.Message != ex.Message)
                     {
                         Console.WriteLine(nex.Message);
-                        
                     }
                 }
 

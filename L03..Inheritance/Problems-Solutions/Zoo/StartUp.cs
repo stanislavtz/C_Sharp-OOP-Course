@@ -1,6 +1,4 @@
-﻿using System;
-using Zoo.Mammals;
-using Zoo.Reptiles;
+﻿using Zoo.Core;
 
 namespace Zoo
 {
@@ -8,9 +6,9 @@ namespace Zoo
     {
         public static void Main(string[] args)
         {
-            Lizard liz = new Lizard("Liizzzho");
+            Engine engine = new Engine();
 
-            Bear bear = new Bear("TeddyBear");
+            engine.Run();
         }
     }
 }
