@@ -4,8 +4,6 @@ namespace Person
 {
     public class Engine
     {
-        private Person human;
-
         public void Run()
         {
             string name = Console.ReadLine();
@@ -13,27 +11,13 @@ namespace Person
 
             try
             {
-                human = new Person(name, age);
+                Child child = new Child(name, age);
+                Console.WriteLine(child);
             }
-
-            catch (ArgumentException ex)
+            catch (ArgumentException ae)
             {
-                try
-                {
-                    human = new Child(name, age);
-                }
-                catch (ArgumentException nex)
-                {
-                    if (nex.Message != ex.Message)
-                    {
-                        Console.WriteLine(nex.Message);
-                    }
-                }
-
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ae.Message);
             }
-
-            Console.WriteLine(human);
         }
     }
 }

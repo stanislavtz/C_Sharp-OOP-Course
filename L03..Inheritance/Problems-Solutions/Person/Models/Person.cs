@@ -13,22 +13,15 @@ namespace Person
             this.Age = age;
         }
 
-        public string Name
+        public virtual string Name
         {
             get => this.name;
-            private set
+            set
             {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException
-                        ("Name should not be null, empthy or white space!");
-
-                }
-
                 if (value.Length < 3)
                 {
                     throw new ArgumentException
-                        ("Name length should not be less than 3 symbols!");
+                        ("Name's length should not be less than 3 symbols!");
                 }
 
                 this.name = value;
@@ -40,7 +33,7 @@ namespace Person
             get => this.age;
             set
             {
-                if (value < 0 )
+                if (value < 0)
                 {
                     throw new ArgumentException("Age must be positive!");
                 }
