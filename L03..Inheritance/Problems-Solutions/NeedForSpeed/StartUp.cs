@@ -1,5 +1,4 @@
-﻿using NeedForSpeed.Cars;
-using NeedForSpeed.Motorcycles;
+﻿using NeedForSpeed.Core;
 
 namespace NeedForSpeed
 {
@@ -7,7 +6,9 @@ namespace NeedForSpeed
     {
         public static void Main(string[] args)
         {
+            Engine eng = new Engine();
 
+            eng.Run();
         }
     }
 }
