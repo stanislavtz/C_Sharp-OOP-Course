@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace NeedForSpeed.Models.Cars
+﻿namespace NeedForSpeed.Models.Cars
 {
-    public abstract class Car : Vehicle
+    public class Car : Vehicle
     {
         private const double DFAULT_FUEL_CONSUMPTION = 3;
 
@@ -11,16 +9,11 @@ namespace NeedForSpeed.Models.Cars
         {
         }
 
-        public override void Drive()
+        public override double FuelConsumption => DFAULT_FUEL_CONSUMPTION;
+
+        public override void Drive(double distance)
         {
-            bool canDrive = this.Fuel - DISTANCE * DFAULT_FUEL_CONSUMPTION / 100 >= 0;
-
-            if (!canDrive)
-            {
-                throw new ArgumentException("Not enought fuel in tank!");
-            }
-
-            this.Fuel -= DISTANCE * DFAULT_FUEL_CONSUMPTION / 100;
+            base.Drive(distance);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NeedForSpeed.Models.Motors
+﻿namespace NeedForSpeed.Models.Motors
 {
     public class RaceMotorcycle : Motorcycle
     {
@@ -11,16 +9,8 @@ namespace NeedForSpeed.Models.Motors
         {
         }
 
-        public override void Drive()
-        {
-            bool canDrive = this.Fuel - DISTANCE * DFAULT_FUEL_CONSUMPTION  / 100 >= 0;
+        public override double FuelConsumption => DFAULT_FUEL_CONSUMPTION;
 
-            if (!canDrive)
-            {
-                throw new ArgumentException("Not enought fuel in tank!");
-            }
-
-            this.Fuel -= DISTANCE * DFAULT_FUEL_CONSUMPTION / 100;
-        }
+        public override void Drive(double distance) => base.Drive(distance);
     }
 }

@@ -6,9 +6,9 @@ namespace NeedForSpeed
     {
         public static void Main(string[] args)
         {
-            Engine eng = new Engine();
+            Engine engine = new Engine();
 
-            eng.Run();
+            engine.Run();
         }
     }
 }
