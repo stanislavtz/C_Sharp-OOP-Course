@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Restaurant.Core;
+using System;
 
 namespace Restaurant
 {
@@ -6,7 +7,9 @@ namespace Restaurant
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var engine = new Engine();
+
+            engine.Run();
         }
     }
 }

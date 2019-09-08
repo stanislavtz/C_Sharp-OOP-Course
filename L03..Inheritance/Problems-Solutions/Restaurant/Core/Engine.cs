@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Restaurant.Core
+﻿namespace Restaurant.Core
 {
-    class Engine
+    public class Engine
     {
+        public void Run()
+        {
+
+        }
     }
 }
