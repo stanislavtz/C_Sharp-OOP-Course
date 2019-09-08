@@ -57,7 +57,7 @@ namespace NeedForSpeed.Models
 
         public override string ToString()
         {
-            return $"This vehicle is {this.GetType().Name} with fuel consuption: {this.FuelConsumption} l/100 km";
+            return $"This vehicle is {this.GetType().Name} with fuel consuption: {this.FuelConsumption:f1} l/100 km";
         }
     }
 }
