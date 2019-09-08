@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Restaurant.Models.Food.MainDishes
+﻿namespace Restaurant.Models.Food.MainDishes
 {
     public class Fish : MainDish
     {
