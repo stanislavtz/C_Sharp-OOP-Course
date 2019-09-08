@@ -11,9 +11,6 @@
 
         public override double FuelConsumption => DFAULT_FUEL_CONSUMPTION;
 
-        public override void Drive(double distance)
-        {
-            base.Drive(distance);
-        }
+        public override void Drive(double distance) => base.Drive(distance);
     }
 }

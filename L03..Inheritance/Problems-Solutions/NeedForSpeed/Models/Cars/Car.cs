@@ -1,6 +1,6 @@
 ﻿namespace NeedForSpeed.Models.Cars
 {
-    public class Car : Vehicle
+    public abstract class Car : Vehicle
     {
         private const double DFAULT_FUEL_CONSUMPTION = 3;
 
@@ -11,9 +11,6 @@
 
         public override double FuelConsumption => DFAULT_FUEL_CONSUMPTION;
 
-        public override void Drive(double distance)
-        {
-            base.Drive(distance);
-        }
+        public override void Drive(double distance) => base.Drive(distance);
     }
 }
