@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Restaurant.Models.Beverages
+﻿namespace Restaurant.Models.Beverages
 {
     public class Beverage : Product
     {
-        public Beverage(string name, decimal price) 
+        public Beverage(string name, decimal price, double milliliters) 
             : base(name, price)
         {
+            this.Milliliters = milliliters;
         }
+
+        public double Milliliters { get; set; }
     }
 }

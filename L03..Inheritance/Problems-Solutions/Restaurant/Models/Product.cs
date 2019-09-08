@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Restaurant.Models
+﻿namespace Restaurant.Models
 {
     public class Product
     {
