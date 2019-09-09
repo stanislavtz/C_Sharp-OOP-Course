@@ -23,22 +23,26 @@ namespace Book_Shop.Models
             get => this.author;
             private set
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Author not valid!");
                 }
 
-                string[] names = value
-                    .Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                string[] names = value.Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
-                var lastName = value.Split()[names.Length - 1].ToCharArray();
-
-                if (lastName == null)
+                if (names.Length > 1)
                 {
-                    throw new ArgumentException("Author not valid!");
+                    var name = names[1];
+                    ValidateNameLength(name);
+                    firstSymbol = name.ToCharArray()[0];
+                }
+                else
+                {
+                    var name = names[0];
+                    ValidateNameLength(name);
+                    firstSymbol = name.ToCharArray()[0];
                 }
 
-                firstSymbol = lastName[0];
 
                 if (char.IsDigit(firstSymbol))
                 {
@@ -46,6 +50,14 @@ namespace Book_Shop.Models
                 }
 
                 this.author = value;
+            }
+        }
+
+        private static void ValidateNameLength(string name)
+        {
+            if (name.Length < 3)
+            {
+                throw new ArgumentException("Author not valid!");
             }
         }
 
