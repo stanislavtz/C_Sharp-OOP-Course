@@ -9,6 +9,8 @@ namespace Book_Shop.Models
         private string title;
         private decimal price;
 
+        private char firstSymbol;
+
         public Book(string author, string title, decimal price)
         {
             this.Author = author;
@@ -21,11 +23,24 @@ namespace Book_Shop.Models
             get => this.author;
             private set
             {
-                // string firstName = value.Split()[0];
-                var lastName = value.Split()[1].ToCharArray();
-                char firsSymbol = lastName[0];
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Author not valid!");
+                }
 
-                if (char.IsDigit(firsSymbol))
+                string[] names = value
+                    .Split(" ", StringSplitOptions.RemoveEmptyEntries);
+
+                var lastName = value.Split()[names.Length - 1].ToCharArray();
+
+                if (lastName == null)
+                {
+                    throw new ArgumentException("Author not valid!");
+                }
+
+                firstSymbol = lastName[0];
+
+                if (char.IsDigit(firstSymbol))
                 {
                     throw new ArgumentException("Author not valid!");
                 }
@@ -67,9 +82,9 @@ namespace Book_Shop.Models
             sb.AppendLine($"Type: {this.GetType().Name}");
             sb.AppendLine($"Title: {this.Title}");
             sb.AppendLine($"Author: {this.Author}");
-            sb.Append($"Price: {this.Price:f2}");
+            sb.AppendLine($"Price: {this.Price:f2}");
 
-            return sb.ToString();
+            return sb.ToString().TrimEnd();
         }
     }
 }
