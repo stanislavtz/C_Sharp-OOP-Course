@@ -9,6 +9,9 @@ namespace Book_Shop.Models
         private string title;
         private decimal price;
 
+        private string name;
+        private char lastChar;
+
         private char firstSymbol;
 
         public Book(string author, string title, decimal price)
@@ -32,15 +35,12 @@ namespace Book_Shop.Models
 
                 if (names.Length > 1)
                 {
-                    var name = names[1];
-                    ValidateNameLength(name);
+                    name = names[1];
                     firstSymbol = name.ToCharArray()[0];
                 }
                 else
                 {
-                    var name = names[0];
-                    ValidateNameLength(name);
-                    firstSymbol = name.ToCharArray()[0];
+                    name = names[0];
                 }
 
 
@@ -50,14 +50,6 @@ namespace Book_Shop.Models
                 }
 
                 this.author = value;
-            }
-        }
-
-        private static void ValidateNameLength(string name)
-        {
-            if (name.Length < 3)
-            {
-                throw new ArgumentException("Author not valid!");
             }
         }
 
