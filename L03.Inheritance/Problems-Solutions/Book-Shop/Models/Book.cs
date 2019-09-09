@@ -10,8 +10,6 @@ namespace Book_Shop.Models
         private decimal price;
 
         private string name;
-        private char lastChar;
-
         private char firstSymbol;
 
         public Book(string author, string title, decimal price)
