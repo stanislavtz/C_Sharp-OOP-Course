@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mankind.Exceptions;
+using System;
 using System.Linq;
 using System.Text;
 
@@ -23,7 +24,7 @@ namespace Mankind.Models
                     || value.Length > 10 
                     || value.Any(ch => !char.IsLetterOrDigit(ch)))
                 {
-                    throw new ArgumentException("Invalid faculty number!");
+                    throw new ArgumentException(ExceptionsData.InvalidFacultyNumber);
                 }
 
                 this.facultyNumber = value;

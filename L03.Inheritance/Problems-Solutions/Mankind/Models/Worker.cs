@@ -1,5 +1,6 @@
-﻿using System;
+﻿using System; 
 using System.Text;
+using Mankind.Exceptions;
 
 namespace Mankind.Models
 {
@@ -24,7 +25,7 @@ namespace Mankind.Models
             {
                 if (value <= 10)
                 {
-                    throw new ArgumentException($"Expected value mismatch! Argument: {nameof(this.weekSalary)}");
+                    throw new ArgumentException(string.Format(ExceptionsData.ValueMisMash, nameof(this.weekSalary)));
                 }
 
                 this.weekSalary = value;
@@ -38,7 +39,7 @@ namespace Mankind.Models
             {
                 if (value < 1 || value > 12)
                 {
-                    throw new ArgumentException($"Expected value mismatch! Argument: {nameof(this.workHoursPerDay)}");
+                    throw new ArgumentException(string.Format(ExceptionsData.ValueMisMash, nameof(this.workHoursPerDay)));
                 }
                 this.workHoursPerDay = value;
             }

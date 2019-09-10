@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mankind.Exceptions;
+using System;
 using System.Text;
 
 namespace Mankind.Models
@@ -55,7 +56,7 @@ namespace Mankind.Models
         {
             if (!char.IsUpper(input[0]))
             {
-                throw new ArgumentException($"Expected upper case letter! Argument: {name}");
+                throw new ArgumentException(string.Format(ExceptionsData.InvalidFirstLetter, name));
             }
         }
 
@@ -63,7 +64,7 @@ namespace Mankind.Models
         {
             if (input.Length < length)
             {
-                throw new ArgumentException($"Expected length at least {length} symbols! Argument: {name}");
+                throw new ArgumentException(string.Format(ExceptionsData.InvalidNameLength, name, length));
             }
         }
     }
