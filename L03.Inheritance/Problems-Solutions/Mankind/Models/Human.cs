@@ -22,34 +22,21 @@ namespace Mankind.Models
             get => this.firstName;
             private set
             {
-                if (!char.IsUpper(value[0]))
-                {
-                    throw new ArgumentException($"Expected upper case letter! Argument: firstName");
-                }
-
-                if (value.Length < MIN_FIRST_NAME_LENGTH)
-                {
-                    throw new ArgumentException($"Expected length at least {MIN_FIRST_NAME_LENGTH} symbols! Argument: firstName");
-                }
+                ValidateFirstLetter(value, nameof(this.firstName));
+                ValidateNameLength(value, MIN_FIRST_NAME_LENGTH, nameof(this.firstName));
 
                 this.firstName = value;
             }
         }
+
 
         public string LastName
         {
             get => this.lastName;
             private set
             {
-                if (!char.IsUpper(value[0]))
-                {
-                    throw new ArgumentException($"Expected upper case letter! Argument: lastName");
-                }
-
-                if (value.Length < MIN_LAST_NAME_LENGTH)
-                {
-                    throw new ArgumentException($"Expected length at least {MIN_LAST_NAME_LENGTH} symbols! Argument: lastName");
-                }
+                ValidateFirstLetter(value, nameof(this.lastName));
+                ValidateNameLength(value, MIN_LAST_NAME_LENGTH, nameof(this.lastName));
 
                 this.lastName = value;
             }
@@ -62,6 +49,22 @@ namespace Mankind.Models
             sb.AppendLine($"Last Name: {this.LastName}");
 
             return sb.ToString().TrimEnd();
+        }
+
+        private static void ValidateFirstLetter(string input, string name)
+        {
+            if (!char.IsUpper(input[0]))
+            {
+                throw new ArgumentException($"Expected upper case letter! Argument: {name}");
+            }
+        }
+
+        private static void ValidateNameLength(string input, int length, string name)
+        {
+            if (input.Length < length)
+            {
+                throw new ArgumentException($"Expected length at least {length} symbols! Argument: {name}");
+            }
         }
     }
 }

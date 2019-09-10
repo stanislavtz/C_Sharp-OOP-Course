@@ -24,7 +24,7 @@ namespace Mankind.Models
             {
                 if (value <= 10)
                 {
-                    throw new ArgumentException($"Expected value mismatch! Argument: weekSalary");
+                    throw new ArgumentException($"Expected value mismatch! Argument: {nameof(this.weekSalary)}");
                 }
 
                 this.weekSalary = value;
@@ -38,13 +38,13 @@ namespace Mankind.Models
             {
                 if (value < 1 || value > 12)
                 {
-                    throw new ArgumentException($"Expected value mismatch! Argument: workHoursPerDay");
+                    throw new ArgumentException($"Expected value mismatch! Argument: {nameof(this.workHoursPerDay)}");
                 }
                 this.workHoursPerDay = value;
             }
         }
 
-        public decimal SalaryPerHour()
+        private decimal SalaryPerHour()
         {
             return this.WeekSalary / (WORKING_DAYS * (decimal)this.WorkHoursPerDay);
         }
