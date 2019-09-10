@@ -24,15 +24,13 @@ namespace Mankind.Models
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    throw new ArgumentException($"Expected upper case letter! Argument: {this.firstName}");
+                    throw new ArgumentException($"Expected upper case letter! Argument: firstName");
                 }
 
                 if (value.Length < MIN_FIRST_NAME_LENGTH)
                 {
-                    throw new ArgumentException($"Expected length at least {MIN_FIRST_NAME_LENGTH} symbols! Argument: {this.firstName}");
+                    throw new ArgumentException($"Expected length at least {MIN_FIRST_NAME_LENGTH} symbols! Argument: firstName");
                 }
-                //ValidateFirstLetter(value);
-                //ValidateNameLength(value, MIN_FIRST_NAME_LENGTH);
 
                 this.firstName = value;
             }
@@ -45,15 +43,13 @@ namespace Mankind.Models
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    throw new ArgumentException($"Expected upper case letter! Argument: {this.lastName}");
+                    throw new ArgumentException($"Expected upper case letter! Argument: lastName");
                 }
 
                 if (value.Length < MIN_LAST_NAME_LENGTH)
                 {
-                    throw new ArgumentException($"Expected length at least {MIN_LAST_NAME_LENGTH} symbols! Argument: {this.lastName} ");
+                    throw new ArgumentException($"Expected length at least {MIN_LAST_NAME_LENGTH} symbols! Argument: lastName");
                 }
-                //ValidateFirstLetter(value);
-                //ValidateNameLength(value, MIN_LAST_NAME_LENGTH);
 
                 this.lastName = value;
             }

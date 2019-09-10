@@ -8,13 +8,13 @@ namespace Mankind.Models
         private const decimal WORKING_DAYS = 5;
 
         private decimal weekSalary;
-        private double workingHoursPerDay;
+        private double workHoursPerDay;
 
-        public Worker(string firstName, string lastName, decimal weekSalary, double workingHoursPerDay)
+        public Worker(string firstName, string lastName, decimal weekSalary, double workHoursPerDay)
             : base(firstName, lastName)
         {
             this.WeekSalary = weekSalary;
-            this.WorkingHoursPerDay = workingHoursPerDay;
+            this.WorkHoursPerDay = workHoursPerDay;
         }
 
         public decimal WeekSalary
@@ -24,29 +24,29 @@ namespace Mankind.Models
             {
                 if (value <= 10)
                 {
-                    throw new ArgumentException($"Expected value mismatch! Argument: {this.weekSalary}");
+                    throw new ArgumentException($"Expected value mismatch! Argument: weekSalary");
                 }
 
                 this.weekSalary = value;
             }
         }
 
-        public double WorkingHoursPerDay
+        public double WorkHoursPerDay
         {
-            get => this.workingHoursPerDay;
+            get => this.workHoursPerDay;
             private set
             {
                 if (value < 1 || value > 12)
                 {
-                    throw new ArgumentException($"Expected value mismatch! Argument: {this.workingHoursPerDay}");
+                    throw new ArgumentException($"Expected value mismatch! Argument: workHoursPerDay");
                 }
-                this.workingHoursPerDay = value;
+                this.workHoursPerDay = value;
             }
         }
 
-        private decimal SalaryPerHour()
+        public decimal SalaryPerHour()
         {
-            return this.WeekSalary / (WORKING_DAYS * (decimal)this.WorkingHoursPerDay);
+            return this.WeekSalary / (WORKING_DAYS * (decimal)this.WorkHoursPerDay);
         }
 
         public override string ToString()
@@ -55,7 +55,7 @@ namespace Mankind.Models
 
             sb.AppendLine(base.ToString());
             sb.AppendLine($"Week Salary: {this.WeekSalary:f2}");
-            sb.AppendLine($"Hours per day: {this.WorkingHoursPerDay:f2}");
+            sb.AppendLine($"Hours per day: {this.WorkHoursPerDay:f2}");
             sb.AppendLine($"Salary per hour: {this.SalaryPerHour():f2}");
 
             return sb.ToString().TrimEnd();
