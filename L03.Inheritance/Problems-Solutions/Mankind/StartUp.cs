@@ -1,5 +1,4 @@
 ﻿using Mankind.Core;
-using System;
 
 namespace Mankind
 {
