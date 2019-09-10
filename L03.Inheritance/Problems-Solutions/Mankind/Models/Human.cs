@@ -1,6 +1,6 @@
-﻿using Mankind.Exceptions;
-using System;
+﻿using System;
 using System.Text;
+using Mankind.Exceptions;
 
 namespace Mankind.Models
 {
@@ -29,7 +29,6 @@ namespace Mankind.Models
                 this.firstName = value;
             }
         }
-
 
         public string LastName
         {

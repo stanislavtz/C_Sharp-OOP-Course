@@ -1,7 +1,7 @@
-﻿using Mankind.Exceptions;
-using System;
-using System.Linq;
+﻿using System;
 using System.Text;
+using System.Linq;
+using Mankind.Exceptions;
 
 namespace Mankind.Models
 {

@@ -1,6 +1,6 @@
 ﻿namespace Mankind.Exceptions
 {
-    public class ExceptionsData
+    internal class ExceptionsData
     {
         public static string InvalidFirstLetter = "Expected upper case letter! Argument: {0}";
         public static string InvalidNameLength = "Expected length at least {1} symbols! Argument: {0}";
