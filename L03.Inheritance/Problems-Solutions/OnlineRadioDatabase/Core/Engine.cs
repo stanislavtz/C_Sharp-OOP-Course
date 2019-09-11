@@ -31,12 +31,20 @@ namespace OnlineRadioDatabase.Core
 
                 try
                 {
-                    var authorName = songArgs[0];
-                    var songName = songArgs[1];
-                    var minutes = int.Parse(songArgs[2]);
-                    var seconds = int.Parse(songArgs[3]);
+                    string artistName = songArgs[0];
+                    string songName = songArgs[1];
+                    string tempMinutes = songArgs[2];
+                    string tempSeconds = songArgs[3];
 
-                    var song = new Song(authorName, songName, minutes, seconds);
+                    bool isMinutes = int.TryParse(songArgs[2], out int minutes);
+                    bool isSeconds = int.TryParse(songArgs[3], out int seconds);
+
+                    if (!isMinutes || !isSeconds || tempMinutes.Contains(" ") || tempSeconds.Contains(" "))
+                    {
+                        throw new ArgumentException(ExceptionsData.InvalidSongLengthException);
+                    }
+
+                    var song = new Song(artistName, songName, minutes, seconds);
 
                     songs.Add(song);
                     Console.WriteLine("Song added.");
@@ -49,23 +57,30 @@ namespace OnlineRadioDatabase.Core
 
             if (songs != null)
             {
-                double totalSeconds = songs.Sum(s => s.Seconds);
-                double totalMinutes = songs.Sum(m => m.Minutes);
-                double totalHours = 0;
+                double totalSeconds, totalMinutes, totalHours;
 
-                if (totalSeconds > 59)
-                {
-                    totalMinutes += totalSeconds / 60;
-                    totalSeconds %= 60;
+                CalculateTotalPlaylistTime(out totalSeconds, out totalMinutes, out totalHours);
 
-                    if (totalMinutes > 59)
-                    {
-                        totalHours += totalMinutes / 60.0;
-                        totalMinutes %= 60.0;
-                    }
-                }
                 Console.WriteLine($"Songs added: {songs.Count}");
                 Console.WriteLine($"Playlist length: {totalHours:f0}h {totalMinutes:f0}m {totalSeconds:f0}s");
+            }
+        }
+
+        private void CalculateTotalPlaylistTime(out double totalSeconds, out double totalMinutes, out double totalHours)
+        {
+            totalSeconds = songs.Sum(s => s.Seconds);
+            totalMinutes = songs.Sum(m => m.Minutes);
+            totalHours = 0;
+            if (totalSeconds > 59)
+            {
+                totalMinutes += totalSeconds / 60;
+                totalSeconds %= 60;
+
+                if (totalMinutes > 59)
+                {
+                    totalHours += totalMinutes / 60.0;
+                    totalMinutes %= 60.0;
+                }
             }
         }
     }

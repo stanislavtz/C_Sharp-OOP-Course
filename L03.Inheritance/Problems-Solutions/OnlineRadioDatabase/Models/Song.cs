@@ -5,24 +5,24 @@ namespace OnlineRadioDatabase.Models
 {
     public class Song
     {
-        private string authorName;
+        private string artistName;
         private string songName;
         private int minutes;
         private int seconds;
 
-        public Song(string authorName, string songName, int minutes, int seconds)
+        public Song(string artistName, string songName, int minutes, int seconds)
         {
-            this.AuthorName = authorName;
+            this.ArtistName = artistName;
             this.SongName = songName;
             this.Minutes = minutes;
             this.Seconds = seconds;
 
-            this.ValidateSongLength(this.Minutes, this.Seconds);
+           //this.ValidateSongLength(this.Minutes, this.Seconds);
         }
 
-        public string AuthorName
+        public string ArtistName
         {
-            get => this.authorName;
+            get => this.artistName;
             private set
             {
                 if (value.Length < 3 || value.Length > 20)
@@ -30,7 +30,7 @@ namespace OnlineRadioDatabase.Models
                     throw new ArgumentException(ExceptionsData.InvalidArtistNameException);
                 }
 
-                this.authorName = value;
+                this.artistName = value;
             }
         }
 
@@ -75,12 +75,12 @@ namespace OnlineRadioDatabase.Models
             }
         }
 
-        private void ValidateSongLength(int min, int sec)
-        {
-            if (min < 0 || min > 14 || sec < 0 || sec > 59)
-            {
-                throw new ArgumentException(ExceptionsData.InvalidSongLengthException);
-            }
-        }
+        //private void ValidateSongLength(int min, int sec)
+        //{
+        //    if (min < 0 || min > 14 || sec < 0 || sec > 59)
+        //    {
+        //        throw new ArgumentException(ExceptionsData.InvalidSongLengthException);
+        //    }
+        //}
     }
 }
