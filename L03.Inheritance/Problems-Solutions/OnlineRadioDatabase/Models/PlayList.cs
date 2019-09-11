@@ -14,33 +14,32 @@ namespace OnlineRadioDatabase.Models
 
         public PlayList()
         {
-            playList = new List<Song>();
+            this.playList = new List<Song>();
         }
 
         public void AddSong(Song song)
         {
-            playList.Add(song);
+            this.playList.Add(song);
         }       
 
         private string CalculatePlayListLength()
         {
-            hours = 0;
-            minutes = playList.Sum(m => m.Minutes);
-            seconds = playList.Sum(s => s.Seconds);
+            this.minutes = this.playList.Sum(m => m.Minutes);
+            this.seconds = this.playList.Sum(s => s.Seconds);
 
-            if (seconds > 59)
+            if (this.seconds > 59)
             {
-                minutes += seconds / 60;
-                seconds %= 60;
+                this.minutes += this.seconds / 60;
+                this.seconds %= 60;
 
-                if (minutes > 59)
+                if (this.minutes > 59)
                 {
-                    hours += minutes / 60;
-                    minutes %= 60;
+                    this.hours += this.minutes / 60;
+                    this.minutes %= 60;
                 }
             }
 
-            return $"{hours}h {minutes}m {seconds}s";
+            return $"{this.hours}h {this.minutes}m {this.seconds}s";
         }
 
         public override string ToString()
