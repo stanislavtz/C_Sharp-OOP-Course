@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using OnlineRadioDatabase.Exceptions;
 using OnlineRadioDatabase.Models;
+using OnlineRadioDatabase.Exceptions;
 
 namespace OnlineRadioDatabase.Core
 {
     public class Engine
     {
-        private List<Song> songs;
+        private PlayList playList;
 
         public Engine()
         {
-            songs = new List<Song>();
+            playList = new PlayList();
         }
-
         public void Run()
         {
             int n = int.Parse(Console.ReadLine());
@@ -46,7 +43,8 @@ namespace OnlineRadioDatabase.Core
 
                     var song = new Song(artistName, songName, minutes, seconds);
 
-                    songs.Add(song);
+                    playList.AddSong(song);
+                    
                     Console.WriteLine("Song added.");
                 }
                 catch (Exception ex)
@@ -55,32 +53,9 @@ namespace OnlineRadioDatabase.Core
                 }
             }
 
-            if (songs != null)
+            if (playList != null)
             {
-                double totalSeconds, totalMinutes, totalHours;
-
-                CalculateTotalPlaylistTime(out totalSeconds, out totalMinutes, out totalHours);
-
-                Console.WriteLine($"Songs added: {songs.Count}");
-                Console.WriteLine($"Playlist length: {totalHours:f0}h {totalMinutes:f0}m {totalSeconds:f0}s");
-            }
-        }
-
-        private void CalculateTotalPlaylistTime(out double totalSeconds, out double totalMinutes, out double totalHours)
-        {
-            totalSeconds = songs.Sum(s => s.Seconds);
-            totalMinutes = songs.Sum(m => m.Minutes);
-            totalHours = 0;
-            if (totalSeconds > 59)
-            {
-                totalMinutes += totalSeconds / 60;
-                totalSeconds %= 60;
-
-                if (totalMinutes > 59)
-                {
-                    totalHours += totalMinutes / 60.0;
-                    totalMinutes %= 60.0;
-                }
+                Console.WriteLine(playList);
             }
         }
     }

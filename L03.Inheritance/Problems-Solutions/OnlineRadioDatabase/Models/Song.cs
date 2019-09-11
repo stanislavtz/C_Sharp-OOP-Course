@@ -16,8 +16,6 @@ namespace OnlineRadioDatabase.Models
             this.SongName = songName;
             this.Minutes = minutes;
             this.Seconds = seconds;
-
-           //this.ValidateSongLength(this.Minutes, this.Seconds);
         }
 
         public string ArtistName
@@ -74,13 +72,5 @@ namespace OnlineRadioDatabase.Models
                 this.seconds = value;
             }
         }
-
-        //private void ValidateSongLength(int min, int sec)
-        //{
-        //    if (min < 0 || min > 14 || sec < 0 || sec > 59)
-        //    {
-        //        throw new ArgumentException(ExceptionsData.InvalidSongLengthException);
-        //    }
-        //}
     }
 }
