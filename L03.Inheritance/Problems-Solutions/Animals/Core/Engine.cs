@@ -29,7 +29,13 @@ namespace Animals.Core
                 string[] args = Console.ReadLine().Split();
 
                 name = args[0];
-                age = int.Parse(args[1]);
+                bool isAge = int.TryParse(args[1], out int age);
+
+                if (!isAge)
+                {
+                    throw new ArgumentException("Invalid input!");
+                }
+
                 try
                 {
                     switch (typeInput)
