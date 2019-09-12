@@ -4,13 +4,13 @@ using System.Text;
 
 namespace Animals.Models
 {
-    public class Animal : ISoundProducable
+    public abstract class Animal : ISoundProducable
     {
         private string name;
         private int age;
         private string gender;
 
-        public Animal(string name, int age, string gender)
+        protected Animal(string name, int age, string gender)
         {
             this.Name = name;
             this.Age = age;

@@ -8,12 +8,12 @@ namespace Animals.Core
 {
     public class Engine
     {
-        private Animal animal;
         private string name;
         private int age;
         private string gender;
 
-        private List<Animal> animals;
+        private Animal animal;
+        private readonly List<Animal> animals;
 
         public Engine()
         {
@@ -22,22 +22,33 @@ namespace Animals.Core
 
         public void Run()
         {
-            string typeInput = Console.ReadLine();
-
-            while (typeInput != "Beast!")
+            while (true)
             {
-                string[] args = Console.ReadLine().Split();
+                string typeInput = Console.ReadLine();
 
-                name = args[0];
-                bool isAge = int.TryParse(args[1], out int age);
-
-                if (!isAge)
+                if (typeInput == "Beast!")
                 {
-                    throw new ArgumentException("Invalid input!");
+                    break;
                 }
+
+                string[] args = Console.ReadLine()
+                    .Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
                 try
                 {
+                    if (args.Length != 3 || string.IsNullOrWhiteSpace(typeInput))
+                    {
+                        throw new ArgumentException("Invalid input!");
+                    }
+
+                    name = args[0];
+                    bool isAge = int.TryParse(args[1], out age);
+
+                    if (!isAge)
+                    {
+                        throw new ArgumentException("Invalid input!");
+                    }
+
                     switch (typeInput)
                     {
                         case "Dog":
@@ -58,6 +69,8 @@ namespace Animals.Core
                         case "Kitten":
                             animal = new Kitten(name, age);
                             break;
+                        default: 
+                            throw new ArgumentException("Invalid input!");
                     }
 
                     animals.Add(animal);
@@ -66,8 +79,6 @@ namespace Animals.Core
                 {
                     Console.WriteLine(ex.Message);
                 }
-
-                typeInput = Console.ReadLine();
             }
 
             foreach (var animal in animals)
