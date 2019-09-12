@@ -5,24 +5,38 @@ namespace Book_Shop.Core
 {
     public class Engine
     {
+        private string author;
+        private string title;
+        private decimal price;
+
+        private Book book;
+        private GoldenEditionBook goldenEditionBook;
+
         public void Run()
         {
             try
             {
-                string author = Console.ReadLine();
-                string title = Console.ReadLine();
-                decimal price = decimal.Parse(Console.ReadLine());
+                this.author = Console.ReadLine();
+                this.title = Console.ReadLine();
+                bool isPrice = decimal.TryParse(Console.ReadLine(), out this.price);
 
-                Book book = new Book(author, title, price);
-                GoldenEditionBook goldenEditionBook = new GoldenEditionBook(author, title, price);
+                if (!isPrice)
+                {
+                    throw new ArgumentException("Price not valid!");
+                }
 
-                Console.WriteLine(book + Environment.NewLine);
-                Console.WriteLine(goldenEditionBook);
+                this.book = new Book(this.author, this.title, this.price);
             }
             catch (ArgumentException ae)
             {
                 Console.WriteLine(ae.Message);
+                return;
             }
+
+            this.goldenEditionBook = new GoldenEditionBook(this.author, this.title, this.price);
+
+            Console.WriteLine(this.book + Environment.NewLine);
+            Console.WriteLine(this.goldenEditionBook);
         }
     }
 }

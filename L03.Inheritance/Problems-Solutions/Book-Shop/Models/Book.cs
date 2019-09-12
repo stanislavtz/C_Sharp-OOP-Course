@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 
 namespace Book_Shop.Models
@@ -29,20 +30,20 @@ namespace Book_Shop.Models
                     throw new ArgumentException("Author not valid!");
                 }
 
+                if (value.Any(v => !(char.IsWhiteSpace(v) || char.IsLetter(v))))
+                {
+                    throw new ArgumentException("Author not valid!");
+                }
+
                 string[] names = value.Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
                 if (names.Length > 1)
                 {
-                    name = names[1];
-                    firstSymbol = name.ToCharArray()[0];
-                }
-                else
-                {
-                    name = names[0];
+                    this.name = names[1];
+                    this.firstSymbol = this.name[0];
                 }
 
-
-                if (char.IsDigit(firstSymbol))
+                if (char.IsDigit(this.firstSymbol))
                 {
                     throw new ArgumentException("Author not valid!");
                 }
@@ -56,10 +57,11 @@ namespace Book_Shop.Models
             get => this.title;
             private set
             {
-                if (value.Length < 3)
+                if (string.IsNullOrWhiteSpace(value) || value[0] == ' ' || value.Length < 3 )
                 {
                     throw new ArgumentException("Title not valid!");
                 }
+
                 this.title = value;
             }
         }
@@ -73,6 +75,7 @@ namespace Book_Shop.Models
                 {
                     throw new ArgumentException("Price not valid!");
                 }
+
                 this.price = value;
             }
         }
