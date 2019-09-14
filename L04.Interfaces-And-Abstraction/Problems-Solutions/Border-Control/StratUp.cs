@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Border_Control.Core;
+using System;
 
 namespace Border_Control
 {
@@ -6,7 +7,9 @@ namespace Border_Control
     {
         static void Main(string[] args)
         {
-           
+            var engine = new Engine();
+
+            engine.Run();
         }
     }
 }
