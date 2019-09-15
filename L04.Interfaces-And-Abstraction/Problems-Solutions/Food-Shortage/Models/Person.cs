@@ -13,9 +13,9 @@ namespace Food_Shortage.Models
 
         public int Age { get; }
 
-        public virtual string BirthDate => null;
+        public virtual string BirthDate { get; }
 
-        public virtual int FoodQuantity => 0;
+        public virtual int FoodQuantity { get; }
 
         public int BoughtFood { get; private set; }
 
