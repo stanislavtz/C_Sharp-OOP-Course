@@ -1,12 +1,16 @@
 ﻿using Military_Elite.Contracts;
+using System;
 using System.Collections.Generic;
 
 namespace Military_Elite.Models
 {
     public abstract class SpecialisedSoldier : Private, ISpecialisedSoldier
     {
-        public abstract List<Soldier> Marines { get; }
+        public string Corps => throw new NotImplementedException();
 
-        public abstract List<Soldier> AirForces { get; }
+        public override string ToString()
+        {
+            return base.ToString() + Environment.NewLine + $"Corps: {this.Corps}";
+        }
     }
 }
