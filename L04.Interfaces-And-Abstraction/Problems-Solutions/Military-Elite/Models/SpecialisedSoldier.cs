@@ -6,7 +6,13 @@ namespace Military_Elite.Models
 {
     public abstract class SpecialisedSoldier : Private, ISpecialisedSoldier
     {
-        public string Corps => throw new NotImplementedException();
+        public SpecialisedSoldier(string id, string firstName, string lastName, decimal salary, string corps) 
+            : base(id, firstName, lastName, salary)
+        {
+            this.Corps = corps;
+        }
+
+        public string Corps { get; private set; }
 
         public override string ToString()
         {

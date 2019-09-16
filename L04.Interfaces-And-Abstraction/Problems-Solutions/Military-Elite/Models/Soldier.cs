@@ -1,15 +1,20 @@
-﻿using System;
-using Military_Elite.Contracts;
+﻿using Military_Elite.Contracts;
 
 namespace Military_Elite.Models
 {
     public abstract class Soldier : ISoldier
     {
-        public string Id => throw new NotImplementedException();
+        public Soldier(string id, string firstName, string lastName)
+        {
+            this.Id = id;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+        }
+        public string Id { get; private set; }
 
-        public string FirstName => throw new NotImplementedException();
+        public string FirstName { get; private set; }
 
-        public string LastName => throw new NotImplementedException();
+        public string LastName { get; private set; }
 
         public override string ToString()
         {

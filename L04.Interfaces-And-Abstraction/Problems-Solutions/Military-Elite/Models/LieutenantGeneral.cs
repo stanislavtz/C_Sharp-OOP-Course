@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using Military_Elite.Contracts;
 using System.Collections.Generic;
 
@@ -7,7 +6,13 @@ namespace Military_Elite.Models
 {
     public class LieutenantGeneral : Private, ILieutenantGeneral
     {
-        public List<Private> Privets => throw new NotImplementedException();
+        public LieutenantGeneral(string id, string firstName, string lastName, decimal salary) 
+            : base(id, firstName, lastName, salary)
+        {
+            this.Privates = new List<Private>();
+        }
+
+        public List<Private> Privates { get; }
 
         public override string ToString()
         {
@@ -15,7 +20,7 @@ namespace Military_Elite.Models
 
             sb.AppendLine(base.ToString());
             sb.AppendLine($"Privates:");
-            foreach (var privet in this.Privets)
+            foreach (var privet in this.Privates)
             {
                 sb.AppendLine($"  {base.ToString()}");
             }

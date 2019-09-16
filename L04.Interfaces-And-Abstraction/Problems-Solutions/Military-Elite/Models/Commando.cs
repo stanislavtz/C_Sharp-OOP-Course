@@ -6,7 +6,16 @@ namespace Military_Elite.Models
 {
     public class Commando : SpecialisedSoldier, ICommando
     {
-        public Dictionary<string, string> Missions => throw new NotImplementedException();
+        private string[] args;
+
+        public Commando(string id, string firstName, string lastName, decimal salary, string corps, string[] args) 
+            : base(id, firstName, lastName, salary, corps)
+        {
+            this.args = args;
+            this.Missions = new Dictionary<string, string>();
+        }
+
+        public Dictionary<string, string> Missions { get; }
 
         public void CompleteMission()
         {

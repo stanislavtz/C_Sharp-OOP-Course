@@ -1,13 +1,20 @@
-﻿using System;
+﻿using System.Text;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Military_Elite.Models
 {
     public class Engineer : SpecialisedSoldier, IEngineer
     {
+        private string[] args;
 
-        public Dictionary<string, int> Repairs => throw new NotImplementedException();
+        public Engineer(string id, string firstName, string lastName, decimal salary, string corps, string[] args)
+            : base(id, firstName, lastName, salary, corps)
+        {
+            this.args = args;
+            this.Repairs = new Dictionary<string, int>();
+        }
+
+        public Dictionary<string, int> Repairs { get; }
 
         public override string ToString()
         {
