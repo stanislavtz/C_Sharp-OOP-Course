@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Military_Elite.Models
@@ -16,7 +17,12 @@ namespace Military_Elite.Models
 
         public void CompleteMission(string codeName)
         {
-            //throw new NotImplementedException();
+            Mission currentMission = this.Missions.FirstOrDefault(m => m.CodeName == codeName);
+
+            if (currentMission.State == "inProgress")
+            {
+                currentMission.State = "Finished";
+            }
         }
 
         public override string ToString()

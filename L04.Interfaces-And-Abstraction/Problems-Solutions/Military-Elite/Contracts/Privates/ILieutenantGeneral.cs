@@ -5,6 +5,6 @@ namespace Military_Elite.Contracts
 {
     public interface ILieutenantGeneral
     {
-        IReadOnlyCollection<Private> Privates { get; }
+        IReadOnlyCollection<string> Privates { get; }
     }
 }

@@ -18,7 +18,7 @@ namespace Military_Elite
         public string State
         {
             get => this.state;
-            private set
+            internal set
             {
                 if (value != "inProgress" || value != "Finished")
                 {
