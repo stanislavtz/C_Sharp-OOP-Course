@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace Military_Elite
 {
-    public interface IEngineer : ISpecialisedSoldier
+    public interface IEngineer 
     {
-        Dictionary<string, int> Repairs { get; }
+        IReadOnlyCollection<Repair> Repairs { get; }
     }
 }

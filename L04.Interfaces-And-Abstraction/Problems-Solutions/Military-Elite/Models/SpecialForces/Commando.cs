@@ -6,20 +6,17 @@ namespace Military_Elite.Models
 {
     public class Commando : SpecialisedSoldier, ICommando
     {
-        private string[] args;
-
-        public Commando(string id, string firstName, string lastName, decimal salary, string corps, string[] args) 
+        public Commando(string id, string firstName, string lastName, decimal salary, string corps, Mission[] missions) 
             : base(id, firstName, lastName, salary, corps)
         {
-            this.args = args;
-            this.Missions = new Dictionary<string, string>();
+            this.Missions = missions;
         }
 
-        public Dictionary<string, string> Missions { get; }
+        public IReadOnlyCollection<Mission> Missions { get; }
 
-        public void CompleteMission()
+        public void CompleteMission(string codeName)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public override string ToString()
@@ -31,7 +28,7 @@ namespace Military_Elite.Models
 
             foreach (var mission in this.Missions)
             {
-                sb.AppendLine($"  Code Name: {mission.Key} State: {mission.Value}");
+                sb.AppendLine($"  {mission}");
             }
 
             return sb.ToString();

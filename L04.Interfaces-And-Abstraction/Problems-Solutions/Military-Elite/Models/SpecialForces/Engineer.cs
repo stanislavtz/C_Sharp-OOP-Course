@@ -5,16 +5,13 @@ namespace Military_Elite.Models
 {
     public class Engineer : SpecialisedSoldier, IEngineer
     {
-        private string[] args;
-
-        public Engineer(string id, string firstName, string lastName, decimal salary, string corps, string[] args)
+        public Engineer(string id, string firstName, string lastName, decimal salary, string corps, Repair[] repairs)
             : base(id, firstName, lastName, salary, corps)
         {
-            this.args = args;
-            this.Repairs = new Dictionary<string, int>();
+            this.Repairs = repairs;
         }
 
-        public Dictionary<string, int> Repairs { get; }
+        public IReadOnlyCollection<Repair> Repairs { get; }
 
         public override string ToString()
         {
@@ -25,10 +22,10 @@ namespace Military_Elite.Models
 
             foreach (var repair in this.Repairs)
             {
-                sb.AppendLine($"  Part Name: {repair.Key} Hours Worked: {repair.Value}");
+                sb.AppendLine($"  {repair}");
             }
 
-            return sb.ToString();
+            return sb.ToString().TrimEnd();
         }
     }
 }

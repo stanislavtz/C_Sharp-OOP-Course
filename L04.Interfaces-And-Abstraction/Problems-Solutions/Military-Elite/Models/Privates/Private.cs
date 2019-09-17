@@ -13,9 +13,7 @@ namespace Military_Elite.Models
 
         public decimal Salary { get; private set; }
 
-        public override string ToString()
-        {
-            return base.ToString() + $" {this.Salary:f2}";
-        }
+        public override string ToString() =>
+            $"{base.ToString()} Salary: {this.Salary:f2}";
     }
 }

@@ -4,8 +4,8 @@ namespace Military_Elite
 {
     public interface ICommando
     {
-        Dictionary<string, string> Missions { get; }
+        IReadOnlyCollection<Mission> Missions { get; }
 
-        void CompleteMission();
+        void CompleteMission(string codeName);
     }
 }

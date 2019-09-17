@@ -5,7 +5,7 @@ namespace Military_Elite.Models
 {
     public class Spy : Soldier, ISpy
     {
-        public Spy(string id, string firstName, string lastName, int codeNumber) 
+        public Spy(string id, string firstName, string lastName, int codeNumber)
             : base(id, firstName, lastName)
         {
             this.CodeNumber = codeNumber;
@@ -13,9 +13,7 @@ namespace Military_Elite.Models
 
         public int CodeNumber { get; private set; }
 
-        public override string ToString()
-        {
-            return base.ToString() + Environment.NewLine + $"Code Number: {this.CodeNumber}";
-        }
+        public override string ToString() =>
+            $"{base.ToString()} {Environment.NewLine} Code Number: {this.CodeNumber}";
     }
 }
