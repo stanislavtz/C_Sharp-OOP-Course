@@ -1,17 +1,24 @@
 ﻿using System.Text;
 using System.Collections.Generic;
+using Military_Elite.Contracts.SpecialForces;
 
 namespace Military_Elite.Models
 {
     public class Engineer : SpecialisedSoldier, IEngineer
     {
-        public Engineer(string id, string firstName, string lastName, decimal salary, string corps, List<Repair> repairs)
+        private List<IRepair> repairs;
+        public Engineer(string id, string firstName, string lastName, decimal salary, string corps)
             : base(id, firstName, lastName, salary, corps)
         {
-            this.Repairs = repairs;
+            repairs = new List<IRepair>();
         }
 
-        public IReadOnlyCollection<Repair> Repairs { get; }
+        public IReadOnlyCollection<IRepair> Repairs => this.repairs.AsReadOnly();
+
+        public void AddRepair(IRepair repair)
+        {
+            repairs.Add(repair);
+        }
 
         public override string ToString()
         {

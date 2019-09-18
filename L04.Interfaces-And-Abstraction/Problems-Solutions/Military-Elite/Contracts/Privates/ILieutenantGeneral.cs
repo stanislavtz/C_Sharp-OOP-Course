@@ -1,10 +1,11 @@
-﻿using Military_Elite.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Military_Elite.Contracts
 {
-    public interface ILieutenantGeneral
+    public interface ILieutenantGeneral : IPrivate
     {
-        IReadOnlyCollection<string> Privates { get; }
+        IReadOnlyCollection<IPrivate> Privates { get; }
+
+        void AddSoldier(IPrivate soldier); 
     }
 }

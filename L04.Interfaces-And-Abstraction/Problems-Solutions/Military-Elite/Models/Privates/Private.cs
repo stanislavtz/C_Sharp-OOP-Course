@@ -1,5 +1,4 @@
-﻿using System;
-using Military_Elite.Contracts;
+﻿using Military_Elite.Contracts;
 
 namespace Military_Elite.Models
 {
@@ -11,7 +10,7 @@ namespace Military_Elite.Models
             this.Salary = salary;
         }
 
-        public decimal Salary { get; private set; }
+        public decimal Salary { get; }
 
         public override string ToString() =>
             $"{base.ToString()} Salary: {this.Salary:f2}";

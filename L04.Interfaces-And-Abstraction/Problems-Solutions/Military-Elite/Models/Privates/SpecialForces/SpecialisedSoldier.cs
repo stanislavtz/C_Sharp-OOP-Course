@@ -1,19 +1,23 @@
-﻿using Military_Elite.Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Military_Elite.Contracts;
+using Military_Elite.Exceptions;
 
 namespace Military_Elite.Models
 {
     public abstract class SpecialisedSoldier : Private, ISpecialisedSoldier
     {
         private string corps;
-        private List<string> specialForces;
+        private List<string> corpses;
 
-        public SpecialisedSoldier(string id, string firstName, string lastName, decimal salary, string corps)
+        public SpecialisedSoldier(string id, string firstName, string lastName, decimal salary, string corps) 
             : base(id, firstName, lastName, salary)
         {
+            corpses = new List<string>();
+
+            ParseCorpses();
+
             this.Corps = corps;
-            specialForces = new List<string>();
         }
 
         public string Corps
@@ -21,10 +25,9 @@ namespace Military_Elite.Models
             get => this.corps;
             private set
             {
-
-                if (!specialForces.Contains(value))
+                if (!corpses.Contains(value))
                 {
-                    throw new ArgumentException("Invalid Corps!");
+                    throw new InvalidCorpsException();
                 }
 
                 this.corps = value;
@@ -36,10 +39,10 @@ namespace Military_Elite.Models
             return $"{base.ToString()} {Environment.NewLine} Corps: {this.Corps}";
         }
 
-        private void AddCorps()
+        private void ParseCorpses()
         {
-            specialForces.Add("Airforces");
-            specialForces.Add("Marines");
+            corpses.Add("Airforces");
+            corpses.Add("Marines");
         }
     }
 }

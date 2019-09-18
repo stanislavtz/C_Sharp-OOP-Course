@@ -1,5 +1,5 @@
-﻿using Military_Elite.Contracts.SpecialForces;
-using System;
+﻿using Military_Elite.Exceptions;
+using Military_Elite.Contracts.SpecialForces;
 
 namespace Military_Elite
 {
@@ -22,7 +22,7 @@ namespace Military_Elite
             {
                 if (value != "inProgress" || value != "Finished")
                 {
-                    throw new ArgumentException("Invalid mission statment!");
+                    throw new InvalidMissionStatment();
                 }
 
                 this.state = value;
