@@ -5,7 +5,7 @@ namespace Military_Elite.Models
 {
     public class Engineer : SpecialisedSoldier, IEngineer
     {
-        public Engineer(string id, string firstName, string lastName, decimal salary, string corps, Repair[] repairs)
+        public Engineer(string id, string firstName, string lastName, decimal salary, string corps, List<Repair> repairs)
             : base(id, firstName, lastName, salary, corps)
         {
             this.Repairs = repairs;

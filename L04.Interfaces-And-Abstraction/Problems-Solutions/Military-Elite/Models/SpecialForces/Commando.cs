@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
+using System.Collections.Generic;
 
 namespace Military_Elite.Models
 {
     public class Commando : SpecialisedSoldier, ICommando
     {
-        public Commando(string id, string firstName, string lastName, decimal salary, string corps, Mission[] missions) 
+        public Commando(string id, string firstName, string lastName, decimal salary, string corps, List<Mission> missions) 
             : base(id, firstName, lastName, salary, corps)
         {
             this.Missions = missions;

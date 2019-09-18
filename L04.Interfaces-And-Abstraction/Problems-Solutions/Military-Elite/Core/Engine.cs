@@ -48,7 +48,10 @@ namespace Military_Elite.Core
                     {
                         decimal salary = decimal.Parse(args[4]);
 
-                        ILieutenantGeneral soldier = new LieutenantGeneral(id, firstName, lastName, salary, args.Skip(5).ToList());
+                        var privatesCollection = args.Skip(5).ToList();
+
+                        ILieutenantGeneral soldier = new LieutenantGeneral(id, firstName, lastName, salary, privatesCollection);
+                        
                     }
 
                    

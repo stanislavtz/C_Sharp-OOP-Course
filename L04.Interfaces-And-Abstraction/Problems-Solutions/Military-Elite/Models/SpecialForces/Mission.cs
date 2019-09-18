@@ -24,6 +24,7 @@ namespace Military_Elite
                 {
                     throw new ArgumentException("Invalid mission statment!");
                 }
+
                 this.state = value;
             }
         }
