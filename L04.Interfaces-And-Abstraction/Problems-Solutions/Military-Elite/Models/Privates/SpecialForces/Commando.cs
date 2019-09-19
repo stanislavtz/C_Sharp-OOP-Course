@@ -44,7 +44,7 @@ namespace Military_Elite.Models
                 sb.AppendLine($"  {mission}");
             }
 
-            return sb.ToString();
+            return sb.ToString().TrimEnd();
         }
     }
 }

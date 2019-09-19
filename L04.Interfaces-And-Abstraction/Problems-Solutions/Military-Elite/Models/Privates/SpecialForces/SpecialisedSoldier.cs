@@ -36,7 +36,7 @@ namespace Military_Elite.Models
 
         public override string ToString()
         {
-            return $"{base.ToString()} {Environment.NewLine} Corps: {this.Corps}";
+            return $"{base.ToString()} {Environment.NewLine}Corps: {this.Corps}";
         }
 
         private void ParseCorpses()

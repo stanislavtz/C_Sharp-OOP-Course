@@ -1,11 +1,13 @@
 ﻿using Military_Elite.Exceptions;
 using Military_Elite.Contracts.SpecialForces;
+using System.Collections.Generic;
 
 namespace Military_Elite
 {
     public class Mission : IMission
     {
         private string state;
+        private List<string> statments;
 
         public Mission(string codeName, string state)
         {
@@ -20,7 +22,7 @@ namespace Military_Elite
             get => this.state;
             internal set
             {
-                if (value != "inProgress" || value != "Finished")
+                if (value != "inProgress" && value != "Finished")
                 {
                     throw new InvalidMissionStatment();
                 }

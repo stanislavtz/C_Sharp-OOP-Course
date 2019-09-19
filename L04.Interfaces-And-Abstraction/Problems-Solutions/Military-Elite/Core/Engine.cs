@@ -10,10 +10,12 @@ namespace Military_Elite.Core
     public class Engine
     {
         private readonly List<IPrivate> privates;
+        private readonly List<ISoldier> soldiers;
 
         public Engine()
         {
-            privates = new List<IPrivate>();
+           this.privates = new List<IPrivate>();
+           this.soldiers = new List<ISoldier>();
         }
 
         public void Run()
@@ -37,13 +39,17 @@ namespace Military_Elite.Core
 
                         IPrivate soldier = new Private(id, firstName, lastName, salary);
 
-                        privates.Add(soldier);
+                        this.privates.Add(soldier);
+                        this.soldiers.Add(soldier);
                     }
                     else if (soldierType == "Spy")
                     {
                         int codeNumber = int.Parse(args[4]);
 
                         ISpy soldier = new Spy(id, firstName, lastName, codeNumber);
+
+                        this.soldiers.Add(soldier);
+
                     }
                     else if (soldierType == "LieutenantGeneral")
                     {
@@ -58,6 +64,8 @@ namespace Military_Elite.Core
                             var currentPrivate = privates.First(p => p.Id == item);
                             soldier.AddSoldier(currentPrivate);
                         }
+
+                        this.soldiers.Add(soldier);
                     }
                     else if (soldierType == "Engineer")
                     {
@@ -77,6 +85,8 @@ namespace Military_Elite.Core
 
                             soldier.AddRepair(currentRepair);
                         }
+
+                        this.soldiers.Add(soldier);
                     }
                     else if (soldierType == "Commando")
                     {
@@ -90,12 +100,19 @@ namespace Military_Elite.Core
                         for (int i = 0; i < missions.Length; i += 2)
                         {
                             string name = missions[i];
-                            string state = missions[i = 1];
-
-                            IMission currentMission = new Mission(name, state);
-
-                            soldier.AddMission(currentMission);
+                            string state = missions[i + 1];
+                            try
+                            {
+                                IMission currentMission = new Mission(name, state);
+                                soldier.AddMission(currentMission);
+                            }
+                            catch (Exception)
+                            {
+                                
+                            }
                         }
+
+                        this.soldiers.Add(soldier);
                     }
                 }
                 catch (Exception)
@@ -105,6 +122,8 @@ namespace Military_Elite.Core
 
                 input = Console.ReadLine();
             }
+
+            Console.WriteLine(string.Join(Environment.NewLine, this.soldiers));
         }
     }
 }
