@@ -8,7 +8,7 @@ namespace Military_Elite.Models
     public abstract class SpecialisedSoldier : Private, ISpecialisedSoldier
     {
         private string corps;
-        private List<string> corpses;
+        private readonly List<string> corpses;
 
         public SpecialisedSoldier(string id, string firstName, string lastName, decimal salary, string corps) 
             : base(id, firstName, lastName, salary)

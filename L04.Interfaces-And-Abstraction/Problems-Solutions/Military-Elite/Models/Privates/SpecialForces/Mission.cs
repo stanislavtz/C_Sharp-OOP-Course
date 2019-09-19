@@ -7,10 +7,13 @@ namespace Military_Elite
     public class Mission : IMission
     {
         private string state;
-        private List<string> statments;
+        private readonly List<string> statments;
 
         public Mission(string codeName, string state)
         {
+            statments = new List<string>();
+            ParseStatments();
+
             this.CodeName = codeName;
             this.State = state;
         }
@@ -22,7 +25,7 @@ namespace Military_Elite
             get => this.state;
             internal set
             {
-                if (value != "inProgress" && value != "Finished")
+                if (!statments.Contains(value))
                 {
                     throw new InvalidMissionStatment();
                 }
@@ -34,6 +37,12 @@ namespace Military_Elite
         public override string ToString()
         {
             return $"Code Name: {this.CodeName} State: {this.State}";
+        }
+
+        private void ParseStatments()
+        {
+            statments.Add("inProgress");
+            statments.Add("Finished");
         }
     }
 }
