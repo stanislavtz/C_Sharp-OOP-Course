@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Collection_Hierarchy.Core;
 
 namespace Collection_Hierarchy
 {
@@ -6,7 +6,9 @@ namespace Collection_Hierarchy
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Engine engine = new Engine();
+
+            engine.Run();
         }
     }
 }
