@@ -12,7 +12,7 @@ namespace Collection_Hierarchy.Models
             addCollection = new List<T>();
         }
 
-        public void Add(T element)
+        public virtual void Add(T element)
         {
             addCollection.Add(element);
         }
