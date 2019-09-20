@@ -16,7 +16,7 @@ namespace Collection_Hierarchy.Models
         {
             addRemoveCollection.Add(element);
 
-            return addRemoveCollection.IndexOf(addRemoveCollection[addRemoveCollection.Count - 1]);
+            return addRemoveCollection.Count - 1;
         }
     }
 }
