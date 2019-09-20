@@ -1,8 +1,8 @@
-﻿using Collection_Hierarchy.Contracts;
-using System.Collections.Generic;
-
-namespace Collection_Hierarchy.Models
+﻿namespace Collection_Hierarchy.Models
 {
+    using System.Collections.Generic;
+    using Collection_Hierarchy.Contracts;
+
     public class AddRemoveCollection<T> : AddCollection<T>, IAddRemoveCollection<T>
     {
         private readonly List<T> addRemoveCollection;

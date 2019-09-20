@@ -1,11 +1,10 @@
-﻿using Collection_Hierarchy.Contracts;
-using Collection_Hierarchy.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Collection_Hierarchy.Core
+﻿namespace Collection_Hierarchy.Core
 {
+    using System;
+    using System.Collections.Generic;
+    using Collection_Hierarchy.Models;
+    using Collection_Hierarchy.Contracts;
+
     public class Engine
     {
         public void Run()
