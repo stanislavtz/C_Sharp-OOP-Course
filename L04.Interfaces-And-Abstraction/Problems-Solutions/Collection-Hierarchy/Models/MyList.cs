@@ -12,11 +12,22 @@ namespace Collection_Hierarchy.Models
             myList = new List<T>();
         }
 
-        public int Used { get; private set; }
+        public int Used => myList.Count;
 
-        public override void Remove(T element)
+        public override int Add(T element)
         {
-            myList.;
+            myList.Insert(0, element);
+
+            return myList.IndexOf(myList[0]);
+        }
+
+        public override T Remove()
+        {
+            T element = myList[0];
+
+            myList.RemoveAt(0);
+
+            return element;
         }
     }
 }

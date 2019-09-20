@@ -5,16 +5,18 @@ namespace Collection_Hierarchy.Models
 {
     public class AddCollection<T> : IAddCollection<T>
     {
-        private readonly List<T> addCollection;
+        private readonly List<T> addRemoveCollection;
 
         public AddCollection()
         {
-            addCollection = new List<T>();
+            addRemoveCollection = new List<T>();
         }
 
-        public virtual void Add(T element)
+        public virtual int Add(T element)
         {
-            addCollection.Add(element);
+            addRemoveCollection.Add(element);
+
+            return addRemoveCollection.IndexOf(addRemoveCollection[addRemoveCollection.Count - 1]);
         }
     }
 }

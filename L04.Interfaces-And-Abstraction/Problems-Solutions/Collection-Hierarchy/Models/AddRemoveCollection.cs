@@ -1,27 +1,30 @@
 ﻿using Collection_Hierarchy.Contracts;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Collection_Hierarchy.Models
 {
     public class AddRemoveCollection<T> : AddCollection<T>, IAddRemoveCollection<T>
     {
-        private readonly Stack<T> addRemoveCollection;
+        private readonly List<T> addRemoveCollection;
 
         public AddRemoveCollection()
         {
-            addRemoveCollection = new Stack<T>();
+            addRemoveCollection = new List<T>();
         }
 
-        public override void Add(T element)
+        public override int Add(T element)
         {
-            addRemoveCollection.Push(element);
+            addRemoveCollection.Insert(0, element);
+
+            return addRemoveCollection.IndexOf(addRemoveCollection[0]);
         }
 
-        public virtual void Remove(T element)
+        public virtual T Remove()
         {
-            addRemoveCollection.Reverse();
-            System.Console.WriteLine(addRemoveCollection.Pop());
+            T element = addRemoveCollection[addRemoveCollection.Count - 1];
+            addRemoveCollection.RemoveAt(addRemoveCollection.Count - 1);
+
+            return element;
         }
     }
 }
