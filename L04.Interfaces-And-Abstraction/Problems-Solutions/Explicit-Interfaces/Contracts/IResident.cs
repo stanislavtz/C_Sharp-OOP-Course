@@ -1,11 +1,7 @@
 ﻿namespace Explicit_Interfaces.Contracts
 {
-    public interface IResident
+    public interface IResident : ICitizen
     {
-        string Name { get; }
-
         string Country { get; }
-
-        string GetName();
     }
 }

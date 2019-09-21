@@ -1,35 +1,44 @@
-﻿using Explicit_Interfaces.Contracts;
-using System.Text;
+﻿using System.Text;
+using Explicit_Interfaces.Contracts;
 
 namespace Explicit_Interfaces.Main
 {
-    public class Citizen : IResident, IPerson
+    public class Citizen : ICitizen, IResident, IPerson
     {
+        public Citizen(string name, string country, int age)
+        {
+            this.Name = name;
+            this.Country = country;
+            this.Age = age;
+        }
+
         public string Name { get; }
+
+        public string Country { get; }
 
         public int Age { get; }
 
-        string IResident.Name => "Mr/Ms/Mrs" ;
-
-        string IResident.Country { get; }
-
-        public string GetName(string name)
+        public string GetName()
         {
             return this.Name;
         }
 
-        string IResident.GetName()
+        string ICitizen.GetName()
         {
-            return this.GetName(this.Name);
+            return $"Mr/Ms/Mrs";
         }
 
         public override string ToString()
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine(this.GetName(this.Name));
-            sb.AppendLine(this.IResident.GetName());
-            return base.ToString();
+            sb.AppendLine(this.Name);
+            sb.Append($"{((ICitizen)this).GetName()} ");
+            sb.Append($"{this.Name} ");
+            sb.Append($"Country: {this.Country}, ");
+            sb.Append($"Age: {this.Age}");
+
+            return sb.ToString();
         }
     }
 }
