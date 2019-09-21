@@ -18,24 +18,17 @@ namespace Explicit_Interfaces.Main
 
         public int Age { get; }
 
-        public string GetName()
-        {
-            return this.Name;
-        }
+        public string GetName() => this.Name;
 
-        string ICitizen.GetName()
-        {
-            return $"Mr/Ms/Mrs";
-        }
+        string ICitizen.GetName() => $"Mr/Ms/Mrs";
 
         public override string ToString()
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine(this.Name);
             sb.Append($"{((ICitizen)this).GetName()} ");
-            sb.Append($"{this.Name} ");
-            sb.Append($"Country: {this.Country}, ");
+            sb.AppendLine($"{this.Name}, ");
+            sb.AppendLine($"Country: {this.Country}, ");
             sb.Append($"Age: {this.Age}");
 
             return sb.ToString();
