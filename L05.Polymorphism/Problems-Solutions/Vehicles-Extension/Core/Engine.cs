@@ -7,19 +7,34 @@ namespace Vehicles_Extention.Core
 {
     public class Engine
     {
+        private double fuelQtty;
+        private double consumtion;
+        private double tankCapacity;
+
         private double distanceToCover;
+
         public void Run()
         {
             string[] carInfo = Console.ReadLine().Split();
+            fuelQtty = double.Parse(carInfo[1]);
+            consumtion = double.Parse(carInfo[2]);
+            tankCapacity = double.Parse(carInfo[3]);
+
+            IVehicle car = new Car(fuelQtty, consumtion, tankCapacity);
+
             string[] truckInfo = Console.ReadLine().Split();
+            fuelQtty = double.Parse(truckInfo[1]);
+            consumtion = double.Parse(truckInfo[2]);
+            tankCapacity = double.Parse(truckInfo[3]);
+
+            IVehicle truck = new Truck(fuelQtty, consumtion, tankCapacity);
+
             string[] busInfo = Console.ReadLine().Split();
+            fuelQtty = double.Parse(busInfo[1]);
+            consumtion = double.Parse(busInfo[2]);
+            tankCapacity = double.Parse(busInfo[3]);
 
-
-            IVehicle car = new Car(double.Parse(carInfo[1]), double.Parse(carInfo[2]), double.Parse(carInfo[3]));
-
-            IVehicle truck = new Truck(double.Parse(truckInfo[1]), double.Parse(truckInfo[2]), double.Parse(truckInfo[3]));
-
-            IVehicle bus = new Bus(double.Parse(busInfo[1]), double.Parse(busInfo[2]), double.Parse(busInfo[3]));
+            IVehicle bus = new Bus(fuelQtty, consumtion, tankCapacity);
 
             int numbercommands = int.Parse(Console.ReadLine());
 
@@ -117,7 +132,6 @@ namespace Vehicles_Extention.Core
                 {
                     Console.WriteLine(ex.Message);
                 }
-                
             }
 
             Console.WriteLine($"Car: {car.FuelQtty:f2}");

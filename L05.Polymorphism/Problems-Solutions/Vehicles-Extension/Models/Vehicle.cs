@@ -15,6 +15,11 @@ namespace Vehicles_Extention.Models
 
         public Vehicle(double fuelQtty, double consumtion, double tankCapacity)
         {
+            if (fuelQtty > tankCapacity)
+            {
+                fuelQtty = 0;
+            }
+
             this.TankCapacity = tankCapacity;
             this.FuelQtty = fuelQtty;
             this.Consumption = consumtion;
@@ -90,6 +95,7 @@ namespace Vehicles_Extention.Models
             {
                 throw new ArgumentException($"Cannot fit {fuelAmount} fuel in the tank");
             }
+
             this.FuelQtty += fuelAmount;
 
             return this.FuelQtty;
