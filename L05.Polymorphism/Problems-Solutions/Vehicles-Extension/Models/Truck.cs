@@ -1,4 +1,5 @@
 ﻿using System;
+using Vehicles_Extention.Exceptions;
 
 namespace Vehicles_Extention.Models
 {
@@ -16,15 +17,16 @@ namespace Vehicles_Extention.Models
         {
             if (fuelAmount <= 0)
             {
-                throw new ArgumentException("Fuel must be a positive number");
+                throw new ArgumentException(ExceptionsData.NegativeRefuelQuantity);
             }
 
             bool canRefuel = this.FuelQtty + fuelAmount * FUEL_LOSSING_COEFFICIENT <= this.TankCapacity;
 
             if (!canRefuel)
             {
-                throw new ArgumentException($"Cannot fit {fuelAmount} fuel in the tank");
+                throw new ArgumentException(string.Format(ExceptionsData.HighRefuelAmount, fuelAmount));
             }
+
             this.FuelQtty += fuelAmount * FUEL_LOSSING_COEFFICIENT;
 
             return this.FuelQtty;

@@ -32,7 +32,7 @@ namespace Vehicles_Extention.Models
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Tank capacity must be positive value!");
+                    throw new ArgumentException(ExceptionsData.InvalidThankCapacity);
                 }
 
                 this.tankCapacity = value;
@@ -46,7 +46,7 @@ namespace Vehicles_Extention.Models
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException("Fuel quantity must be null or posotive value!");
+                    throw new ArgumentException(ExceptionsData.InvalidFuelValue);
                 }
 
                 this.fuelQtty = value;
@@ -60,7 +60,7 @@ namespace Vehicles_Extention.Models
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Consumption must be positive value");
+                    throw new ArgumentException(ExceptionsData.InvalidFuelConsumptionValue);
                 }
 
                 this.consumtion = value;
@@ -86,14 +86,14 @@ namespace Vehicles_Extention.Models
         {
             if (fuelAmount <= 0)
             {
-                throw new ArgumentException("Fuel must be a positive number");
+                throw new ArgumentException(ExceptionsData.NegativeRefuelQuantity);
             }
 
             bool canRefuel = this.FuelQtty + fuelAmount <= this.TankCapacity;
 
             if (!canRefuel)
             {
-                throw new ArgumentException($"Cannot fit {fuelAmount} fuel in the tank");
+                throw new ArgumentException(string.Format(ExceptionsData.HighRefuelAmount, fuelAmount));
             }
 
             this.FuelQtty += fuelAmount;
