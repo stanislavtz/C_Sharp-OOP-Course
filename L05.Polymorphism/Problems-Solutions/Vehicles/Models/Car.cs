@@ -4,9 +4,8 @@
     {
         private const double ADDITIONAL_CONSUMTION = 0.9;
 
-
-        public Car(double fuelQty, double consumtion) 
-            : base(fuelQty, consumtion)
+        public Car(double fuelQtty, double consumtion) 
+            : base(fuelQtty, consumtion)
         {
         }
 

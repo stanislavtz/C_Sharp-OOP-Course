@@ -6,15 +6,25 @@ namespace Vehicles.Core
 {
     public class Engine
     {
+        private double fuelQtty;
+        private double consumption;
+
         public void Run()
         {
             string[] carInfo = Console.ReadLine().Split();
-            string[] truckInfo = Console.ReadLine().Split();
-            //string[] busInfo = Console.ReadLine().Split();
 
-            IVehicle car = new Car(double.Parse(carInfo[1]), double.Parse(carInfo[2]));
+            fuelQtty = double.Parse(carInfo[1]);
+            consumption = double.Parse(carInfo[2]);
+
+            IVehicle car = new Car(fuelQtty, consumption);
             car.AirConditionOn();
-            IVehicle truck = new Truck(double.Parse(truckInfo[1]), double.Parse(truckInfo[2]));
+
+            string[] truckInfo = Console.ReadLine().Split();
+
+            fuelQtty = double.Parse(truckInfo[1]);
+            consumption = double.Parse(truckInfo[2]);
+
+            IVehicle truck = new Truck(fuelQtty, consumption);
             truck.AirConditionOn();
 
             int numbercommands = int.Parse(Console.ReadLine());
@@ -38,7 +48,6 @@ namespace Vehicles.Core
                                 case "Car":
                                     car.Drive(distanceToCover);
                                     Console.WriteLine(car);
-
                                     break;
                                 case "Truck":
                                     truck.Drive(distanceToCover);
@@ -46,8 +55,8 @@ namespace Vehicles.Core
                                     break;
                             }
                             break;
-                        case "Refuel":
 
+                        case "Refuel":
                             double fuelAmount = double.Parse(commandArgs[2]);
 
                             switch (vehicleType)
