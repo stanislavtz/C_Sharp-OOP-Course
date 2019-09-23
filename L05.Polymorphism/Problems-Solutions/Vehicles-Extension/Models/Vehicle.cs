@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using Vehicles_Extension.Validators;
 using Vehicles_Extention.Contracts;
 using Vehicles_Extention.Exceptions;
 
@@ -15,13 +16,8 @@ namespace Vehicles_Extention.Models
 
         public Vehicle(double fuelQtty, double consumtion, double tankCapacity)
         {
-            if (fuelQtty > tankCapacity)
-            {
-                fuelQtty = 0;
-            }
-
+            this.FuelQtty = CheckFuelQtty(fuelQtty, tankCapacity); 
             this.TankCapacity = tankCapacity;
-            this.FuelQtty = fuelQtty;
             this.Consumption = consumtion;
         }
 
@@ -84,19 +80,9 @@ namespace Vehicles_Extention.Models
 
         public virtual double Refuel(double fuelAmount)
         {
-            if (fuelAmount <= 0)
-            {
-                throw new ArgumentException(ExceptionsData.NegativeRefuelQuantity);
-            }
+            RefuelValidator fv = new RefuelValidator(fuelAmount, this.FuelQtty, this.TankCapacity);
 
-            bool canRefuel = this.FuelQtty + fuelAmount <= this.TankCapacity;
-
-            if (!canRefuel)
-            {
-                throw new ArgumentException(string.Format(ExceptionsData.HighRefuelAmount, fuelAmount));
-            }
-
-            this.FuelQtty += fuelAmount;
+            this.FuelQtty += fv.FuelAmount;
 
             return this.FuelQtty;
         }
@@ -113,5 +99,16 @@ namespace Vehicles_Extention.Models
 
             return sb.ToString().TrimEnd();
         }
+
+        private static double CheckFuelQtty(double fuelQtty, double tankCapacity)
+        {
+            if (fuelQtty > tankCapacity)
+            {
+                fuelQtty = 0;
+            }
+
+            return fuelQtty;
+        }
+
     }
 }

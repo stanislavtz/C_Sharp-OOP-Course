@@ -1,5 +1,4 @@
-﻿using System;
-using Vehicles_Extention.Exceptions;
+﻿using Vehicles_Extension.Validators;
 
 namespace Vehicles_Extention.Models
 {
@@ -15,19 +14,9 @@ namespace Vehicles_Extention.Models
 
         public override double Refuel(double fuelAmount)
         {
-            if (fuelAmount <= 0)
-            {
-                throw new ArgumentException(ExceptionsData.NegativeRefuelQuantity);
-            }
+            RefuelValidator fv = new RefuelValidator(fuelAmount, this.FuelQtty, this.TankCapacity);
 
-            bool canRefuel = this.FuelQtty + fuelAmount * FUEL_LOSSING_COEFFICIENT <= this.TankCapacity;
-
-            if (!canRefuel)
-            {
-                throw new ArgumentException(string.Format(ExceptionsData.HighRefuelAmount, fuelAmount));
-            }
-
-            this.FuelQtty += fuelAmount * FUEL_LOSSING_COEFFICIENT;
+            this.FuelQtty += fv.FuelAmount * FUEL_LOSSING_COEFFICIENT;
 
             return this.FuelQtty;
         }
