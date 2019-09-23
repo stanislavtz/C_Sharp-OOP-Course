@@ -1,4 +1,4 @@
-﻿namespace Vehicles_Extention.Exceptions
+﻿namespace Vehicles_Extension.Exceptions
 {
     public static class ExceptionsData
     {

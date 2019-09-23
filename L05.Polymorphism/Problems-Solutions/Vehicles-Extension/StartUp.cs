@@ -1,6 +1,6 @@
-﻿using Vehicles_Extention.Core;
+﻿using Vehicles_Extension.Core;
 
-namespace Vehicles_Extention
+namespace Vehicles_Extension
 {
     class StartUp
     {

@@ -1,40 +1,51 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Vehicles_Extension.Contracts;
 using Vehicles_Extension.Models;
-using Vehicles_Extention.Contracts;
-using Vehicles_Extention.Models;
 
-namespace Vehicles_Extention.Core
+namespace Vehicles_Extension.Core
 {
     public class Engine
     {
-        private double fuelQtty;
-        private double consumtion;
-        private double tankCapacity;
+        private const int NUM_VEHICLES = 3;
+
+        private string comandType;
+        private string vehicleType;
 
         private double distanceToCover;
+        private double fuelAmount;
+
+        private IVehicle vehicle;
+        private IVehicle currentVehicle;
 
         public void Run()
         {
-            string[] carInfo = Console.ReadLine().Split();
-            fuelQtty = double.Parse(carInfo[1]);
-            consumtion = double.Parse(carInfo[2]);
-            tankCapacity = double.Parse(carInfo[3]);
+            List<IVehicle> vehicles = new List<IVehicle>();
 
-            IVehicle car = new Car(fuelQtty, consumtion, tankCapacity);
+            for (int i = 0; i < NUM_VEHICLES; i++)
+            {
+                string[] vehicleArgs = Console.ReadLine().Split();
 
-            string[] truckInfo = Console.ReadLine().Split();
-            fuelQtty = double.Parse(truckInfo[1]);
-            consumtion = double.Parse(truckInfo[2]);
-            tankCapacity = double.Parse(truckInfo[3]);
+                double fuelQtty = double.Parse(vehicleArgs[1]);
+                double consumtion = double.Parse(vehicleArgs[2]);
+                double tankCapacity = double.Parse(vehicleArgs[3]);
 
-            IVehicle truck = new Truck(fuelQtty, consumtion, tankCapacity);
+                if (i == 0)
+                {
+                    vehicle = new Car(fuelQtty, consumtion, tankCapacity);
+                }
+                else if (i == 1)
+                {
+                    vehicle = new Truck(fuelQtty, consumtion, tankCapacity);
+                }
+                else if (i == 2)
+                {
+                    vehicle = new Bus(fuelQtty, consumtion, tankCapacity);
+                }
 
-            string[] busInfo = Console.ReadLine().Split();
-            fuelQtty = double.Parse(busInfo[1]);
-            consumtion = double.Parse(busInfo[2]);
-            tankCapacity = double.Parse(busInfo[3]);
-
-            IVehicle bus = new Bus(fuelQtty, consumtion, tankCapacity);
+                vehicles.Add(vehicle);
+            }
 
             int numbercommands = int.Parse(Console.ReadLine());
 
@@ -44,87 +55,41 @@ namespace Vehicles_Extention.Core
                 {
                     string[] commandArgs = Console.ReadLine().Split();
 
-                    string comandType = commandArgs[0];
-                    string vehicleType = commandArgs[1];
+                    comandType = commandArgs[0];
+                    vehicleType = commandArgs[1];
 
                     switch (comandType)
                     {
                         case "Drive":
                             distanceToCover = double.Parse(commandArgs[2]);
 
-                            switch (vehicleType)
-                            {
-                                case "Car":
-                                    try
-                                    {
-                                        car.AirConditionOn();
-                                        car.Drive(distanceToCover);
-                                        Console.WriteLine(car);
-                                    }
-                                    catch (ArgumentException ex)
-                                    {
-                                        Console.WriteLine(ex.Message);
-                                    }
-                                    finally
-                                    {
-                                        car.AirConditionOff();
-                                    }
-                                    break;
-                                case "Truck":
-                                    try
-                                    {
-                                        truck.AirConditionOn();
-                                        truck.Drive(distanceToCover);
-                                        Console.WriteLine(truck);
-                                    }
-                                    catch (ArgumentException ex)
-                                    {
-                                        Console.WriteLine(ex.Message);
-                                    }
-                                    finally
-                                    {
-                                        truck.AirConditionOff();
-                                    }
-                                    break;
-                                case "Bus":
-                                    try
-                                    {
-                                        bus.AirConditionOn();
-                                        bus.Drive(distanceToCover);
-                                        Console.WriteLine(bus);
-                                    }
-                                    catch (ArgumentException ex)
-                                    {
-                                        Console.WriteLine(ex.Message);
-                                    }
-                                    finally
-                                    {
-                                        bus.AirConditionOff();
-                                    }
-                                    break;
-                            }
-                            break;
-                        case "Refuel":
-                            double fuelAmount = double.Parse(commandArgs[2]);
+                            currentVehicle = vehicles.FirstOrDefault(v => v.GetType().Name == vehicleType);
 
-                            switch (vehicleType)
-                            {
-                                case "Car":
-                                    car.Refuel(fuelAmount);
-                                    break;
-                                case "Truck":
-                                    truck.Refuel(fuelAmount);
-                                    break;
-                                case "Bus":
-                                    bus.Refuel(fuelAmount);
-                                    break;
-                            }
+                            currentVehicle.AirConditionOn();
+                            currentVehicle.Drive(distanceToCover);
+
+                            Console.WriteLine(currentVehicle);
+
                             break;
+
+                        case "Refuel":
+                            fuelAmount = double.Parse(commandArgs[2]);
+
+                            currentVehicle = vehicles.FirstOrDefault(v => v.GetType().Name == vehicleType);
+
+                            currentVehicle.Refuel(fuelAmount);
+
+                            break;
+
                         case "DriveEmpty":
                             distanceToCover = double.Parse(commandArgs[2]);
 
-                            bus.Drive(distanceToCover);
-                            Console.WriteLine(bus);
+                            currentVehicle = vehicles.FirstOrDefault(v => v.GetType().Name == "Bus");
+
+                            currentVehicle.Drive(distanceToCover);
+
+                            Console.WriteLine(currentVehicle);
+                           
                             break;
                     }
                 }
@@ -132,11 +97,18 @@ namespace Vehicles_Extention.Core
                 {
                     Console.WriteLine(ex.Message);
                 }
+                finally
+                {
+                    if (comandType == "Drive")
+                    {
+                        currentVehicle.AirConditionOff();
+                    }
+                }
             }
 
-            Console.WriteLine($"Car: {car.FuelQtty:f2}");
-            Console.WriteLine($"Truck: {truck.FuelQtty:f2}");
-            Console.WriteLine($"Bus: {bus.FuelQtty:f2}");
+            Console.WriteLine(string.Join(
+                Environment.NewLine, vehicles
+                .Select(v => $"{v.GetType().Name}: {v.FuelQtty:f2}")));
         }
     }
 }

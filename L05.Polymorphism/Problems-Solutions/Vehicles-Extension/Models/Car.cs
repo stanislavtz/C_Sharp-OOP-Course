@@ -1,4 +1,4 @@
-﻿namespace Vehicles_Extention.Models
+﻿namespace Vehicles_Extension.Models
 {
     public class Car : Vehicle
     {

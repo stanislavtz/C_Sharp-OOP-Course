@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
 using Vehicles_Extension.Validators;
-using Vehicles_Extention.Contracts;
-using Vehicles_Extention.Exceptions;
+using Vehicles_Extension.Contracts;
+using Vehicles_Extension.Exceptions;
 
-namespace Vehicles_Extention.Models
+namespace Vehicles_Extension.Models
 {
     public abstract class Vehicle : IVehicle
     {

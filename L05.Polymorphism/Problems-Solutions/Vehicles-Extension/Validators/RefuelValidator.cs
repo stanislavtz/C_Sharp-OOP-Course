@@ -1,5 +1,5 @@
 ﻿using System;
-using Vehicles_Extention.Exceptions;
+using Vehicles_Extension.Exceptions;
 
 namespace Vehicles_Extension.Validators
 {
@@ -21,19 +21,24 @@ namespace Vehicles_Extension.Validators
             get => this.fuelAmount;
             private set
             {
-                if (value <= 0)
-                {
-                    throw new ArgumentException(ExceptionsData.NegativeRefuelQuantity);
-                }
-
-                bool canRefuel = this.fuelQtty + value <= this.tankCapacity;
-
-                if (!canRefuel)
-                {
-                    throw new ArgumentException(string.Format(ExceptionsData.HighRefuelAmount, value));
-                }
+                ValidateRefuelAmount(value);
 
                 this.fuelAmount = value;
+            }
+        }
+
+        private void ValidateRefuelAmount(double value)
+        {
+            if (value <= 0)
+            {
+                throw new ArgumentException(ExceptionsData.NegativeRefuelQuantity);
+            }
+
+            bool canRefuel = this.fuelQtty + value <= this.tankCapacity;
+
+            if (!canRefuel)
+            {
+                throw new ArgumentException(string.Format(ExceptionsData.HighRefuelAmount, value));
             }
         }
     }
