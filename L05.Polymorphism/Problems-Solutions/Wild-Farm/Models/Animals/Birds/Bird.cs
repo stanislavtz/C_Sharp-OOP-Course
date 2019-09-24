@@ -1,30 +1,14 @@
-﻿using Wild_Farm.Exceptions;
-
-namespace Wild_Farm.Models.Animals.Birds
+﻿namespace Wild_Farm.Models.Animals.Birds
 {
     public abstract class Bird : Animal
     {
-        private double wingSize;
-
-        public Bird(string name, double weight, double wingSize)
-            : base(name, weight)
+        public Bird(string name, double weight, int foodEaten, double wingSize) 
+            : base(name, weight, foodEaten)
         {
             this.WingSize = wingSize;
         }
 
-        public double WingSize
-        {
-            get => this.wingSize;
-            private set
-            {
-                if (value <= 0)
-                {
-                    throw new InvalidWingSizeException();
-                }
-
-                this.wingSize = value;
-            }
-        }
+        public double WingSize { get; private set; }
 
         public override string ToString()
         {

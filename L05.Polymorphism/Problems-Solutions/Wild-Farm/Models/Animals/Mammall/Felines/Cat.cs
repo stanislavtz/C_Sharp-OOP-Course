@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Wild_Farm.Contracts;
 using Wild_Farm.Models.Foods;
 
 namespace Wild_Farm.Models.Animals.Mammall.Felines
@@ -9,37 +10,34 @@ namespace Wild_Farm.Models.Animals.Mammall.Felines
     {
         private const double FOOD_MODIFIER = 0.30;
 
-        private readonly List<string> preferedFood = new List<string>()
+        private readonly List<string> foodCollection = new List<string>()
         {
             "Vegetable",
             "Meat"
         };
 
-        public Cat(string name, double weight, string livingRegion, string breed)
-            : base(name, weight, livingRegion, breed)
+        public Cat(string name, double weight, int foodEaten, string livingRegion, string breed)
+            : base(name, weight, foodEaten, livingRegion, breed)
         {
         }
 
-        public override void AddFood(string foodType)
-        {
-            preferedFood.Add(foodType);
-        }
-
+       
         public override string AskFood()
         {
             return "Meow";
         }
 
-        public override double EatFood(Food food)
+        public override double EatFood(IFood food)
         {
-            string foodName = food.GetType().Name;
+            double foodModifier = FOOD_MODIFIER;
+            List<string> foods = foodCollection;
 
-            if (!preferedFood.Contains(foodName))
+            if (!foods.Contains(food.GetType().Name))
             {
                 throw new InvalidOperationException($"{this.GetType().Name} does not eat {food.GetType().Name}!");
             }
 
-            this.Weight += (this.FoodEaten * FOOD_MODIFIER);
+            this.Weight += food.Quantity * foodModifier;
 
             return this.Weight;
         }

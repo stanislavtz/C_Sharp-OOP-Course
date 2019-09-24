@@ -2,8 +2,8 @@
 {
     public abstract class Feline : Mammal
     {
-        public Feline(string name, double weight,  string livingRegion, string breed) 
-            : base(name, weight, livingRegion)
+        public Feline(string name, double weight, int foodEaten, string livingRegion, string breed) 
+            : base(name, weight, foodEaten, livingRegion)
         {
             this.Breed = breed;
         }

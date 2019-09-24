@@ -29,17 +29,24 @@ namespace Wild_Farm.Core
 
                 var food = new FoodFactory().CreatFood(foodArgs);
 
+                Console.WriteLine(animal.AskFood());
+
+                animals.Add(animal);
+
                 try
                 {
-                    Console.WriteLine(animal.AskFood());
                     animal.EatFood(food);
-                    Console.WriteLine(animal);
+                    animal.FoodEaten += food.Quantity;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
+            }
 
+            foreach (var animal in animals)
+            {
+                Console.WriteLine(animal);
             }
         }
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Wild_Farm.Models.Foods;
+using Wild_Farm.Contracts;
 
 namespace Wild_Farm.Models.Animals.Mammall
 {
@@ -9,20 +8,14 @@ namespace Wild_Farm.Models.Animals.Mammall
 
     {
         private const double FOOD_MODIFIER = 0.40;
-
-        private readonly List<string> preferedFood = new List<string>()
+        private List<string> foodCollection = new List<string>
         {
             "Meat"
         };
 
-        public Dog(string name, double weight, string livingRegion) 
-            : base(name, weight, livingRegion)
+        public Dog(string name, double weight, int foodEaten, string livingRegion)
+            : base(name, weight, foodEaten, livingRegion)
         {
-        }
-
-        public override void AddFood(string foodType)
-        {
-            preferedFood.Add(foodType);
         }
 
         public override string AskFood()
@@ -30,18 +23,24 @@ namespace Wild_Farm.Models.Animals.Mammall
             return "Woof!";
         }
 
-        public override double EatFood(Food food)
+        public override double EatFood(IFood food)
         {
-            string foodName = food.GetType().Name;
+            double foodModifier = FOOD_MODIFIER;
+            List<string> foods = foodCollection;
 
-            if (!preferedFood.Contains(foodName))
+            if (!foods.Contains(food.GetType().Name))
             {
                 throw new InvalidOperationException($"{this.GetType().Name} does not eat {food.GetType().Name}!");
             }
 
-            this.Weight += (this.FoodEaten * FOOD_MODIFIER);
+            this.Weight += food.Quantity * foodModifier;
 
             return this.Weight;
+        }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()} {this.Weight}, {this.LivingRegion}, {this.FoodEaten}]";
         }
     }
 }

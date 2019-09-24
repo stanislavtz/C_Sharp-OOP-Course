@@ -1,4 +1,4 @@
-﻿using Wild_Farm.Models.Foods;
+﻿using System.Collections.Generic;
 
 namespace Wild_Farm.Contracts
 {
@@ -8,10 +8,10 @@ namespace Wild_Farm.Contracts
 
         double Weight { get; }
 
-        int FoodEaten { get; }
+        int FoodEaten { get; set; }
 
         string AskFood();
 
-        double EatFood(Food food);
+        double EatFood(IFood food);
     }
 }

@@ -1,10 +1,11 @@
-﻿using Wild_Farm.Models.Foods;
+﻿using Wild_Farm.Contracts;
+using Wild_Farm.Models.Foods;
 
 namespace Wild_Farm
 {
     public class FoodFactory
     {
-        public Food CreatFood(params string[] foodArgs)
+        public IFood CreatFood(params string[] foodArgs)
         {
             string type = foodArgs[0];
             int quantity = int.Parse(foodArgs[1]);

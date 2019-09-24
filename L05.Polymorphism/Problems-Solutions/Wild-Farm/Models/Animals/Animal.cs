@@ -1,55 +1,49 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using Wild_Farm.Contracts;
-using Wild_Farm.Exceptions;
-using Wild_Farm.Models.Foods;
 
 namespace Wild_Farm.Models.Animals
 {
     public abstract class Animal : IAnimal
     {
-        private string name;
-        private double weight;
+        private const double FOOD_MODIFIER = 1;
+        private List<string> foodCollection = new List<string>
+        {
+            "Fruit",
+            "Meat",
+            "Seeds",
+            "Vegetable"
+        };
 
-        public Animal(string name, double weight)
+        public Animal(string name, double weight, int foodEaten)
         {
             this.Name = name;
             this.Weight = weight;
+            this.FoodEaten = foodEaten;
         }
 
-        public string Name
-        {
-            get => this.name;
-            private set
-            {
-                if (value.Length < 2 || !value.Any(v => char.IsLetterOrDigit(v)))
-                {
-                    throw new InvalidNameLengthException();
-                }
+        public string Name { get; private set; }
 
-                this.name = value;
-            }
-        }
+        public double Weight { get; protected set; }
 
-        public double Weight
-        {
-            get => this.weight;
-            protected set
-            {
-                if (value <= 0)
-                {
-                    throw new InvalidWeightException();
-                }
-                this.weight = value;
-            }
-        }
-
-        public int FoodEaten { get; private set; }
+        public int FoodEaten { get;  set; }
 
         public abstract string AskFood();
 
-        public abstract double EatFood(Food food);
+        public virtual double EatFood(IFood food)
+        {
+            double foodModifier = FOOD_MODIFIER;
+            List<string> foods = foodCollection;
 
-        public abstract void AddFood(string foodType);
+            if (!foods.Contains(food.GetType().Name))
+            {
+                throw new InvalidOperationException($"{this.GetType().Name} does not eat {food.GetType().Name}!");
+            }
+
+            this.Weight += food.Quantity * foodModifier;
+
+            return this.Weight;
+        }
 
         public override string ToString()
         {
