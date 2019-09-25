@@ -2,7 +2,6 @@
 using Wild_Farm.Models.Animals.Birds;
 using Wild_Farm.Models.Animals.Mammall;
 using Wild_Farm.Models.Animals.Mammall.Felines;
-using Wild_Farm.Models.Foods;
 
 namespace Wild_Farm.Factories
 {
@@ -51,7 +50,7 @@ namespace Wild_Farm.Factories
                 string livingRegion = animalArgs[3];
                 string breed = animalArgs[4];
 
-                return new Tiger(name, weight,foodEaten, livingRegion, breed);
+                return new Tiger(name, weight, foodEaten, livingRegion, breed);
             }
 
             return null;

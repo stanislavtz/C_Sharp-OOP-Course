@@ -8,7 +8,7 @@ namespace Wild_Farm.Models.Animals.Mammall
 
     {
         private const double FOOD_MODIFIER = 0.40;
-        private List<string> foodCollection = new List<string>
+        private readonly List<string> foodCollection = new List<string>
         {
             "Meat"
         };
@@ -23,19 +23,10 @@ namespace Wild_Farm.Models.Animals.Mammall
             return "Woof!";
         }
 
+
         public override double EatFood(IFood food)
         {
-            double foodModifier = FOOD_MODIFIER;
-            List<string> foods = foodCollection;
-
-            if (!foods.Contains(food.GetType().Name))
-            {
-                throw new InvalidOperationException($"{this.GetType().Name} does not eat {food.GetType().Name}!");
-            }
-
-            this.Weight += food.Quantity * foodModifier;
-
-            return this.Weight;
+            return FoodEatenValidation(food, FOOD_MODIFIER, foodCollection);
         }
 
         public override string ToString()

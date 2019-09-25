@@ -6,15 +6,6 @@ namespace Wild_Farm.Models.Animals
 {
     public abstract class Animal : IAnimal
     {
-        private const double FOOD_MODIFIER = 1;
-        private List<string> foodCollection = new List<string>
-        {
-            "Fruit",
-            "Meat",
-            "Seeds",
-            "Vegetable"
-        };
-
         public Animal(string name, double weight, int foodEaten)
         {
             this.Name = name;
@@ -30,14 +21,16 @@ namespace Wild_Farm.Models.Animals
 
         public abstract string AskFood();
 
-        public virtual double EatFood(IFood food)
-        {
-            double foodModifier = FOOD_MODIFIER;
-            List<string> foods = foodCollection;
+        public abstract double EatFood(IFood food);
 
-            if (!foods.Contains(food.GetType().Name))
+        protected double FoodEatenValidation(IFood food, double foodModifier, List<string> foods)
+        {
+            var animalType = this.GetType().Name;
+            var foodType = food.GetType().Name;
+
+            if (!foods.Contains(foodType))
             {
-                throw new InvalidOperationException($"{this.GetType().Name} does not eat {food.GetType().Name}!");
+                throw new InvalidOperationException($"{animalType} does not eat {foodType}!");
             }
 
             this.Weight += food.Quantity * foodModifier;
