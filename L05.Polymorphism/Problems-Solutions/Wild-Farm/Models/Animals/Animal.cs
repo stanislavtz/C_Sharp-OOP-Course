@@ -23,7 +23,7 @@ namespace Wild_Farm.Models.Animals
 
         public abstract double EatFood(IFood food);
 
-        protected double FoodEatenValidation(IFood food, double foodModifier, List<string> foods)
+        protected double GainWeight(IFood food, double foodModifier, List<string> foods)
         {
             var animalType = this.GetType().Name;
             var foodType = food.GetType().Name;

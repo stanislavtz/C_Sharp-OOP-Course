@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Wild_Farm.Contracts;
 
 namespace Wild_Farm.Models.Animals.Mammall
@@ -26,7 +25,7 @@ namespace Wild_Farm.Models.Animals.Mammall
 
         public override double EatFood(IFood food)
         {
-            return FoodEatenValidation(food, FOOD_MODIFIER, foodCollection);
+            return GainWeight(food, FOOD_MODIFIER, foodCollection);
         }
 
         public override string ToString()

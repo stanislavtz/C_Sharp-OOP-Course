@@ -26,7 +26,7 @@ namespace Wild_Farm.Models.Animals.Mammall.Felines
 
         public override double EatFood(IFood food)
         {
-            return FoodEatenValidation(food, FOOD_MODIFIER, foodCollection);
+            return GainWeight(food, FOOD_MODIFIER, foodCollection);
         }
     }
 }

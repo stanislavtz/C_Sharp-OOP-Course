@@ -26,7 +26,7 @@ namespace Wild_Farm.Models.Animals.Birds
 
         public override double EatFood(IFood food)
         {
-            return FoodEatenValidation(food, FOOD_MODIFIER, foodCollection);
+            return GainWeight(food, FOOD_MODIFIER, foodCollection);
         }
     }
 }
