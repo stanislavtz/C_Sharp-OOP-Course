@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Wild_Farm.Contracts;
 using Wild_Farm.Factories;
-using Wild_Farm.Models.Animals.Birds;
-using Wild_Farm.Models.Foods;
 
 namespace Wild_Farm.Core
 {
@@ -14,20 +11,14 @@ namespace Wild_Farm.Core
         {
             List<IAnimal> animals = new List<IAnimal>();
 
-            while (true)
+            string[] animalArgs = Console.ReadLine().Split();
+            string firstElement = animalArgs[0];
+
+            while (firstElement != "End")
             {
-                string[] animalArgs = Console.ReadLine().Split();
+                IAnimal animal = GetAnimal(animalArgs);
 
-                if (animalArgs[0] == "End")
-                {
-                    break;
-                }
-
-                string[] foodArgs = Console.ReadLine().Split();
-
-                var animal = new AnimalFactory().CreatAnimal(animalArgs);
-
-                var food = new FoodFactory().CreatFood(foodArgs);
+                IFood food = GetFood();
 
                 Console.WriteLine(animal.AskFood());
 
@@ -42,12 +33,29 @@ namespace Wild_Farm.Core
                 {
                     Console.WriteLine(ex.Message);
                 }
+
+                animalArgs = Console.ReadLine().Split();
+                firstElement = animalArgs[0];
             }
 
             foreach (var animal in animals)
             {
                 Console.WriteLine(animal);
             }
+        }
+
+        private static IFood GetFood()
+        {
+            string[] foodArgs = Console.ReadLine().Split();
+
+            var food = new FoodFactory().CreatFood(foodArgs);
+
+            return food;
+        }
+
+        private static IAnimal GetAnimal(string[] animalArgs)
+        {
+            return new AnimalFactory().CreatAnimal(animalArgs);
         }
     }
 }
