@@ -1,4 +1,5 @@
-﻿using Wild_Farm.Contracts;
+﻿using System;
+using Wild_Farm.Contracts;
 using Wild_Farm.Models.Animals.Birds;
 using Wild_Farm.Models.Animals.Mammall;
 using Wild_Farm.Models.Animals.Mammall.Felines;
@@ -14,46 +15,52 @@ namespace Wild_Farm.Factories
             double weight = double.Parse(animalArgs[2]);
             int foodEaten = 0;
 
+            IAnimal animal;
+
             if (type == "Hen")
             {
                 double wingSize = double.Parse(animalArgs[3]);
 
-                return new Hen(name, weight, foodEaten, wingSize);
+                animal = new Hen(name, weight, foodEaten, wingSize);
             }
             else if (type == "Owl")
             {
                 double wingSize = double.Parse(animalArgs[3]);
 
-                return new Owl(name, weight, foodEaten, wingSize);
+                animal = new Owl(name, weight, foodEaten, wingSize);
             }
             else if (type == "Dog")
             {
                 string livingRegion = animalArgs[3];
 
-                return new Dog(name, weight, foodEaten, livingRegion);
+                animal = new Dog(name, weight, foodEaten, livingRegion);
             }
             else if (type == "Mouse")
             {
                 string livingRegion = animalArgs[3];
 
-                return new Mouse(name, weight, foodEaten, livingRegion);
+                animal = new Mouse(name, weight, foodEaten, livingRegion);
             }
             else if (type == "Cat")
             {
                 string livingRegion = animalArgs[3];
                 string breed = animalArgs[4];
 
-                return new Cat(name, weight, foodEaten, livingRegion, breed);
+                animal = new Cat(name, weight, foodEaten, livingRegion, breed);
             }
             else if (type == "Tiger")
             {
                 string livingRegion = animalArgs[3];
                 string breed = animalArgs[4];
 
-                return new Tiger(name, weight, foodEaten, livingRegion, breed);
+                animal = new Tiger(name, weight, foodEaten, livingRegion, breed);
+            }
+            else
+            {
+                throw new InvalidOperationException("Invalid animal!");
             }
 
-            return null;
+            return animal;
         }
     }
 }
