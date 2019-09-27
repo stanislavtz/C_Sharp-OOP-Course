@@ -1,8 +1,7 @@
-﻿using P01_RawData.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
+using P01_RawData.Models;
+using System.Collections.Generic;
 
 namespace P01_RawData.Core
 {
@@ -14,30 +13,32 @@ namespace P01_RawData.Core
         public Engine()
         {
             this.cars = new List<Car>();
+            this.tires = new List<Tire>();
         }
 
         public void Run()
         {
-            int lines = int.Parse(Console.ReadLine());
+            int numberInputs = int.Parse(Console.ReadLine());
 
-            for (int i = 0; i < lines; i++)
+            for (int i = 0; i < numberInputs; i++)
             {
-                tires = new List<Tire>();
-
-                string[] args = Console.ReadLine()
+                string[] carArgs = Console.ReadLine()
                     .Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
-                string model = args[0];
+                string model = carArgs[0];
 
-                int engineSpeed = int.Parse(args[1]);
-                int enginePower = int.Parse(args[2]);
-                var engine = new CarEngine(engineSpeed, enginePower);
+                int engineSpeed = int.Parse(carArgs[1]);
+                int enginePower = int.Parse(carArgs[2]);
 
-                int cargoWeight = int.Parse(args[3]);
-                string cargoType = args[4];
-                var cargo = new Cargo(cargoWeight, cargoType);
+                int cargoWeight = int.Parse(carArgs[3]);
+                string cargoType = carArgs[4];
 
-                CreateTireCollection(args);
+                CarEngine engine = new CarEngine(engineSpeed, enginePower);
+                Cargo cargo = new Cargo(cargoWeight, cargoType);
+
+                double[] tireArgs = carArgs.Skip(5).Select(double.Parse).ToArray();
+
+                CreateTireCollection(tireArgs);
                 CreateCarsCollection(model, engine, cargo);
             }
 
@@ -80,12 +81,12 @@ namespace P01_RawData.Core
             cars.Add(car);
         }
 
-        private void CreateTireCollection(string[] args)
+        private void CreateTireCollection(double[] tireArgs)
         {
-            for (int j = 5; j < 13; j += 2)
+            for (int j = 0; j < 8; j += 2)
             {
-                double tirePressure = double.Parse(args[j]);
-                int tireAge = int.Parse(args[j + 1]);
+                double tirePressure = tireArgs[j];
+                int tireAge = (int)tireArgs[j + 1];
                 var tire = new Tire(tirePressure, tireAge);
 
                 tires.Add(tire);

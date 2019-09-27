@@ -1,5 +1,4 @@
 ﻿namespace P01_RawData.Models
-
 {
     public class Tire
     {

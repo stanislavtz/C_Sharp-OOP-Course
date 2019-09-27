@@ -1,9 +1,9 @@
-﻿using P01_RawData.Models;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace P01_RawData
+﻿namespace P01_RawData
 {
+    using P01_RawData.Models;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class Car
     {
         public Car(string model, CarEngine engine, Cargo cargo, IList<Tire> tires)
@@ -14,9 +14,8 @@ namespace P01_RawData
             this.CargoWeight = cargo.Weight;
             this.CargoType = cargo.Type;
 
-            this.Tires = tires.ToList();
-         
-        }
+            this.Tires = tires.ToList().AsReadOnly();
+         }
 
         public string Model;
         public int EngineSpeed;
