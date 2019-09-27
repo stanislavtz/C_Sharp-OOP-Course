@@ -25,5 +25,10 @@
                 this.Row--;
             }
         }
+
+        public override string ToString()
+        {
+            return this.CollectedStars.ToString();
+        }
     }
 }

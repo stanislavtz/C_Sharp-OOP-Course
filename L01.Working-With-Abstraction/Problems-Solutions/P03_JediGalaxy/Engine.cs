@@ -46,10 +46,7 @@
                 command = Console.ReadLine();
             }
 
-            if (mainPlayer is MainPlayer player)
-            {
-                Console.WriteLine(player.CollectedStars);
-            }
+            Console.WriteLine(mainPlayer);
         }
 
         private static int[] ElementInitialPosition(string command)
