@@ -22,6 +22,7 @@
             Space space = new Space(row, col);
 
             command = Console.ReadLine();
+
             long collectedStars = 0;
 
             while (command != "Let the Force be with you")
@@ -37,7 +38,6 @@
                 int evilCol = evilArgs[1];
 
                 mainPlayer = new MainPlayer(playerRow, playersCol, collectedStars);
-
                 evilPlayer = new EvilPlayer(eveilRow, evilCol);
 
                 evilPlayer.Move(space, eveilRow, evilCol);
