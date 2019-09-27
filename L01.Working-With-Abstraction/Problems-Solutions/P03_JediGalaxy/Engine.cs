@@ -1,11 +1,14 @@
-﻿using System;
-using System.Linq;
-
-namespace P03_JediGalaxy
+﻿namespace P03_JediGalaxy
 {
+    using System;
+    using System.Linq;
+    using P03_JediGalaxy.Models;
+    using P03_JediGalaxy.Models.Players;
+
     public class Engine
     {
-        private int[,] space;
+        private Player mainPlayer;
+        private Player evilPlayer;
 
         public void Run()
         {
@@ -16,79 +19,36 @@ namespace P03_JediGalaxy
             int row = dimestionsArgs[0];
             int col = dimestionsArgs[1];
 
-            space = SpaceCreate(row, col);
+            Space space = new Space(row, col);
 
             command = Console.ReadLine();
-            long starsPointColected = 0;
+            long collectedStars = 0;
 
-            ElementsAction(ref command, ref starsPointColected);
-        }
-
-        private void ElementsAction(ref string command, ref long starsPointColected)
-        {
             while (command != "Let the Force be with you")
             {
                 int[] playerArgs = ElementInitialPosition(command);
-
-                command = Console.ReadLine();
-                int[] evilArgs = ElementInitialPosition(command);
-
-                int eveilRow = evilArgs[0];
-                int evilCol = evilArgs[1];
-                EvilMove(space, ref eveilRow, ref evilCol);
-
                 int playerRow = playerArgs[0];
                 int playersCol = playerArgs[1];
-                PlayerMove(space, ref starsPointColected, ref playerRow, ref playersCol);
+
+                command = Console.ReadLine();
+
+                int[] evilArgs = ElementInitialPosition(command);
+                int eveilRow = evilArgs[0];
+                int evilCol = evilArgs[1];
+
+                mainPlayer = new MainPlayer(playerRow, playersCol, collectedStars);
+
+                evilPlayer = new EvilPlayer(eveilRow, evilCol);
+
+                evilPlayer.Move(space, eveilRow, evilCol);
+                mainPlayer.Move(space, playerRow, playersCol);
 
                 command = Console.ReadLine();
             }
 
-            Console.WriteLine(starsPointColected);
-        }
-
-        private static int[,] SpaceCreate(int row, int col)
-        {
-            var space = new int[row, col];
-
-            int value = 0;
-
-            for (int i = 0; i < row; i++)
+            if (mainPlayer is MainPlayer player)
             {
-                for (int j = 0; j < col; j++)
-                {
-                    space[i, j] = value++;
-                }
-            }
-
-            return space;
-        }
-
-        private static void PlayerMove(int[,] matrix, ref long starsSum, ref int row, ref int col)
-        {
-            while (row >= 0 && col < matrix.GetLength(1))
-            {
-                if (row >= 0 && row < matrix.GetLength(0) && col >= 0 && col < matrix.GetLength(1))
-                {
-                    starsSum += matrix[row, col];
-                }
-
-                col++;
-                row--;
-            }
-        }
-
-        private static void EvilMove(int[,] matrix, ref int row, ref int col)
-        {
-            while (row >= 0 && col >= 0)
-            {
-                if (row >= 0 && row < matrix.GetLength(0) && col >= 0 && col < matrix.GetLength(1))
-                {
-                    matrix[row, col] = 0;
-                }
-
-                row--;
-                col--;
+                Console.WriteLine(player.CollectedStars);
             }
         }
 

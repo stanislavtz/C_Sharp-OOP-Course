@@ -1,8 +1,8 @@
 ﻿namespace P01_RawData
 {
+    using System.Linq;
     using P01_RawData.Models;
     using System.Collections.Generic;
-    using System.Linq;
 
     public class Car
     {

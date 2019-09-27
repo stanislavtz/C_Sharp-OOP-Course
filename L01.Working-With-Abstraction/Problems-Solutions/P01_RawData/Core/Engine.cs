@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using P01_RawData.Models;
-using System.Collections.Generic;
-
-namespace P01_RawData.Core
+﻿namespace P01_RawData.Core
 {
+    using System;
+    using System.Linq;
+    using P01_RawData.Models;
+    using System.Collections.Generic;
+
     public class Engine
     {
         private readonly List<Car> cars;

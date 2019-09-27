@@ -1,56 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace P02_CarsSalesman.Core
+﻿namespace P02_CarsSalesman.Core
 {
+    using System;
+    using System.Linq;
+    using System.Collections.Generic;
+
     public class Starter
     {
-        private readonly List<Engine> engines = new List<Engine>();
         private readonly List<Car> cars = new List<Car>();
+        private readonly List<Engine> engines = new List<Engine>();
 
-        private int engineCount;
-        private string efficiency;
-        private Engine engine;
         private Car car;
+        private Engine engine;
 
         public void Run()
         {
-            engineCount = int.Parse(Console.ReadLine());
+            string efficiency;
+
+            int engineCount = int.Parse(Console.ReadLine());
 
             for (int i = 0; i < engineCount; i++)
             {
-                string[] args = Console.ReadLine()
+                string[] engineArgs = Console.ReadLine()
                     .Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
-                string model = args[0];
-                int power = int.Parse(args[1]);
+                string model = engineArgs[0];
+                int power = int.Parse(engineArgs[1]);
 
                 int displacement = -1;
 
-                if (args.Length == 3 && int.TryParse(args[2], out displacement))
+                if (engineArgs.Length == 3 && int.TryParse(engineArgs[2], out displacement))
                 {
-                    engine = new Engine(model, power, displacement);
+                    this.engine = new Engine(model, power, displacement);
 
-                    engines.Add(engine);
+                    this.engines.Add(this.engine);
                 }
-                else if (args.Length == 3)
+                else if (engineArgs.Length == 3)
                 {
-                    efficiency = args[2];
+                    efficiency = engineArgs[2];
 
-                    engine = new Engine(model, power, efficiency);
+                    this.engine = new Engine(model, power, efficiency);
 
-                    engines.Add(new Engine(model, power, efficiency));
+                    this.engines.Add(new Engine(model, power, efficiency));
                 }
-                else if (args.Length == 4)
+                else if (engineArgs.Length == 4)
                 {
-                    string efficiency = args[3];
+                    efficiency = engineArgs[3];
 
-                    engines.Add(new Engine(model, power, int.Parse(args[2]), efficiency));
+                    this.engines.Add(new Engine(model, power, int.Parse(engineArgs[2]), efficiency));
                 }
                 else
                 {
-                    engines.Add(new Engine(model, power));
+                    this.engines.Add(new Engine(model, power));
                 }
             }
 
@@ -58,42 +58,42 @@ namespace P02_CarsSalesman.Core
 
             for (int i = 0; i < carCount; i++)
             {
-                string[] parameters = Console.ReadLine()
+                string[] carArgs = Console.ReadLine()
                     .Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
-                string model = parameters[0];
-                string engineModel = parameters[1];
+                string model = carArgs[0];
+                string engineModel = carArgs[1];
 
-                engine = engines.FirstOrDefault(x => x.Model == engineModel);
+                this.engine = this.engines.FirstOrDefault(x => x.Model == engineModel);
 
                 int weight = -1;
 
-                if (parameters.Length == 3 && int.TryParse(parameters[2], out weight))
+                if (carArgs.Length == 3 && int.TryParse(carArgs[2], out weight))
                 {
-                    car = new Car(model, engine, weight);
+                    this.car = new Car(model, engine, weight);
 
-                    cars.Add(car);
+                    this.cars.Add(this.car);
                 }
-                else if (parameters.Length == 3)
+                else if (carArgs.Length == 3)
                 {
-                    string color = parameters[2];
+                    string color = carArgs[2];
 
-                    car = new Car(model, engine, color);
+                    this.car = new Car(model, this.engine, color);
 
-                    cars.Add(car);
+                    this.cars.Add(this.car);
                 }
-                else if (parameters.Length == 4)
+                else if (carArgs.Length == 4)
                 {
-                    string color = parameters[3];
-                    cars.Add(new Car(model, engine, int.Parse(parameters[2]), color));
+                    string color = carArgs[3];
+                    this.cars.Add(new Car(model, this.engine, int.Parse(carArgs[2]), color));
                 }
                 else
                 {
-                    cars.Add(new Car(model, engine));
+                    this.cars.Add(new Car(model, this.engine));
                 }
             }
 
-            foreach (var car in cars)
+            foreach (var car in this.cars)
             {
                 Console.WriteLine(car);
             }
