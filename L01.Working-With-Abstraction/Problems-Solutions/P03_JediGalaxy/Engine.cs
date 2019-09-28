@@ -43,6 +43,7 @@
                 evilPlayer.Move(space, eveilRow, evilCol);
                 mainPlayer.Move(space, playerRow, playersCol);
 
+                collectedStars = ((MainPlayer)mainPlayer).CollectedStars;
                 command = Console.ReadLine();
             }
 
