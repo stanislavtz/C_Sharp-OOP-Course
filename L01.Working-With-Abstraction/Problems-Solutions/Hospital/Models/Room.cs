@@ -1,17 +1,21 @@
-﻿using P04_Hospital.Models.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace P04_Hospital.Models
 {
-    public class Room : IRoom
+    public  class Room
     {
+        private List<Patient> patients;
+
         public Room()
         {
-            PatientsInRoom = new List<IPatient>();
+            this.patients = new List<Patient>();
         }
 
-        public IList<IPatient> PatientsInRoom { get; }
+        public IReadOnlyList<Patient> PatientsInRoom => this.patients;
+
+        public void AddPatient(Patient patient)
+        {
+            patients.Add(patient);
+        }
     }
 }

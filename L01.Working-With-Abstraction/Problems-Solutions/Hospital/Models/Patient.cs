@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace P04_Hospital.Models.Contracts
+﻿namespace P04_Hospital.Models
 {
-    public class Patient : IPatient
+    public class Patient : Person
     {
         public Patient(string name)
+            : base(name)
         {
-            this.Name = name;
-        }
-
-        public string Name { get; private set; }
-
-        public override string ToString()
-        {
-            return this.Name;
         }
     }
 }

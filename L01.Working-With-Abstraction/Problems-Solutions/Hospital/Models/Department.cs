@@ -1,25 +1,44 @@
-﻿using P04_Hospital.Models.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace P04_Hospital.Models
 {
-    public class Department : IDepartment
+    public class Department
     {
-        private const int ROOMS_NUMBER = 20;
+        private const int NUMBER_ROOMS = 20;
+
+        private string name;
 
         public Department(string name)
         {
             this.Name = name;
+            this.Rooms = new Room[NUMBER_ROOMS];
 
-            this.PaitientsInDepartment = new List<IPatient>();
+            CreateRooms();
         }
 
-        public int Rooms_Number => ROOMS_NUMBER;
+        public string Name
+        {
+            get => this.name;
+            private set
+            {
+                if (value.Length < 1 || value.Length >= 100)
+                {
+                    throw new ArgumentException("Invalid department name length!");
+                }
 
-        public string Name { get; private set; }
+                this.name = value;
+            }
+        }
 
-        public IList<IPatient> PaitientsInDepartment { get; }
+        public Room[] Rooms { get; }
+
+        private void CreateRooms()
+        {
+
+            for (int i = 0; i < NUMBER_ROOMS; i++)
+            {
+                this.Rooms[i] = new Room();
+            }
+        }
     }
 }
