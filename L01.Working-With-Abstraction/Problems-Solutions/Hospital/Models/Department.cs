@@ -23,7 +23,7 @@ namespace P04_Hospital.Models
             get => this.name;
             private set
             {
-                if (value.Length < 1 || value.Length > 99)
+                if (!(value.Length > 1 || value.Length < 100))
                 {
                     throw new ArgumentException();
                 }
