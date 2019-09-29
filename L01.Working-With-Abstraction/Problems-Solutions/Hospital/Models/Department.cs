@@ -6,8 +6,6 @@ namespace P04_Hospital.Models
     {
         private const int NUMBER_ROOMS = 20;
 
-        private string name;
-
         public Department(string name)
         {
             this.Name = name;
@@ -16,19 +14,8 @@ namespace P04_Hospital.Models
             CreateRooms();
         }
 
-        public string Name
-        {
-            get => this.name;
-            private set
-            {
-                if (value.Length < 1 || value.Length >= 100)
-                {
-                    throw new ArgumentException("Invalid department name length!");
-                }
-
-                this.name = value;
-            }
-        }
+        public string Name { get; private set; }
+       
 
         public Room[] Rooms { get; }
 
