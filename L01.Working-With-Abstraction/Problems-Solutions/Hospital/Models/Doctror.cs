@@ -12,7 +12,7 @@ namespace P04_Hospital.Models
             this.patientsList = new List<Patient>();
         }
 
-        public IReadOnlyCollection<Patient> PatientList => this.patientsList;
+        public IReadOnlyCollection<Patient> PatientList => this.patientsList.AsReadOnly();
 
         public void AddPatient(Patient patient)
         {

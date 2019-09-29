@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace P04_Hospital.Models
 {
@@ -7,11 +8,12 @@ namespace P04_Hospital.Models
         private const int NUMBER_ROOMS = 20;
 
         private string name;
+        private readonly List<Room> rooms;
 
         public Department(string name)
         {
             this.Name = name;
-            this.Rooms = new Room[NUMBER_ROOMS];
+            this.rooms = new List<Room>();
 
             CreateRooms();
         }
@@ -30,14 +32,14 @@ namespace P04_Hospital.Models
             }
         }
 
-        public Room[] Rooms { get; }
+        public IReadOnlyList<Room> Rooms => rooms.AsReadOnly();
 
         private void CreateRooms()
         {
 
             for (int i = 0; i < NUMBER_ROOMS; i++)
             {
-                this.Rooms[i] = new Room();
+                this.rooms.Add(new Room());
             }
         }
     }
