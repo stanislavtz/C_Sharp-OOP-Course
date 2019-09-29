@@ -65,9 +65,9 @@ namespace P04_Hospital.Core
                     var currentDoctor = doctors.First(d => d.Name == doctorFullName);
                     currentDoctor.AddPatient(patient);
                 }
-                catch (ArgumentException ex)
+                catch (ArgumentException)
                 {
-                    Console.WriteLine(ex.Message);
+                    
                 }
 
                 inputLine = Console.ReadLine();
@@ -123,9 +123,9 @@ namespace P04_Hospital.Core
                         }
                     }
                 }
-                catch (ArgumentException ex)
+                catch (ArgumentException)
                 {
-                    Console.WriteLine(ex.Message);
+                    
                 }
 
                 command = Console.ReadLine();
