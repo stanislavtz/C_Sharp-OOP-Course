@@ -4,22 +4,22 @@ namespace P05_GreedyTimes.Models
 {
     public class Bag
     {
-        private readonly List<Precious> bagContent;
+        private readonly Dictionary<string, List<IPrecious>> bagContent;
 
         public Bag(int capacity)
         {
             this.Capacity = capacity;
 
-            this.bagContent = new List<Precious>();
+            this.bagContent = new Dictionary<string, List<IPrecious>>();
         }
 
         public int Capacity { get; private set; }
 
-        public IReadOnlyCollection<Precious> BagContent => this.bagContent;
+        public IReadOnlyDictionary<string, List<IPrecious>> BagContent => this.bagContent;
 
-        public void AddPrecious(Precious precious)
+        public void AddPrecious(IPrecious precious)
         {
-            bagContent.Add(precious);
+            bagContent[precious.GetType().Name].Add(precious);
         }
     }
 }

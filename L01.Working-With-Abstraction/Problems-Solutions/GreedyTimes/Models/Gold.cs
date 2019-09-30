@@ -1,9 +1,7 @@
 ﻿namespace P05_GreedyTimes.Models
 {
-    public class Gold : Precious
+    public class Gold : IPrecious
     {
-        public Gold(int quantity) : base(quantity)
-        {
-        }
+        public int Quantity { get; private set; }
     }
 }

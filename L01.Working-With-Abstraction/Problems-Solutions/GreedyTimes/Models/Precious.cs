@@ -1,12 +1,12 @@
 ﻿namespace P05_GreedyTimes.Models
 {
-    public abstract class Precious
+    public class Precious : IPrecious
     {
-        public Precious(int quantity)
-        {
-            this.Count = quantity;
-        }
+        public int Quantity { get; private set; } = 0;
 
-        public int Count { get; private set; }
+        public void AddAmount(int amount)
+        {
+            this.Quantity += amount;
+        }
     }
 }

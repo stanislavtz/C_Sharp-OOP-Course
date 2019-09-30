@@ -8,7 +8,7 @@ namespace P05_GreedyTimes.Core
     {
         private PreciousFactory factory = new PreciousFactory();
 
-        private Precious precious;
+        private IPrecious precious;
 
         public void Run()
         {
@@ -24,7 +24,19 @@ namespace P05_GreedyTimes.Core
                 string typeOfPreciouse = caseArgs[i];
                 int preciouseQuantity = int.Parse(caseArgs[1]);
 
-                this.precious = factory.CreatePrecious(typeOfPreciouse, preciouseQuantity);
+                this.precious = factory.CreatePrecious(typeOfPreciouse);
+
+                if (precious.Quantity > bagCapacity)
+                {
+                    continue;
+                }
+                else
+                {
+                    if (true)
+                    {
+
+                    }
+                }
 
                 bag.AddPrecious(precious);
             }

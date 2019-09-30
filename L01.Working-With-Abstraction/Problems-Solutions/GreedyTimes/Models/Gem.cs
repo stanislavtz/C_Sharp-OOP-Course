@@ -1,11 +1,7 @@
 ﻿namespace P05_GreedyTimes.Models
 {
-    public class Gem : Precious
+    public class Gem : IPrecious
     {
-        public Gem(int quantity) 
-            : base(quantity)
-        {
-
-        }
+        public int Quantity { get; private set; }
     }
 }
