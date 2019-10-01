@@ -13,15 +13,15 @@ namespace P05_GreedyTimes.Factories
 
             if (typePR == "gold")
             {
-                precious = new Gold(qtty);
+                precious = new Gold(typeOfPreciouse, qtty);
             }
             else if (typePR.EndsWith("gem"))
             {
-                precious = new Gem(qtty);
+                precious = new Gem(typeOfPreciouse, qtty);
             }
-            else if (typePR.Length == 3 && typePR.All(ch => char.IsUpper(ch)))
+            else if (typePR.Length == 3)
             {
-                precious = new Cash(qtty);
+                precious = new Cash(typeOfPreciouse, qtty);
             }
 
             return precious;

@@ -19,7 +19,21 @@ namespace P05_GreedyTimes.Models
 
         public void AddPrecious(IPrecious precious)
         {
-            bagContent[precious.GetType().Name].Add(precious);
+            string preciouseType = precious.GetType().Name;
+
+            if (!this.bagContent.ContainsKey(preciouseType))
+            {
+                this.bagContent.Add(preciouseType, new List<IPrecious>());
+            }
+
+            if (!this.bagContent[preciouseType].Contains(precious))
+            {
+                this.bagContent[preciouseType].Add(precious);
+            }
+            else
+            {
+                this.bagContent[preciouseType][this.bagContent[preciouseType].IndexOf(precious)].Quantity += precious.Quantity;
+            }
         }
     }
 }

@@ -2,6 +2,8 @@
 {
     public interface IPrecious
     {
-        int Quantity { get; }
+        string Name { get; }
+
+        int Quantity { get; set; }
     }
 }
