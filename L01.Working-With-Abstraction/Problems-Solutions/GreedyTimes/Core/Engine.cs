@@ -16,8 +16,6 @@ namespace P05_GreedyTimes.Core
 
         public void Run()
         {
-
-
             int bagCapacity = int.Parse(Console.ReadLine());
 
             Bag bag = new Bag(bagCapacity);
