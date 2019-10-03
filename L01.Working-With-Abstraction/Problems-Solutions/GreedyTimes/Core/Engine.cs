@@ -1,25 +1,21 @@
 ﻿using P05_GreedyTimes.Factories;
 using P05_GreedyTimes.Models;
 using System;
-using System.Linq;
 
 namespace P05_GreedyTimes.Core
 {
     public class Engine
     {
-        private PreciousFactory factory = new PreciousFactory();
+        private readonly PreciousFactory factory = new PreciousFactory();
 
         private IPrecious precious;
-        private int totalGold;
-        private int totalGems;
-        private int totalCash;
 
         public void Run()
         {
             int bagCapacity = int.Parse(Console.ReadLine());
 
-            Bag bag = new Bag(bagCapacity);
-
+            Bag<IPrecious> bag = new Bag<IPrecious>(bagCapacity);
+            
             string[] caseArgs = Console.ReadLine()
                 .Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
@@ -32,41 +28,14 @@ namespace P05_GreedyTimes.Core
 
                 bag.AddPrecious(precious);
 
-                if (typeOfPrecious == "Gold")
+                if (typeOfPrecious.ToLower() == "gold")
                 {
-                    this.totalGold = bag.BagContent["Gold"].Sum(v => v.Quantity);
-                    bool isMoreThenBagCapacity = this.totalGold > bagCapacity;
-
-                    if (isMoreThenBagCapacity)
-                    {
-                        // ?????????????????????????????????????????
-                    }
-
-                    bag.AddPrecious(precious);
                 }
-                else if (typeOfPrecious == "Gem")
+                else if (typeOfPrecious.ToLower().EndsWith("gem"))
                 {
-                    this.totalGems = bag.BagContent["Gems"].Sum(v => v.Quantity) + preciousQuantity;
-                    bool IsMoreThenGold = this.totalGems > this.totalGold;
-
-                    if (IsMoreThenGold)
-                    {
-                        continue;
-                    }
-
-                    bag.AddPrecious(precious);
                 }
-                else if (typeOfPrecious == "Cash")
+                else if (typeOfPrecious.Length == 3)
                 {
-                    this.totalCash = bag.BagContent["Cash"].Sum(v => v.Quantity) + preciousQuantity;
-                    bool IsMoreThenGems = this.totalCash > this.totalGems;
-
-                    if (IsMoreThenGems)
-                    {
-                        continue;
-                    }
-
-                    bag.AddPrecious(precious);
                 }
             }
         }
