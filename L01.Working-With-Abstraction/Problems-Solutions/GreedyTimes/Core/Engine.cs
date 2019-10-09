@@ -15,10 +15,6 @@ namespace P05_GreedyTimes.Core
         {
             int bagCapacity = int.Parse(Console.ReadLine());
 
-            int currentGoldQtty = 0;
-            int currentGemsQtty = 0;
-            int currentCashQtty = 0;
-
             Bag bag = new Bag(bagCapacity);
             
             string[] caseArgs = Console.ReadLine()
@@ -32,6 +28,11 @@ namespace P05_GreedyTimes.Core
                 this.precious = factory.CreatePrecious(typeOfPrecious, preciousQuantity);
 
                 bag.AddPrecious(precious);
+            }
+
+            foreach (var item in bag.BagContent)
+            {
+                Console.WriteLine($"{item.Name} ==> {item.Quantity}");
             }
         }
     }

@@ -12,13 +12,12 @@ namespace P05_GreedyTimes.Models
             this.Quantity = qtty;
         }
 
-
         public string Name { get; private set; }
 
         public int Quantity
         {
             get => this.qtty;
-            private set
+            set
             {
                 if (value <= 0)
                 {
