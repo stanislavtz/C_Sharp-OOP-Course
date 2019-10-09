@@ -1,6 +1,7 @@
 ﻿using P05_GreedyTimes.Factories;
 using P05_GreedyTimes.Models;
 using System;
+using System.Reflection;
 
 namespace P05_GreedyTimes.Core
 {
@@ -14,7 +15,11 @@ namespace P05_GreedyTimes.Core
         {
             int bagCapacity = int.Parse(Console.ReadLine());
 
-            Bag<IPrecious> bag = new Bag<IPrecious>(bagCapacity);
+            int currentGoldQtty = 0;
+            int currentGemsQtty = 0;
+            int currentCashQtty = 0;
+
+            Bag bag = new Bag(bagCapacity);
             
             string[] caseArgs = Console.ReadLine()
                 .Split(" ", StringSplitOptions.RemoveEmptyEntries);
@@ -27,16 +32,6 @@ namespace P05_GreedyTimes.Core
                 this.precious = factory.CreatePrecious(typeOfPrecious, preciousQuantity);
 
                 bag.AddPrecious(precious);
-
-                if (typeOfPrecious.ToLower() == "gold")
-                {
-                }
-                else if (typeOfPrecious.ToLower().EndsWith("gem"))
-                {
-                }
-                else if (typeOfPrecious.Length == 3)
-                {
-                }
             }
         }
     }
