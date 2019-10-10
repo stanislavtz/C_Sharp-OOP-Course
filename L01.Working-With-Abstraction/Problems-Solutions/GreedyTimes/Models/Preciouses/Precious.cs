@@ -12,6 +12,6 @@ namespace P05_GreedyTimes.Models
 
         public string PreciousType { get; private set; }
 
-        public int Quantity { get; set; }
+        public int Quantity { get; internal set; }
     }
 }

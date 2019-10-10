@@ -32,7 +32,7 @@ namespace P05_GreedyTimes.Core
 
                 this.precious = factory.CreatePrecious(typeOfPrecious, preciousQuantity);
 
-                if (typeOfPrecious.ToLower() == "gold")
+                if (precious.PreciousType == "gold")
                 {
                     bool canAddGold = totalGoldQtty + precious.Quantity <= bagCapacity;
 
@@ -43,7 +43,7 @@ namespace P05_GreedyTimes.Core
                         totalGoldQtty = bag.GoldCollection.Sum(s => s.Quantity);
                     }
                 }
-                else if (typeOfPrecious.ToLower().EndsWith("gem"))
+                else if (precious.PreciousType.EndsWith("gem"))
                 {
                     bool canAddGem = totalGemQtty + precious.Quantity <= totalGoldQtty;
 
@@ -54,7 +54,7 @@ namespace P05_GreedyTimes.Core
                         totalGemQtty = bag.GemCollection.Sum(s => s.Quantity);
                     }
                 }
-                else if(typeOfPrecious.Length == 3)
+                else if(precious.PreciousType.Length == 3)
                 {
                     bool canAddCash = totalCashQtty + precious.Quantity <= totalGemQtty;
 

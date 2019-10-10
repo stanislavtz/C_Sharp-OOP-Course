@@ -31,7 +31,7 @@ namespace P05_GreedyTimes.Models
 
         public void AddGem(IPrecious precious)
         {
-            var currentPrecious = this.gemCollection.FirstOrDefault(p => p.PreciousType.ToLower() == precious.PreciousType.ToLower());
+            var currentPrecious = this.gemCollection.FirstOrDefault(p => p.PreciousType == precious.PreciousType);
 
             if (currentPrecious != null)
             {
@@ -45,7 +45,7 @@ namespace P05_GreedyTimes.Models
 
         public void AddCash(IPrecious precious)
         {
-            var currentPrecious = this.cashCollection.FirstOrDefault(p => p.PreciousType.ToLower() == precious.PreciousType.ToLower());
+            var currentPrecious = this.cashCollection.FirstOrDefault(p => p.PreciousType == precious.PreciousType);
 
             if (currentPrecious != null)
             {
