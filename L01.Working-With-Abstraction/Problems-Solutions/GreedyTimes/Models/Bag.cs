@@ -21,17 +21,17 @@ namespace P05_GreedyTimes.Models
 
         public void AddGold(IPrecious precious)
         {
-
+            this.goldCollection.Add((Gold)precious);
         }
 
         public void AddGem(IPrecious precious)
         {
-
+            this.gemCollection.Add((Gem)precious);
         }
 
         public void AddCash(IPrecious precious)
         {
-
+            this.cashCollection.Add((Cash)precious);
         }
     }
 }
