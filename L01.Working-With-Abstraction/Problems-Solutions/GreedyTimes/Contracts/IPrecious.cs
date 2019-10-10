@@ -2,7 +2,7 @@
 {
     public interface IPrecious
     {
-        string Name { get; }
+        string PreciousType { get; }
 
         int Quantity { get; }
     }

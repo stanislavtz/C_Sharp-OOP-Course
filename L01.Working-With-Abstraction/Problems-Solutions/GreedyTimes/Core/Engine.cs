@@ -1,8 +1,8 @@
-﻿using P05_GreedyTimes.Factories;
-using P05_GreedyTimes.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+
+using P05_GreedyTimes.Models;
+using P05_GreedyTimes.Factories;
 
 namespace P05_GreedyTimes.Core
 {
@@ -14,14 +14,16 @@ namespace P05_GreedyTimes.Core
 
         public void Run()
         {
-            int bagCapacity = int.Parse(Console.ReadLine());
+            int totalGoldQtty = 0;
+            int totalGemQtty = 0;
+            int totalCashQtty = 0;
 
-            int totalGold = 0;
+            int bagCapacity = int.Parse(Console.ReadLine());
 
             string[] caseArgs = Console.ReadLine()
                 .Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
-            Dictionary<string, List<IPrecious>> bag = new Dictionary<string, List<IPrecious>>();
+            Bag bag = new Bag(bagCapacity);
 
             for (int i = 0; i < caseArgs.Length; i += 2)
             {
@@ -30,26 +32,80 @@ namespace P05_GreedyTimes.Core
 
                 this.precious = factory.CreatePrecious(typeOfPrecious, preciousQuantity);
 
-                if (precious.GetType().Name == "Gold")
+                if (typeOfPrecious.ToLower() == "gold")
                 {
-                    if (!bag.ContainsKey("Gold"))
+                    bool canAddGold = totalGoldQtty + preciousQuantity <= bagCapacity;
+
+                    if (canAddGold)
                     {
-                        bag.Add("Gold", new List<IPrecious>());
+                        bag.AddGold(precious);
                     }
 
-                    bool isPossibleToAddGold = totalGold + precious.Quantity <= bagCapacity;
+                    totalGoldQtty = bag.GoldCollection.Sum(s => s.Quantity);
+                    bagCapacity -= totalGoldQtty;
+                }
+                else if (typeOfPrecious.ToLower().EndsWith("gem"))
+                {
+                    bool canAddGem = totalGemQtty + preciousQuantity <= totalGoldQtty;
 
-                    if (!isPossibleToAddGold)
+                    if (canAddGem)
                     {
-                        continue;
+                        bag.AddGem(precious);
                     }
-               
-                    bag["Gold"].Add(precious);
-                    totalGold = bag["Gold"].Sum(s => s.Quantity);
+
+                    totalGemQtty = bag.GemCollection.Sum(s => s.Quantity);
+                    bagCapacity -= totalGemQtty;
+                }
+                else if(typeOfPrecious.Length == 3)
+                {
+                    bool canAddCash = totalCashQtty + preciousQuantity <= totalGemQtty;
+
+                    if (canAddCash)
+                    {
+                        bag.AddCash(precious);
+                    }
+
+                    totalCashQtty = bag.CashCollection.Sum(s => s.Quantity);
+                    bagCapacity -= totalCashQtty;
                 }
             }
 
-            Console.WriteLine(totalGold);
+            PrintGoldInfo(totalGoldQtty);
+            PrintGemInfo(totalGemQtty, bag);
+            PrintCashInfo(totalCashQtty, bag);
+        }
+
+        private static void PrintCashInfo(int totalCashQtty, Bag bag)
+        {
+            if (totalCashQtty > 0)
+            {
+                Console.WriteLine($"<Cash> ${totalCashQtty}");
+                foreach (var item in bag.CashCollection.OrderByDescending(b => b.PreciousType).ThenBy(b => b.Quantity))
+                {
+                    Console.WriteLine($"##{item.PreciousType.ToUpper()} - {item.Quantity}");
+                }
+            }
+        }
+
+        private static void PrintGemInfo(int totalGemQtty, Bag bag)
+        {
+            if (totalGemQtty > 0)
+            {
+                Console.WriteLine($"<Gem> ${totalGemQtty}");
+                foreach (var item in bag.GemCollection.OrderByDescending(b => b.PreciousType).ThenBy(b => b.Quantity))
+                {
+                    Console.WriteLine($"##{item.PreciousType} - {item.Quantity}");
+                }
+            }
+        }
+
+        private static void PrintGoldInfo(int totalGoldQtty)
+        {
+            if (totalGoldQtty > 0)
+            {
+                Console.WriteLine($"<Gold> ${totalGoldQtty}");
+                Console.WriteLine($"##Gold - {totalGoldQtty}");
+            }
         }
     }
 }

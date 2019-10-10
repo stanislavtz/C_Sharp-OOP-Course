@@ -6,18 +6,18 @@ namespace P05_GreedyTimes.Models
     {
         private int qtty;
 
-        protected Precious(string name, int qtty)
+        protected Precious(string preciousType, int qtty)
         {
-            this.Name = name;
+            this.PreciousType = preciousType;
             this.Quantity = qtty;
         }
 
-        public string Name { get; private set; }
+        public string PreciousType { get; private set; }
 
         public int Quantity
         {
             get => this.qtty;
-            private set
+            internal set
             {
                 if (value <= 0)
                 {
