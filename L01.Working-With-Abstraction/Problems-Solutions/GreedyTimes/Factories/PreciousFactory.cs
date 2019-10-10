@@ -1,27 +1,26 @@
-﻿using System.Linq;
-using P05_GreedyTimes.Models;
+﻿using P05_GreedyTimes.Models;
 
 namespace P05_GreedyTimes.Factories
 {
     public class PreciousFactory
     {
-        private Precious precious;
+        private IPrecious precious;
 
-        public Precious CreatePrecious(string typeOfPreciouse, int qtty)
+        public IPrecious CreatePrecious(string typeOfPrecious, int qtty)
         {
-            string typePR = typeOfPreciouse.ToLower();
+            string typePR = typeOfPrecious.ToLower();
 
             if (typePR == "gold")
             {
-                precious = new Gold(typeOfPreciouse, qtty);
+                precious = new Gold(typeOfPrecious, qtty);
             }
             else if (typePR.EndsWith("gem"))
             {
-                precious = new Gem(typeOfPreciouse, qtty);
+                precious = new Gem(typeOfPrecious, qtty);
             }
             else if (typePR.Length == 3)
             {
-                precious = new Cash(typeOfPreciouse, qtty);
+                precious = new Cash(typeOfPrecious, qtty);
             }
 
             return precious;

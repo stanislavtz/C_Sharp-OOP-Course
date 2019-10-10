@@ -1,9 +1,13 @@
-﻿namespace P05_GreedyTimes.Models
+﻿using System.Collections.Generic;
+
+namespace P05_GreedyTimes.Models
 {
     public class Gold : Precious
     {
-        public Gold(string name, int qtty) 
-            : base(name, qtty)
+        private List<Gold> goldCollection;
+
+        public Gold(string goldType, int qtty) 
+            : base(goldType, qtty)
         {
         }
     }

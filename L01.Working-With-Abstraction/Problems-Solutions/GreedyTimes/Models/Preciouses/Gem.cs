@@ -1,9 +1,13 @@
-﻿namespace P05_GreedyTimes.Models
+﻿using System.Collections.Generic;
+
+namespace P05_GreedyTimes.Models
 {
     public class Gem : Precious
     {
-        public Gem(string name, int qtty) 
-            : base(name, qtty)
+        private List<Gem> gemCollection;
+
+        public Gem(string gemType, int qtty) 
+            : base(gemType, qtty)
         {
         }
     }

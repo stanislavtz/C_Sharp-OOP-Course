@@ -1,9 +1,13 @@
-﻿namespace P05_GreedyTimes.Models
+﻿using System.Collections.Generic;
+
+namespace P05_GreedyTimes.Models
 {
     public class Cash : Precious
     {
-        public Cash(string name, int qtty) 
-            : base(name, qtty)
+        private List<Cash> cashCollection;
+
+        public Cash(string cashType, int qtty) 
+            : base(cashType, qtty)
         {
         }
     }

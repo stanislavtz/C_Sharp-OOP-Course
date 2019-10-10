@@ -17,7 +17,7 @@ namespace P05_GreedyTimes.Models
         public int Quantity
         {
             get => this.qtty;
-            set
+            private set
             {
                 if (value <= 0)
                 {
