@@ -1,4 +1,5 @@
 ﻿using P05_GreedyTimes.Core;
+using P05_GreedyTimes.Factories;
 
 namespace P05_GreedyTimes
 {
@@ -7,7 +8,8 @@ namespace P05_GreedyTimes
     {
         static void Main(string[] args)
         {
-            Engine engine = new Engine();
+            PreciousFactory factory = new PreciousFactory();
+            Engine engine = new Engine(factory);
 
             engine.Run();
         }

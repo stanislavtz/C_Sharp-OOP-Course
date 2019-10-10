@@ -4,6 +4,6 @@
     {
         string PreciousType { get; }
 
-        int Quantity { get; }
+        long Quantity { get; set; }
     }
 }

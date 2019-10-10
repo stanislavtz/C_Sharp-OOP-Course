@@ -6,21 +6,27 @@ namespace P05_GreedyTimes.Factories
     {
         private IPrecious precious;
 
-        public IPrecious CreatePrecious(string typeOfPrecious, int qtty)
+        public IPrecious CreatePrecious(string preciousType, long qtty)
         {
-            string typePR = typeOfPrecious.ToLower();
+            string typePR = preciousType.ToLower();
 
+            //preciousType = char.ToUpper(typePR[0]) + typePR.Substring(1);
+            
             if (typePR == "gold")
             {
-                precious = new Gold(typePR, qtty);
+                precious = new Gold(preciousType, qtty);
             }
             else if (typePR.EndsWith("gem"))
             {
-                precious = new Gem(typePR, qtty);
+                precious = new Gem(preciousType, qtty);
             }
             else if (typePR.Length == 3)
             {
-                precious = new Cash(typePR, qtty);
+                precious = new Cash(preciousType.ToUpper(), qtty);
+            }
+            else
+            {
+                return null;
             }
 
             return precious;

@@ -4,7 +4,7 @@ namespace P05_GreedyTimes.Models
 {
     public abstract class Precious : IPrecious
     {
-        protected Precious(string preciousType, int qtty)
+        protected Precious(string preciousType, long qtty)
         {
             this.PreciousType = preciousType;
             this.Quantity = qtty;
@@ -12,6 +12,6 @@ namespace P05_GreedyTimes.Models
 
         public string PreciousType { get; private set; }
 
-        public int Quantity { get; internal set; }
+        public long Quantity { get; set; }
     }
 }
