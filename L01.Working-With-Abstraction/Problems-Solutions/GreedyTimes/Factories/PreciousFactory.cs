@@ -9,8 +9,6 @@ namespace P05_GreedyTimes.Factories
         public IPrecious CreatePrecious(string preciousType, long qtty)
         {
             string typePR = preciousType.ToLower();
-
-            //preciousType = char.ToUpper(typePR[0]) + typePR.Substring(1);
             
             if (typePR == "gold")
             {

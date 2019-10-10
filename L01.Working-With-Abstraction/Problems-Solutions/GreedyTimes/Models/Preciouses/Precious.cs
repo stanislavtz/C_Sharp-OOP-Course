@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace P05_GreedyTimes.Models
+﻿namespace P05_GreedyTimes.Models
 {
     public abstract class Precious : IPrecious
     {

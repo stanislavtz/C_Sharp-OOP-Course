@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Linq;
 
 using P05_GreedyTimes.Models;
 using P05_GreedyTimes.Factories;
-using System.Collections.Generic;
 
 namespace P05_GreedyTimes.Core
 {
