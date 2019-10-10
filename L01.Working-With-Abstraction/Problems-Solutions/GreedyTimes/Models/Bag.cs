@@ -31,9 +31,11 @@ namespace P05_GreedyTimes.Models
 
         public void AddGem(IPrecious precious)
         {
-            if (this.gemCollection.Any(p => p.PreciousType.ToLower() == precious.PreciousType.ToLower()))
+            var currentPrecious = this.gemCollection.FirstOrDefault(p => p.PreciousType.ToLower() == precious.PreciousType.ToLower());
+
+            if (currentPrecious != null)
             {
-                this.gemCollection.First(p => p.PreciousType.ToLower() == precious.PreciousType.ToLower()).Quantity += precious.Quantity;
+                currentPrecious.Quantity += precious.Quantity;
             }
             else
             {
@@ -43,10 +45,11 @@ namespace P05_GreedyTimes.Models
 
         public void AddCash(IPrecious precious)
         {
+            var currentPrecious = this.cashCollection.FirstOrDefault(p => p.PreciousType.ToLower() == precious.PreciousType.ToLower());
 
-            if (this.cashCollection.Any(p => p.PreciousType.ToLower() == precious.PreciousType.ToLower()))
+            if (currentPrecious != null)
             {
-                this.cashCollection.First(p => p.PreciousType.ToLower() == precious.PreciousType.ToLower()).Quantity += precious.Quantity;
+                currentPrecious.Quantity += precious.Quantity;
             }
             else
             {

@@ -2,9 +2,8 @@
 {
     public class Gem : Precious
     {
-
-        public Gem(string gemType, int qtty)
-            : base(gemType, qtty)
+        public Gem(string preciousType, int qtty) 
+            : base(preciousType, qtty)
         {
         }
     }

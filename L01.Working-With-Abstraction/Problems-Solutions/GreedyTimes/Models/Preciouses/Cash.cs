@@ -2,8 +2,8 @@
 {
     public class Cash : Precious
     {
-        public Cash(string cashType, int qtty) 
-            : base(cashType, qtty)
+        public Cash(string preciousType, int qtty) 
+            : base(preciousType, qtty)
         {
         }
     }

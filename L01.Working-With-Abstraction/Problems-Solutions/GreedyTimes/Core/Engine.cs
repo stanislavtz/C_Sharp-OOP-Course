@@ -34,39 +34,36 @@ namespace P05_GreedyTimes.Core
 
                 if (typeOfPrecious.ToLower() == "gold")
                 {
-                    bool canAddGold = totalGoldQtty + preciousQuantity <= bagCapacity;
+                    bool canAddGold = totalGoldQtty + precious.Quantity <= bagCapacity;
 
                     if (canAddGold)
                     {
                         bag.AddGold(precious);
+                        bagCapacity -= precious.Quantity;
+                        totalGoldQtty = bag.GoldCollection.Sum(s => s.Quantity);
                     }
-
-                    totalGoldQtty = bag.GoldCollection.Sum(s => s.Quantity);
-                    bagCapacity -= totalGoldQtty;
                 }
                 else if (typeOfPrecious.ToLower().EndsWith("gem"))
                 {
-                    bool canAddGem = totalGemQtty + preciousQuantity <= totalGoldQtty;
+                    bool canAddGem = totalGemQtty + precious.Quantity <= totalGoldQtty;
 
                     if (canAddGem)
                     {
                         bag.AddGem(precious);
+                        bagCapacity -= precious.Quantity;
+                        totalGemQtty = bag.GemCollection.Sum(s => s.Quantity);
                     }
-
-                    totalGemQtty = bag.GemCollection.Sum(s => s.Quantity);
-                    bagCapacity -= totalGemQtty;
                 }
                 else if(typeOfPrecious.Length == 3)
                 {
-                    bool canAddCash = totalCashQtty + preciousQuantity <= totalGemQtty;
+                    bool canAddCash = totalCashQtty + precious.Quantity <= totalGemQtty;
 
                     if (canAddCash)
                     {
                         bag.AddCash(precious);
+                        bagCapacity -= precious.Quantity;
+                        totalCashQtty = bag.CashCollection.Sum(s => s.Quantity);
                     }
-
-                    totalCashQtty = bag.CashCollection.Sum(s => s.Quantity);
-                    bagCapacity -= totalCashQtty;
                 }
             }
 
