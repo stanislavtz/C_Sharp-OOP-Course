@@ -29,63 +29,32 @@ namespace P05_GreedyTimes.Models
             if (precious != null)
             {
                 this.preciousType = precious.PreciousType;
-            }
-            else
-            {
-                return;
-            }
-
-            if (preciousType == "Gold")
-            {
-                bool canAddGold = this.totalGoldQtty + precious.Quantity <= this.Capacity;
-
-                if (canAddGold)
+                if (preciousType.ToLower() == "gold")
                 {
-                    this.bagContent.Add(precious);
-                    this.totalGoldQtty += precious.Quantity;
-                    this.Capacity -= precious.Quantity;
+                    bool canAddGol = this.totalGoldQtty + precious.Quantity <= this.Capacity;
+
+                    if (canAddGol)
+                    {
+                        this.totalGoldQtty  = AddCurrentPrrecious(precious, this.totalGoldQtty);
+                    }
                 }
-            }
-            else if (this.preciousType.ToLower().EndsWith("gem"))
-            {
-                bool canAddGems = this.totalGemsQtty + precious.Quantity <= this.totalGoldQtty;
-
-                if (canAddGems)
+                else if (this.preciousType.ToLower().EndsWith("gem"))
                 {
-                    var serachedPrecious = bagContent.FirstOrDefault(p => p.PreciousType.ToLower() == this.preciousType.ToLower());
+                    bool canAddGems = this.totalGemsQtty + precious.Quantity <= this.totalGoldQtty;
 
-                    if (serachedPrecious == null)
+                    if (canAddGems)
                     {
-                        this.bagContent.Add(precious);
+                        this.totalGemsQtty = AddCurrentPrrecious(precious, this.totalGemsQtty);
                     }
-                    else
-                    {
-                        serachedPrecious.Quantity += precious.Quantity;
-                    }
-
-                    this.totalGemsQtty += precious.Quantity;
-                    this.Capacity -= precious.Quantity;
                 }
-            }
-            else if (this.preciousType.Length == 3)
-            {
-                bool canAddCash = this.totalCashQtty + precious.Quantity <= this.totalGemsQtty;
-
-                if (canAddCash)
+                else if (this.preciousType.ToLower().Length == 3)
                 {
-                    var serachedPrecious = bagContent.FirstOrDefault(p => p.PreciousType == this.preciousType);
+                    bool canAddCash = this.totalCashQtty + precious.Quantity <= this.totalGemsQtty;
 
-                    if (serachedPrecious == null)
+                    if (canAddCash)
                     {
-                        this.bagContent.Add(precious);
+                        this.totalCashQtty = AddCurrentPrrecious(precious, this.totalCashQtty);
                     }
-                    else
-                    {
-                        serachedPrecious.Quantity += precious.Quantity;
-                    }
-
-                    this.totalCashQtty += precious.Quantity;
-                    this.Capacity -= precious.Quantity;
                 }
             }
         }
@@ -94,7 +63,7 @@ namespace P05_GreedyTimes.Models
         {
 
             IPrecious[] goldCollection = this.bagContent
-                .Where(b => b.PreciousType == "Gold")
+                .Where(b => b.PreciousType.ToLower() == "gold")
                 .OrderByDescending(b => b.PreciousType)
                 .ThenBy(b => b.Quantity)
                 .ToArray();
@@ -115,29 +84,50 @@ namespace P05_GreedyTimes.Models
 
             if (totalGoldQtty > 0)
             {
-                sb.AppendLine($"<Gold> ${totalGoldQtty}")
-                    .AppendLine($"##Gold - {totalGoldQtty}");
+                AppendPrecious(goldCollection, sb, totalGoldQtty);
             }
 
             if (totalGemsQtty > 0)
             {
-                sb.AppendLine($"<Gem> ${totalGemsQtty}");
-                foreach (var item in gemsCollection)
-                {
-                    sb.AppendLine($"##{item.PreciousType} - {item.Quantity}");
-                }
+                AppendPrecious(gemsCollection, sb, totalGemsQtty);
             }
 
             if (totalCashQtty > 0)
             {
-                sb.AppendLine($"<Cash> ${totalCashQtty}");
-                foreach (var item in cashCollection)
-                {
-                    sb.AppendLine($"##{item.PreciousType} - {item.Quantity}");
-                }
+                AppendPrecious(cashCollection, sb, totalCashQtty);
             }
 
             return sb.ToString().TrimEnd();
+        }
+
+        private long AddCurrentPrrecious(IPrecious precious, long totalPreciousQtty)
+        {
+            var serachedPrecious = bagContent.FirstOrDefault(p => p.PreciousType.ToLower() == this.preciousType.ToLower());
+
+            if (serachedPrecious == null)
+            {
+                this.bagContent.Add(precious);
+            }
+            else
+            {
+                serachedPrecious.Quantity += precious.Quantity;
+            }
+
+            totalPreciousQtty += precious.Quantity;
+            this.Capacity -= precious.Quantity;
+
+            return totalPreciousQtty;
+        }
+
+        private void AppendPrecious(IPrecious[] collection, StringBuilder sb, long totalPreciosQtty)
+        {
+            var precious = collection[0].GetType().Name;
+
+            sb.AppendLine($"<{precious}> ${totalPreciosQtty}");
+            foreach (var item in collection)
+            {
+                sb.AppendLine($"##{item.PreciousType} - {item.Quantity}");
+            }
         }
     }
 }

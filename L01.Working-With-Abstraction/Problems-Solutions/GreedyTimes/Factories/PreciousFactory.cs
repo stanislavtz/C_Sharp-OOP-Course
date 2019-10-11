@@ -20,7 +20,7 @@ namespace P05_GreedyTimes.Factories
             }
             else if (typePR.Length == 3)
             {
-                precious = new Cash(preciousType.ToUpper(), qtty);
+                precious = new Cash(preciousType, qtty);
             }
             else
             {
