@@ -7,7 +7,7 @@ namespace P05_GreedyTimes.Models
 {
     public class Bag
     {
-        private List<IPrecious> bagContent;
+        private readonly List<IPrecious> bagContent;
 
         private long totalGoldQtty = 0;
         private long totalGemsQtty = 0;
