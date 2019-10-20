@@ -10,7 +10,6 @@
         {
             Type type = typeof(HarvestingFields);
 
-            Console.WriteLine(type.Name);
             FieldInfo[] fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
 
             string input = Console.ReadLine();
