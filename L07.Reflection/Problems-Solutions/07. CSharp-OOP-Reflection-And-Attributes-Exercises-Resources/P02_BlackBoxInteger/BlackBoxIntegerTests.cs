@@ -6,7 +6,9 @@
     {
         public static void Main()
         {
-            //TODO put your reflection code here
+            Type type = typeof(BlackBoxInteger);
+
+
         }
     }
 }
