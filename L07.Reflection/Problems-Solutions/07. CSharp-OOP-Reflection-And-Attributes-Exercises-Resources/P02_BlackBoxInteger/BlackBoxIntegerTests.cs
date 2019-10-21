@@ -1,7 +1,6 @@
 ﻿namespace P02_BlackBoxInteger
 {
     using System;
-    using System.Linq;
     using System.Reflection;
 
     public class BlackBoxIntegerTests
@@ -12,8 +11,6 @@
 
             var instance = Activator.CreateInstance(type, true);
 
-            var methods = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance);
-
             string input = Console.ReadLine();
 
             while (input != "END")
@@ -23,7 +20,7 @@
                 var methodName = inputArgs[0];
                 var inputValue = int.Parse(inputArgs[1]);
 
-                var currentMethod = methods.FirstOrDefault(x => x.Name == methodName);
+                var currentMethod = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
 
                 currentMethod.Invoke(instance, new object[] { inputValue });
 
