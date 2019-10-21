@@ -8,7 +8,7 @@
     {
         public static void Main()
         {
-            Type type = typeof(HarvestingFields);
+            Type type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(x => x.Name == nameof(HarvestingFields));
 
             FieldInfo[] fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
 
@@ -29,7 +29,7 @@
                     case "public":
                         fieldInfosToPrint = fieldInfos.Where(x => x.IsPublic).ToArray();
                         break;
-                    default:
+                    case "all":
                         fieldInfosToPrint = fieldInfos;
                         break;
                 }
