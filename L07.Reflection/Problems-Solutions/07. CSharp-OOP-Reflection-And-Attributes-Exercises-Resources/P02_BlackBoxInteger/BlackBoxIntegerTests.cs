@@ -9,22 +9,22 @@
         {
             Type type = typeof(BlackBoxInteger);
 
-            var instance = Activator.CreateInstance(type, true);
+            object instance = Activator.CreateInstance(type, true);
 
             string input = Console.ReadLine();
 
             while (input != "END")
             {
-                var inputArgs = input.Split("_");
+                string[] inputArgs = input.Split("_");
 
-                var methodName = inputArgs[0];
-                var inputValue = int.Parse(inputArgs[1]);
+                string methodName = inputArgs[0];
+                int inputValue = int.Parse(inputArgs[1]);
 
-                var currentMethod = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+                MethodInfo currentMethod = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
 
                 currentMethod.Invoke(instance, new object[] { inputValue });
 
-                var field = type.GetField("innerValue", BindingFlags.NonPublic | BindingFlags.Instance);
+                FieldInfo field = type.GetField("innerValue", BindingFlags.NonPublic | BindingFlags.Instance);
 
                 Console.WriteLine(field.GetValue(instance));
 
