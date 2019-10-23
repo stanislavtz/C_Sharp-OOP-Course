@@ -14,6 +14,11 @@
 
             Type currentUniteType = assembly.GetTypes().FirstOrDefault(x => x.Name == unitType);
 
+            if (currentUniteType == null)
+            {
+                throw new ArgumentException("Invalid unit!");
+            }
+
             IUnit unit = (Unit)Activator.CreateInstance(currentUniteType);
 
             return unit; 

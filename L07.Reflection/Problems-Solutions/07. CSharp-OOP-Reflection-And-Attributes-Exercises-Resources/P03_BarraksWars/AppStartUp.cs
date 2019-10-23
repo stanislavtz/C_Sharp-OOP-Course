@@ -1,16 +1,20 @@
 ﻿namespace _03BarracksFactory
 {
-    using Contracts;
-    using Core;
-    using Core.Factories;
     using Data;
+    using Core;
+    using Contracts;
+    using Core.Factories;
+    using System.Collections;
+    using System.Collections.Generic;
 
-    class AppEntryPoint
+    class AppStartUp
     {
         static void Main(string[] args)
         {
-            IRepository repository = new UnitRepository();
+            IDictionary<string, int> army = new SortedDictionary<string, int>();
+            IRepository repository = new UnitRepository(army);
             IUnitFactory unitFactory = new UnitFactory();
+
             IRunnable engine = new Engine(repository, unitFactory);
             engine.Run();
         }

@@ -3,7 +3,7 @@
     using System;
     using Contracts;
 
-    public class Unit : IUnit
+    public abstract class Unit : IUnit
     {
         private int health;
         private int attackDamage;
