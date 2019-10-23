@@ -16,10 +16,7 @@
 
         public int AttackDamage
         {
-            get
-            {
-                return this.attackDamage;
-            }
+            get => this.attackDamage;
 
             private set
             {
@@ -34,10 +31,7 @@
 
         public int Health
         {
-            get
-            {
-                return this.health;
-            }
+            get => this.health;
 
             set
             {

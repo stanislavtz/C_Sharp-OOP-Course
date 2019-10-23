@@ -26,9 +26,9 @@
                     string result = InterpredCommand(data, commandName);
                     Console.WriteLine(result);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
