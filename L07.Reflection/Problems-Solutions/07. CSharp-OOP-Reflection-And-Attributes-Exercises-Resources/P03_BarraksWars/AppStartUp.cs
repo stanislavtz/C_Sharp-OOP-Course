@@ -4,7 +4,6 @@
     using Core;
     using Contracts;
     using Core.Factories;
-    using System.Collections;
     using System.Collections.Generic;
 
     class AppStartUp
