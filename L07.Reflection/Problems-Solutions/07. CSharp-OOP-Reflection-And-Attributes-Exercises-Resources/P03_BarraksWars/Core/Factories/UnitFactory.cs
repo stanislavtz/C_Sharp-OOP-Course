@@ -3,8 +3,9 @@
     using System;
     using System.Linq;
     using System.Reflection;
-    using _03BarracksFactory.Models.Units;
+
     using Contracts;
+    using Models.Units;
 
     public class UnitFactory : IUnitFactory
     {

@@ -1,6 +1,4 @@
-﻿using _03BarracksFactory.Models.Units;
-
-namespace P03_BarraksWars.Models.Units
+﻿namespace _03BarracksFactory.Models.Units
 {
     public class Gunner: Unit
     {

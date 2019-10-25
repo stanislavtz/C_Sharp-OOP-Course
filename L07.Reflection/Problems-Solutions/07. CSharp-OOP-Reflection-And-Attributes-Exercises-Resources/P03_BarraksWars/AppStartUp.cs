@@ -11,10 +11,10 @@
         static void Main(string[] args)
         {
             IDictionary<string, int> army = new SortedDictionary<string, int>();
-            IRepository repository = new UnitRepository(army);
+            IRepository unitRepository = new UnitRepository(army);
             IUnitFactory unitFactory = new UnitFactory();
 
-            IRunnable engine = new Engine(repository, unitFactory);
+            IRunnable engine = new Engine(unitRepository, unitFactory);
             engine.Run();
         }
     }

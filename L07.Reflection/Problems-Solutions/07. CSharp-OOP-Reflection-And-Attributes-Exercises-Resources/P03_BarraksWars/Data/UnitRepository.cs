@@ -1,9 +1,10 @@
 ﻿namespace _03BarracksFactory.Data
 {
     using System;
-    using Contracts;
     using System.Text;
     using System.Collections.Generic;
+
+    using Contracts;
 
     class UnitRepository : IRepository
     {
@@ -19,7 +20,7 @@
         public void AddUnit(IUnit unit)
         {
             string unitType = unit.GetType().Name;
-           
+
             if (!this.army.ContainsKey(unitType))
             {
                 this.army.Add(unitType, 0);
@@ -30,8 +31,17 @@
 
         public void RemoveUnit(string unitType)
         {
-            //TODO: implement for Problem 4
-            throw new NotImplementedException();
+            if (!this.army.ContainsKey(unitType))
+            {
+                throw new ArgumentException("No such units in repository.");
+            }
+           
+            this.army[unitType]--;
+
+            if (this.army[unitType] == 0)
+            {
+                this.army.Remove(unitType);
+            }
         }
 
         private string CreateStatistics()
@@ -40,12 +50,10 @@
 
             foreach (var entry in army)
             {
-                string formatedEntry = $"{entry.Key} -> {entry.Value}";
-
-                statBuilder.AppendLine(formatedEntry);
+                statBuilder.AppendLine($"{entry.Key} -> {entry.Value}");
             }
 
-            return statBuilder.ToString().Trim();
+            return statBuilder.ToString().TrimEnd();
         }
     }
 }

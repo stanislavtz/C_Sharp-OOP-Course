@@ -5,12 +5,12 @@
 
     class Engine : IRunnable
     {
-        private IRepository repository;
+        private IRepository unitRepository;
         private IUnitFactory unitFactory;
 
-        public Engine(IRepository repository, IUnitFactory unitFactory)
+        public Engine(IRepository unitRepository, IUnitFactory unitFactory)
         {
-            this.repository = repository;
+            this.unitRepository = unitRepository;
             this.unitFactory = unitFactory;
         }
         
@@ -33,10 +33,11 @@
             }
         }
 
-        // TODO: refactor for Problem 4
+        // TODO: refactor for Problem 4 - with Reflection
         private string InterpredCommand(string[] data, string commandName)
         {
             string result = string.Empty;
+
             switch (commandName)
             {
                 case "add":
@@ -45,19 +46,32 @@
                 case "report":
                     result = this.ReportCommand(data);
                     break;
+                case "retire":
+                    result = this.RetireCommand(data);
+                    break;
                 case "fight":
                     Environment.Exit(0);
                     break;
                 default:
                     throw new InvalidOperationException("Invalid command!");
             }
+
             return result;
         }
 
+        private string RetireCommand(string[] data)
+        {
+            string unitType = data[1];
+            this.unitRepository.RemoveUnit(unitType);
+
+            return $"{unitType} retired!";
+
+        }
 
         private string ReportCommand(string[] data)
         {
-            string output = this.repository.Statistics;
+            string output = this.unitRepository.Statistics;
+
             return output;
         }
 
@@ -66,9 +80,9 @@
         {
             string unitType = data[1];
             IUnit unitToAdd = this.unitFactory.CreateUnit(unitType);
-            this.repository.AddUnit(unitToAdd);
-            string output = unitType + " added!";
-            return output;
+            this.unitRepository.AddUnit(unitToAdd);
+
+            return $"{unitType} added!";
         }
     }
 }
