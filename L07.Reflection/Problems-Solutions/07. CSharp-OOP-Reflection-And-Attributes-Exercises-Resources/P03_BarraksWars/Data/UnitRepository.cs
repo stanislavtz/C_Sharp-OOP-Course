@@ -8,7 +8,7 @@
 
     class UnitRepository : IRepository
     {
-        private IDictionary<string, int> army;
+        private readonly IDictionary<string, int> army;
 
         public UnitRepository(IDictionary<string, int> army)
         {

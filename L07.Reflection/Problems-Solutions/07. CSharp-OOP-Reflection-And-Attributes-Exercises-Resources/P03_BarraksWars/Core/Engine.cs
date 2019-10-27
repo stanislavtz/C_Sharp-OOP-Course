@@ -44,11 +44,20 @@
                 .GetTypes()
                 .FirstOrDefault(x => x.Name.ToLower() == commandName + "command");
 
-            var instance = (Command)Activator.CreateInstance(type, new object[] { data, this.unitFactory, this.unitRepository });
+            var instance = Activator.CreateInstance(type, new object[] { data, this.unitFactory, this.unitRepository });
 
-            string result = instance.Execute();
+            var method = type.GetMethod("Execute");
 
-            return result;
+            try
+            {
+                var result = method.Invoke(instance, null) as string;
+             
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return ex.InnerException.Message;
+            }
         }
     }
 }
