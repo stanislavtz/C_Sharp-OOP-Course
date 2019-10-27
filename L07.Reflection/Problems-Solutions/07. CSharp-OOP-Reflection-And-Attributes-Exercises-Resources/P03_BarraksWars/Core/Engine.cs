@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Reflection;
+
     using Contracts;
     using P03_BarraksWars.Core.Commands;
 
@@ -38,7 +39,6 @@
 
         private string InterpredCommand(string[] data, string commandName)
         {
-
             Type type = Assembly
                 .GetExecutingAssembly()
                 .GetTypes()
