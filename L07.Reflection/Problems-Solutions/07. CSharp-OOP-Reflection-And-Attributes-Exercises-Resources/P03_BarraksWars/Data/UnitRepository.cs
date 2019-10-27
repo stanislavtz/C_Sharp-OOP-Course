@@ -31,17 +31,12 @@
 
         public void RemoveUnit(string unitType)
         {
-            if (!this.army.ContainsKey(unitType))
+            if (!this.army.ContainsKey(unitType) || this.army[unitType] == 0)
             {
                 throw new ArgumentException("No such units in repository.");
             }
            
             this.army[unitType]--;
-
-            if (this.army[unitType] == 0)
-            {
-                this.army.Remove(unitType);
-            }
         }
 
         private string CreateStatistics()
