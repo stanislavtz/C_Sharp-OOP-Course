@@ -4,9 +4,9 @@ namespace P03_BarraksWars.Core.Commands
 {
     public abstract class Command : IExecutable
     {
-        private string[] data;
-        private IUnitFactory unitFactory;
-        private IRepository unitRepository;
+        private readonly string[] data;
+        private readonly IUnitFactory unitFactory;
+        private readonly IRepository unitRepository;
 
         protected Command(string[] data, IUnitFactory unitFactory, IRepository unitRepository)
         {
