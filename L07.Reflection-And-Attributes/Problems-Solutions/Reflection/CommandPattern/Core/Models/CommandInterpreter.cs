@@ -34,9 +34,9 @@ namespace CommandPattern.Core.Models
                 throw new ArgumentException("Invalid command!");
             }
 
-            var command = (ICommand)Activator
-                .CreateInstance(currentCommandType, new object[] { });
-
+                var command = (ICommand)Activator
+                    .CreateInstance(currentCommandType, new object[] { });
+            
             return command.Execute(commandArgs);
         }
     }
