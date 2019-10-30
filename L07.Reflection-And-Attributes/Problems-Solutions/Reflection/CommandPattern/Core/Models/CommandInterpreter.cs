@@ -22,8 +22,7 @@ namespace CommandPattern.Core.Models
                 .Skip(1)
                 .ToArray();
 
-            Assembly assembly = Assembly
-                .GetExecutingAssembly();
+            Assembly assembly = Assembly.GetCallingAssembly();
 
             Type currentCommandType = assembly
                 .GetTypes()
@@ -31,12 +30,12 @@ namespace CommandPattern.Core.Models
 
             if (currentCommandType == null)
             {
-                throw new ArgumentException("Invalid command!");
+                throw new ArgumentException("Invalid type!");
             }
 
-                var command = (ICommand)Activator
-                    .CreateInstance(currentCommandType, new object[] { });
-            
+            var command = (ICommand)Activator
+                .CreateInstance(currentCommandType);
+
             return command.Execute(commandArgs);
         }
     }

@@ -16,17 +16,22 @@ namespace CommandPattern.Core.Models
         {
             while (true)
             {
-                string inputLine = Console.ReadLine();
-
                 try
                 {
-                    Console.WriteLine(this.commandInterpreter.Read(inputLine));
+                    string inputLine = Console.ReadLine();
+
+                    string result = this.commandInterpreter.Read(inputLine);
+
+                    Console.WriteLine(result);
+                }
+                catch (ArgumentNullException anx)
+                {
+                    Console.WriteLine(anx.Message);
                 }
                 catch (ArgumentException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
-
             }
         }
     }

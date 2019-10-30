@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+
 using CommandPattern.Core.Contracts;
 
 namespace CommandPattern.Core.Models
@@ -12,17 +13,20 @@ namespace CommandPattern.Core.Models
             {
                 if (item.Any(x => !char.IsDigit(x)))
                 {
-                    throw new ArgumentException("The arguments should be numbers!");
+                    throw new ArgumentException("Arguments should be numbers!", item);
                 }
+
             }
 
-            int[] array = args
+            int[] numbers = args
                 .Select(int.Parse)
                 .ToArray();
 
-            int sum = array.Sum();
+            int sum = numbers.Sum();
 
-            return $"Sum : {sum}";
+            string result = $"The sum is: {sum}";
+
+            return result;
         }
     }
 }
