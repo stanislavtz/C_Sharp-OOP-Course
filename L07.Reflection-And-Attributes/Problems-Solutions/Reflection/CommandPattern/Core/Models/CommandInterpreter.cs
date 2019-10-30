@@ -16,6 +16,11 @@ namespace CommandPattern.Core.Models
                 .Split(" ", StringSplitOptions.RemoveEmptyEntries)
                 .ToArray();
 
+            if (tokens.Length == 0)
+            {
+                throw new IndexOutOfRangeException("Invalid input!");
+            }
+
             string commandName = tokens[0] + COMMAND_POSTFIX;
 
             string[] commandArgs = tokens

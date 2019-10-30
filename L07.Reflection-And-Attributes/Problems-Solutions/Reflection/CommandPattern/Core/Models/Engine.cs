@@ -24,6 +24,10 @@ namespace CommandPattern.Core.Models
 
                     Console.WriteLine(result);
                 }
+                catch (IndexOutOfRangeException iex)
+                {
+                    Console.WriteLine(iex.Message);
+                }
                 catch (ArgumentNullException anx)
                 {
                     Console.WriteLine(anx.Message);
