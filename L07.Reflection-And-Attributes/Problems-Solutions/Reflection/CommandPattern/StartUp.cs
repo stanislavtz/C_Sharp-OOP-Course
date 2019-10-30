@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommandPattern.Core.Models;
+using CommandPattern.Core.Contracts;
 
 namespace CommandPattern
 {
@@ -6,9 +7,9 @@ namespace CommandPattern
     {
         public static void Main(string[] args)
         {
-            //ICommandInterpreter command = new CommandInterpreter();
-            //IEngine engine = new Engine(command);
-            //engine.Run();
+            ICommandInterpreter commandInterpreter = new CommandInterpreter();
+            IEngine engine = new Engine(commandInterpreter);
+            engine.Run();
         }
     }
 }
