@@ -1,6 +1,7 @@
-﻿using Inferno_Infinity.Weapons;
+﻿using System;
+
+using Inferno_Infinity.Weapons;
 using Inferno_Infinity.Weapons.Contracts;
-using System;
 
 namespace Inferno_Infinity.Core
 {
