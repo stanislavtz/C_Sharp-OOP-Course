@@ -1,4 +1,7 @@
-﻿using Inferno_Infinity.Core;
+﻿using System.Collections.Generic;
+
+using Inferno_Infinity.Core;
+using Inferno_Infinity.Weapons.Contracts;
 
 namespace Inferno_Infinity
 {
@@ -6,7 +9,8 @@ namespace Inferno_Infinity
     {
         static void Main(string[] args)
         {
-            var engine = new CodeExecute();
+            IReadOnlyCollection<IWeapon> weapons = new List<IWeapon>();
+            var engine = new CodeExecute(weapons as IList<IWeapon>);
             engine.Run();
         }
     }

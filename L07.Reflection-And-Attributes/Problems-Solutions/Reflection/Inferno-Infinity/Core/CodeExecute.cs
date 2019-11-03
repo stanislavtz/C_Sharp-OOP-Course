@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Inferno_Infinity.Weapons;
 using Inferno_Infinity.Weapons.Contracts;
@@ -8,7 +9,14 @@ namespace Inferno_Infinity.Core
     public class CodeExecute
     {
         private string weaponName;
+        private readonly IList<IWeapon> weapons;
 
+        public CodeExecute(IList<IWeapon> weapons)
+        {
+            this.weapons = weapons;
+        }
+
+       
         public void Run()
         {
             string input = Console.ReadLine();
@@ -25,6 +33,8 @@ namespace Inferno_Infinity.Core
                     this.weaponName = args[2];
 
                     IWeapon weapon = new WeaponFactory().CreateWeapon(weaponType, this.weaponName);
+
+                    this.weapons.Add(weapon);
                 }
                 else if (args[0] == "Add")
                 {
