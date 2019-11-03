@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+
 using Inferno_Infinity.Weapons.Contracts;
 
 namespace Inferno_Infinity.Weapons

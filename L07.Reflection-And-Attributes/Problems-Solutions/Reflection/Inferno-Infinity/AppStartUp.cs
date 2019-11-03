@@ -1,5 +1,4 @@
 ﻿using Inferno_Infinity.Core;
-using System;
 
 namespace Inferno_Infinity
 {
