@@ -10,14 +10,18 @@ namespace Inferno_Infinity.Weapons
     {
         public IWeapon CreateWeapon(string weaponType, string name)
         {
-            Type type = Assembly.GetCallingAssembly().GetTypes().FirstOrDefault(x => x.Name == weaponType);
+            Type type = Assembly
+                .GetCallingAssembly()
+                .GetTypes()
+                .FirstOrDefault(x => x.Name == weaponType);
 
             if (type == null)
             {
                 throw new ArgumentException();
             }
 
-            var instance = (IWeapon)Activator.CreateInstance(type, name);
+            var instance = (IWeapon)Activator
+                .CreateInstance(type, name);
 
             return instance;
         }
