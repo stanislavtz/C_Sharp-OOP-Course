@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using System.Collections.Generic;
 
 using Inferno_Infinity.Weapons;
@@ -15,7 +17,6 @@ namespace Inferno_Infinity.Core
         {
             this.weapons = weapons;
         }
-
        
         public void Run()
         {
@@ -32,7 +33,16 @@ namespace Inferno_Infinity.Core
 
                     this.weaponName = args[2];
 
-                    IWeapon weapon = new WeaponFactory().CreateWeapon(weaponType, this.weaponName);
+                    IWeapon weapon = new WeaponFactory()
+                        .CreateWeapon(weaponType, this.weaponName);
+
+                    Type type = Assembly
+                        .GetCallingAssembly()
+                        .GetTypes()
+                        .FirstOrDefault(x => x.Name == weaponRarity);
+
+                    var instance = Activator
+                        .CreateInstance(type, weapon);
 
                     this.weapons.Add(weapon);
                 }
