@@ -8,7 +8,7 @@ namespace Inferno_Infinity.Weapons
 {
     public class WeaponFactory
     {
-        public IWeapon CreateWeapon(string weaponType, string name)
+        public IWeapon CreateWeapon(string weaponType, string weaponRarity, string name)
         {
             Type type = Assembly
                 .GetCallingAssembly()
@@ -20,10 +20,18 @@ namespace Inferno_Infinity.Weapons
                 throw new ArgumentException();
             }
 
-            var instance = (IWeapon)Activator
+            var weapon = (IWeapon)Activator
                 .CreateInstance(type, name);
 
-            return instance;
+            Type rarityType = Assembly
+                        .GetCallingAssembly()
+                        .GetTypes()
+                        .FirstOrDefault(x => x.Name == weaponRarity);
+
+            var rarityInstance = Activator
+                .CreateInstance(rarityType, weapon);
+
+            return weapon;
         }
     }
 }

@@ -34,15 +34,7 @@ namespace Inferno_Infinity.Core
                     this.weaponName = args[2];
 
                     IWeapon weapon = new WeaponFactory()
-                        .CreateWeapon(weaponType, this.weaponName);
-
-                    Type type = Assembly
-                        .GetCallingAssembly()
-                        .GetTypes()
-                        .FirstOrDefault(x => x.Name == weaponRarity);
-
-                    var instance = Activator
-                        .CreateInstance(type, weapon);
+                        .CreateWeapon(weaponType, weaponRarity, this.weaponName);
 
                     this.weapons.Add(weapon);
                 }
