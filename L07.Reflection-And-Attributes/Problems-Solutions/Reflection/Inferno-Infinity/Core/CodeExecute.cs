@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 using System.Collections.Generic;
 
 using Inferno_Infinity.Weapons;
@@ -42,8 +41,12 @@ namespace Inferno_Infinity.Core
                 {
                     this.weaponName = args[1];
 
+                    var currentWeapon = this.weapons.FirstOrDefault(x => x.Name == this.weaponName);
+
                     int soketIndex = int.Parse(args[2]);
-                    string gemName = args[3];
+
+                    string gemType = args[3].Split()[0];
+                    string gemName = args[3].Split()[1];
                 }
                 else if (args[0] == "Remove")
                 {

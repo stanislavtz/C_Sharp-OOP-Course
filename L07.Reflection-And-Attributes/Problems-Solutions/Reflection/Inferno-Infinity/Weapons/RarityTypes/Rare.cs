@@ -6,7 +6,7 @@ namespace Inferno_Infinity.WeaponRarities
     {
         private const int CHANGE_COEFICIENT = 3;
 
-        private IWeapon weapon;
+        private readonly IWeapon weapon;
 
         public Rare(IWeapon weapon)
         {

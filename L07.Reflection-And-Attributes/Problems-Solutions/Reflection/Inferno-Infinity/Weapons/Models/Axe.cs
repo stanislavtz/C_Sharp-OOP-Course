@@ -6,7 +6,7 @@
         private const int MAX_DAMAGE = 10;
         private const int NUM_SOCKETS = 4;
 
-        public Axe(string name) 
+        public Axe(string name)
             : base(name, MIN_DAMAGE, MAX_DAMAGE, NUM_SOCKETS)
         {
         }
