@@ -11,14 +11,16 @@ namespace Inferno_Infinity.Gems.ClarityTypes
         public Chipped(IGem gem)
         {
             this.gem = gem;
-            this.increaseGemStats(this.gem);
+            this.increaseGemStats();
         }
 
-        private void increaseGemStats(IGem gem)
+        private IGem increaseGemStats()
         {
-            gem.StrenghtIncreaseValue += COEFICIENT;
-            gem.AgilityIncreaseValue += COEFICIENT;
-            gem.VitalityIncreaseValue += COEFICIENT;
+            this.gem.StrenghtIncreaseValue += COEFICIENT;
+            this.gem.AgilityIncreaseValue += COEFICIENT;
+            this.gem.VitalityIncreaseValue += COEFICIENT;
+
+            return this.gem;
         }
     }
 }
