@@ -9,6 +9,9 @@ namespace Inferno_Infinity.Gems
         private readonly int agilityCoeficient = 2;
         private readonly int vitalityCoeficient = 5;
 
+        private int maxDamegeIncreaseValue;
+        private int minDamegeIncreaseValue;
+
         public Ruby()
         {
             this.StrenghtIncreaseValue = this.strenghtCoieficient;
@@ -18,12 +21,15 @@ namespace Inferno_Infinity.Gems
 
         public override void IncreaseWeaponMagicStats(IWeapon weapon)
         {
+            this.maxDamegeIncreaseValue = weapon.Strength * 3 + weapon.Agility * 4;
+            this.minDamegeIncreaseValue = weapon.Strength * 2 + weapon.Agility * 1;
+
             weapon.Strength = this.StrenghtIncreaseValue;
             weapon.Agility = this.AgilityIncreaseValue;
             weapon.Vitality = this.VitalityIncreaseValue;
 
-            weapon.MaxDamage += (weapon.Strength * 3 + weapon.Agility * 4);
-            weapon.MinDamage += (weapon.Strength * 2 + weapon.Agility * 1);
+            weapon.MaxDamage += this.maxDamegeIncreaseValue;
+            weapon.MinDamage += this.minDamegeIncreaseValue;
         }
     }
 }
