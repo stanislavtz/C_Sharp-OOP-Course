@@ -5,6 +5,11 @@ namespace Inferno_Infinity.Gems.Models
 {
     public abstract class Gem : IGem
     {
+        public Gem()
+        {
+            
+        }
+
         public int StrenghtIncreaseValue { get; set; }
         public int AgilityIncreaseValue { get; set; }
         public int VitalityIncreaseValue { get; set; }

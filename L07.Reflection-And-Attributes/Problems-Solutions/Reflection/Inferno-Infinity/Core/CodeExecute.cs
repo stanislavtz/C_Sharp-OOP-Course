@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 using Inferno_Infinity.Weapons;
 using Inferno_Infinity.Weapons.Contracts;
+using System.Reflection;
+using Inferno_Infinity.Gems.Contracts;
 
 namespace Inferno_Infinity.Core
 {
@@ -45,8 +47,41 @@ namespace Inferno_Infinity.Core
 
                     int soketIndex = int.Parse(args[2]);
 
+                    if (soketIndex >= currentWeapon.NumSockets)
+                    {
+                        throw new IndexOutOfRangeException();
+                    }
+
                     string gemType = args[3].Split()[0];
                     string gemName = args[3].Split()[1];
+
+                    Type type = Assembly
+                        .GetCallingAssembly()
+                        .GetType($"Inferno_Infinity.Gems.{gemName}");
+
+                    var gem = (IGem)Activator.CreateInstance(type);
+
+                    switch (gemType)
+                    {
+                        case "Chipped":
+                            IncreaseGemsValues(gem, 1);
+                            gem.IncreaseWeaponMagicStats(currentWeapon);
+                            break;
+                        case "Regular":
+                            IncreaseGemsValues(gem, 2);
+                            gem.IncreaseWeaponMagicStats(currentWeapon);
+                            break;
+                        case "Perfect":
+                            IncreaseGemsValues(gem, 5);
+                            gem.IncreaseWeaponMagicStats(currentWeapon);
+                            break;
+                        case "Flawless":
+                            gem.IncreaseWeaponMagicStats(currentWeapon);
+                            IncreaseGemsValues(gem, 10);
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 else if (args[0] == "Remove")
                 {
@@ -61,6 +96,13 @@ namespace Inferno_Infinity.Core
 
                 input = Console.ReadLine();
             }
+        }
+
+        private static void IncreaseGemsValues(IGem gem, int coeficient)
+        {
+            gem.StrenghtIncreaseValue += coeficient;
+            gem.AgilityIncreaseValue += coeficient;
+            gem.VitalityIncreaseValue += coeficient;
         }
     }
 }
