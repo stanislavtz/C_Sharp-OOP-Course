@@ -8,7 +8,7 @@ namespace Class_Box_Data.Validators
         {
             if (valueToValidate <= 0)
             {
-                throw new ArgumentException($"{side} cannot be zero or negative. ");
+                throw new ArgumentException($"{side} cannot be zero or negative.");
             }
 
             return valueToValidate;
