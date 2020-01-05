@@ -8,7 +8,7 @@ namespace Shopping_Spree.Core
 {
     public class Engine : IEngine
     {
-        private readonly List<Person> persons = new List<Person>();
+        private readonly List<Person> people = new List<Person>();
         private readonly List<Product> products = new List<Product>();
 
         private Person person;
@@ -22,14 +22,16 @@ namespace Shopping_Spree.Core
             string[] inputProductsInfo = Console.ReadLine()
                 .Split(";", StringSplitOptions.RemoveEmptyEntries);
 
-            foreach (var input in inputPeopleInfo)
+            foreach (var person in inputPeopleInfo)
             {
-                string[] args = input
+                string[] args = person
                     .Split("=", StringSplitOptions.RemoveEmptyEntries);
+                string name = args[0];
+                decimal money = decimal.Parse(args[1]);
 
                 try
                 {
-                    person = new Person(args[0], decimal.Parse(args[1]));
+                    this.person = new Person(name, money);
                 }
                 catch (ArgumentException ex)
                 {
@@ -37,17 +39,19 @@ namespace Shopping_Spree.Core
                     Environment.Exit(0);
                 }
 
-                persons.Add(person);
+                this.people.Add(this.person);
             }
 
-            foreach (var input in inputProductsInfo)
+            foreach (var product in inputProductsInfo)
             {
-                string[] args = input
+                string[] args = product
                     .Split("=", StringSplitOptions.RemoveEmptyEntries);
+                string name = args[0];
+                decimal cost = decimal.Parse(args[1]);
 
                 try
                 {
-                    product = new Product(args[0], decimal.Parse(args[1]));
+                    this.product = new Product(name, cost);
                 }
                 catch (ArgumentException ex)
                 {
@@ -55,7 +59,7 @@ namespace Shopping_Spree.Core
                     Environment.Exit(0);
                 }
 
-                products.Add(product);
+                this.products.Add(this.product);
             }
 
             string command = Console.ReadLine();
@@ -65,11 +69,11 @@ namespace Shopping_Spree.Core
                 string personName = command.Split()[0];
                 string productName = command.Split()[1];
 
-                var currentPerson = persons.FirstOrDefault(p => p.Name == personName);
+                var currentPerson = this.people.FirstOrDefault(p => p.Name == personName);
 
                 if (currentPerson != null)
                 {
-                    var currentProduct = products.FirstOrDefault(p => p.Name == productName);
+                    var currentProduct = this.products.FirstOrDefault(p => p.Name == productName);
 
                     if (currentProduct != null)
                     {
@@ -80,7 +84,7 @@ namespace Shopping_Spree.Core
                 command = Console.ReadLine();
             }
 
-            foreach (var person in persons)
+            foreach (var person in people)
             {
                 Console.WriteLine(person);
             }
