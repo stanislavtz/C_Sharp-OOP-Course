@@ -8,14 +8,11 @@ namespace Football_Team_Generator.Core
 {
     public class Engine
     {
-        private readonly List<FootballTeam> teamList;
-        private string teamName;
-        private string playerName;
-        private FootballTeam team;
+        private readonly List<FootballTeam> teamsList;
 
         public Engine()
         {
-            teamList = new List<FootballTeam>();
+            teamsList = new List<FootballTeam>();
         }
 
         public void Run()
@@ -31,29 +28,31 @@ namespace Football_Team_Generator.Core
                 {
                     if (args[0] == "Rating")
                     {
-                        this.teamName = args[1];
+                        var teamName = args[1];
 
-                        FootballTeam currentTeam = this.teamList.FirstOrDefault(x => x.Name == this.teamName);
+                        FootballTeam currentTeam = this.teamsList.FirstOrDefault(x => x.Name == teamName);
 
                         if (currentTeam == null)
                         {
-                            throw new NullReferenceException($"Team {this.teamName} does not exist.");
+                            throw new NullReferenceException(
+                                string.Format(DataValidationExceptions.UnavailableTeamException(), teamName));
                         }
 
                         Console.WriteLine(currentTeam);
                     }
                     else if (args[0] == "Team")
                     {
-                        this.teamName = args[1];
-                        this.team = new FootballTeam(this.teamName);
-                        this.teamList.Add(this.team);
+                        var teamName = args[1];
+                        var team = new FootballTeam(teamName);
+
+                        this.teamsList.Add(team);
                     }
                     else if (args[0] == "Add")
                     {
-                        this.teamName = args[1];
-                        this.playerName = args[2];
+                        var teamName = args[1];
+                        var playerName = args[2];
 
-                        var player = new Player(this.playerName);
+                        var player = new Player(playerName);
 
                         List<int> statValues = args.Skip(3).Select(int.Parse).ToList();
 
@@ -73,30 +72,30 @@ namespace Football_Team_Generator.Core
                             player.AddStats(stat);
                         }
 
-                        var currentTeam = this.teamList.FirstOrDefault(x => x.Name == this.teamName);
+                        var currentTeam = this.teamsList.FirstOrDefault(x => x.Name == teamName);
 
                         if (currentTeam == null)
                         {
                             throw new NullReferenceException
-                                (string.Format(DataValidationExceptions.UnavailableTeamException(), this.teamName));
+                                (string.Format(DataValidationExceptions.UnavailableTeamException(), teamName));
                         }
 
                         currentTeam.AddPlayer(player);
                     }
                     else if (args[0] == "Remove")
                     {
-                        this.teamName = args[1];
-                        this.playerName = args[2];
+                        var teamName = args[1];
+                        var playerName = args[2];
 
-                        var currentTeam = this.teamList.FirstOrDefault(x => x.Name == this.teamName);
+                        var currentTeam = this.teamsList.FirstOrDefault(x => x.Name == teamName);
 
                         if (currentTeam == null)
                         {
                             throw new NullReferenceException
-                                (string.Format(DataValidationExceptions.UnavailableTeamException(), this.teamName));
+                                (string.Format(DataValidationExceptions.UnavailableTeamException(), teamName));
                         }
 
-                        var currentPlayer = new Player(this.playerName);
+                        var currentPlayer = new Player(playerName);
 
                         currentTeam.RemovePlayer(currentPlayer);
                     }

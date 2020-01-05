@@ -5,6 +5,9 @@ namespace Football_Team_Generator.Models
 {
     public class Stat
     {
+        private const int MinStatValue = 0;
+        private const int MaxStatValue = 100;
+
         private string name;
         private int statValue;
 
@@ -19,11 +22,12 @@ namespace Football_Team_Generator.Models
             get => this.statValue;
             private set
             {
-                if (value < 0 || value > 100)
+                if (value < MinStatValue || value > MaxStatValue)
                 {
                     throw new ArgumentException
-                        (string.Format(DataValidationExceptions.InvalidStatException(), this.name));
+                        (string.Format(DataValidationExceptions.InvalidStatException(), this.name, MinStatValue, MaxStatValue));
                 }
+
                 this.statValue = value;
             }
         }

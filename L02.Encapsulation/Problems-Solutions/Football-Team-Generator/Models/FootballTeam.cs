@@ -8,12 +8,12 @@ namespace Football_Team_Generator.Models
     public class FootballTeam
     {
         private string name;
-        private readonly List<Player> players;
+        private readonly List<Player> team;
 
         public FootballTeam(string name)
         {
             this.Name = name;
-            this.players = new List<Player>();
+            this.team = new List<Player>();
         }
 
         public string Name
@@ -33,12 +33,12 @@ namespace Football_Team_Generator.Models
 
         public void AddPlayer(Player player)
         {
-            players.Add(player);
+            team.Add(player);
         }
 
         public void RemovePlayer(Player player)
         {
-            var playerToRemove = players.FirstOrDefault(p => p.Name == player.Name);
+            var playerToRemove = team.FirstOrDefault(p => p.Name == player.Name);
 
             if (playerToRemove == null)
             {
@@ -48,8 +48,8 @@ namespace Football_Team_Generator.Models
 
             while (playerToRemove != null)
             {
-                players.Remove(playerToRemove);
-                playerToRemove = players.FirstOrDefault(p => p.Name == player.Name);
+                team.Remove(playerToRemove);
+                playerToRemove = team.FirstOrDefault(p => p.Name == player.Name);
             }
         }
 
@@ -60,9 +60,9 @@ namespace Football_Team_Generator.Models
 
         private double CalculateRating()
         {
-            if (players.Count > 0)
+            if (team.Count > 0)
             {
-                return Math.Round(this.players.Average(p => p.PlayerRating()));
+                return Math.Round(this.team.Average(p => p.PlayerRating()));
             }
 
             return 0;
