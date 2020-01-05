@@ -45,5 +45,10 @@ namespace Shopping_Spree.Models
                 this.cost = value;
             }
         }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

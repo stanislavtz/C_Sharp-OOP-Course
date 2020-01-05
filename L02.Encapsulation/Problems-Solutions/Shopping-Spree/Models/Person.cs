@@ -69,7 +69,7 @@ namespace Shopping_Spree.Models
         {
             if (this.shoppingBag.Count > 0)
             {
-                return $"{this.Name} - " + string.Join(", ", this.shoppingBag.Select(x => x.Name));
+                return $"{this.Name} - " + string.Join(", ", this.shoppingBag);
             }
 
             return $"{this.Name} - Nothing bought";

@@ -52,10 +52,6 @@ namespace Shopping_Spree.Core
                         Console.WriteLine($"{currentPerson.Name} bought {currentProduct.Name}");
                     }
                 }
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
                 catch (InvalidOperationException ioe)
                 {
                     Console.WriteLine(ioe.Message);
