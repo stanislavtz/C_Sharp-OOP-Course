@@ -1,4 +1,5 @@
 ﻿using System;
+using Shopping_Spree.Exceptions;
 
 namespace Shopping_Spree.Models
 {
@@ -20,7 +21,9 @@ namespace Shopping_Spree.Models
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("Name cannot be empty");
+                    var message = ExceptionsMessages.NullOrEmptyNameException;
+
+                    throw new ArgumentException(message);
                 }
 
                 this.name = value;
@@ -34,7 +37,9 @@ namespace Shopping_Spree.Models
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException("Money cannot be negative");
+                    var message = ExceptionsMessages.NullOrNegativeValuException;
+
+                    throw new ArgumentException(message);
                 }
 
                 this.cost = value;

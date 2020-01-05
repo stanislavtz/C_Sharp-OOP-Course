@@ -16,77 +16,89 @@ namespace Shopping_Spree.Core
 
         public void Run()
         {
-            string[] inputPeopleInfo = Console.ReadLine()
-                .Split(";", StringSplitOptions.RemoveEmptyEntries);
-
-            string[] inputProductsInfo = Console.ReadLine()
-                .Split(";", StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (var person in inputPeopleInfo)
+            try
             {
-                string[] args = person
-                    .Split("=", StringSplitOptions.RemoveEmptyEntries);
-                string name = args[0];
-                decimal money = decimal.Parse(args[1]);
-
-                try
-                {
-                    this.person = new Person(name, money);
-                }
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Environment.Exit(0);
-                }
-
-                this.people.Add(this.person);
+                InitializePeopleInfo();
+                InitializeProductsInfo();
             }
-
-            foreach (var product in inputProductsInfo)
+            catch (ArgumentException ea)
             {
-                string[] args = product
-                    .Split("=", StringSplitOptions.RemoveEmptyEntries);
-                string name = args[0];
-                decimal cost = decimal.Parse(args[1]);
-
-                try
-                {
-                    this.product = new Product(name, cost);
-                }
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Environment.Exit(0);
-                }
-
-                this.products.Add(this.product);
+                Console.WriteLine(ea.Message);
+                return;
             }
 
             string command = Console.ReadLine();
 
             while (command != "END")
             {
-                string personName = command.Split()[0];
-                string productName = command.Split()[1];
-
-                var currentPerson = this.people.FirstOrDefault(p => p.Name == personName);
-
-                if (currentPerson != null)
+                try
                 {
-                    var currentProduct = this.products.FirstOrDefault(p => p.Name == productName);
+                    string[] args = command
+                    .Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
-                    if (currentProduct != null)
+                    string personName = args[0];
+                    string productName = args[1];
+
+                    var currentPerson = this.people
+                        .FirstOrDefault(p => p.Name == personName);
+
+                    var currentProduct = this.products
+                        .FirstOrDefault(p => p.Name == productName);
+
+                    if (currentPerson != null && currentProduct != null)
                     {
                         currentPerson.BuyProduct(currentProduct);
+
+                        Console.WriteLine($"{currentPerson.Name} bought {currentProduct.Name}");
                     }
                 }
-
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                catch (InvalidOperationException ioe)
+                {
+                    Console.WriteLine(ioe.Message);
+                }
                 command = Console.ReadLine();
             }
 
-            foreach (var person in people)
+            Console.WriteLine(string.Join(Environment.NewLine, people));
+        }
+
+        private void InitializePeopleInfo()
+        {
+            string[] peopleArgs = Console.ReadLine()
+                .Split(";");
+
+            foreach (var person in peopleArgs)
             {
-                Console.WriteLine(person);
+                string[] personArgs = person.Split("=");
+
+                string name = personArgs[0];
+                decimal money = decimal.Parse(personArgs[1]);
+
+                this.person = new Person(name, money);
+
+                this.people.Add(this.person);
+            }
+        }
+
+        private void InitializeProductsInfo()
+        {
+            string[] productsArgs = Console.ReadLine()
+                                .Split(";", StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var product in productsArgs)
+            {
+                string[] productArgs = product.Split("=");
+
+                string name = productArgs[0];
+                decimal cost = decimal.Parse(productArgs[1]);
+
+                this.product = new Product(name, cost);
+
+                this.products.Add(this.product);
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using Shopping_Spree.Exceptions;
 
 namespace Shopping_Spree.Models
 {
@@ -24,7 +25,9 @@ namespace Shopping_Spree.Models
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("Name cannot be empty");
+                    var message = ExceptionsMessages.NullOrEmptyNameException;
+
+                    throw new ArgumentException(message);
                 }
 
                 this.name = value;
@@ -38,28 +41,28 @@ namespace Shopping_Spree.Models
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException("Money cannot be negative");
+                    var message = ExceptionsMessages.NullOrNegativeValuException;
+
+                    throw new ArgumentException(message);
                 }
+
                 this.money = value;
             }
         }
 
         public void BuyProduct(Product product)
         {
-            bool canAfford = this.Money - product.Cost >= 0;
+            bool canAfford = this.Money >=  product.Cost;
 
-            if (canAfford)
+            if (!canAfford)
             {
-                this.Money -= product.Cost;
-
-                this.shoppingBag.Add(product);
-
-                Console.WriteLine($"{this.Name} bought {product.Name}");
+                throw new InvalidOperationException(
+                      string.Format(ExceptionsMessages.CanNotAffordProductException, this.Name, product.Name));
             }
-            else
-            {
-                Console.WriteLine($"{this.Name} can't afford {product.Name}");
-            }
+           
+            this.Money -= product.Cost;
+
+            this.shoppingBag.Add(product);
         }
 
         public override string ToString()
