@@ -51,9 +51,10 @@ namespace Shopping_Spree.Models
             if (canAfford)
             {
                 this.Money -= product.Cost;
-                Console.WriteLine($"{this.Name} bought {product.Name}");
 
                 this.shoppingBag.Add(product);
+
+                Console.WriteLine($"{this.Name} bought {product.Name}");
             }
             else
             {
