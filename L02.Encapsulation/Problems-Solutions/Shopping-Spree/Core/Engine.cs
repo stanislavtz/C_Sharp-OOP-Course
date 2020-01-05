@@ -60,6 +60,7 @@ namespace Shopping_Spree.Core
                 {
                     Console.WriteLine(ioe.Message);
                 }
+
                 command = Console.ReadLine();
             }
 
