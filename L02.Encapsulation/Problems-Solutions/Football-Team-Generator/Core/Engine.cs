@@ -28,21 +28,11 @@ namespace Football_Team_Generator.Core
                 {
                     if (args[0] == "Rating")
                     {
-                        var teamName = args[1];
-
-                        FootballTeam currentTeam = this.teamsList.FirstOrDefault(x => x.Name == teamName);
-
-                        if (currentTeam == null)
-                        {
-                            throw new NullReferenceException(
-                                string.Format(DataValidationExceptions.UnavailableTeamException(), teamName));
-                        }
-
-                        Console.WriteLine(currentTeam);
+                        PrintTeamRating(args);
                     }
                     else if (args[0] == "Team")
                     {
-                        TeamAdd(args);
+                        AddTeamToTeamsList(args);
                     }
                     else if (args[0] == "Add")
                     {
@@ -55,10 +45,6 @@ namespace Football_Team_Generator.Core
                     else if (args[0] == "Remove")
                     {
                         RemovePlayer(args);
-                    }
-                    else
-                    {
-                        break;
                     }
                 }
                 catch (ArgumentException ex)
@@ -74,22 +60,30 @@ namespace Football_Team_Generator.Core
             }
         }
 
-        private void AddPlayerToTeam(string[] args, Player player)
+        private void PrintTeamRating(string[] args)
         {
             var teamName = args[1];
 
-            var currentTeam = this.teamsList.FirstOrDefault(x => x.Name == teamName);
+            FootballTeam currentTeam = this.teamsList.FirstOrDefault(x => x.Name == teamName);
 
             if (currentTeam == null)
             {
-                throw new NullReferenceException
-                    (string.Format(DataValidationExceptions.UnavailableTeamException(), teamName));
+                throw new NullReferenceException(
+                    string.Format(DataValidationExceptions.UnavailableTeamException(), teamName));
             }
 
-            currentTeam.AddPlayer(player);
+            Console.WriteLine(currentTeam);
         }
 
-        private static void AddStatsToPlayer(string[] args, Player player)
+        private void AddTeamToTeamsList(string[] args)
+        {
+            var teamName = args[1];
+            var team = new FootballTeam(teamName);
+
+            this.teamsList.Add(team);
+        }
+
+        private void AddStatsToPlayer(string[] args, Player player)
         {
             List<int> statValues = args.Skip(3).Select(int.Parse).ToList();
 
@@ -110,6 +104,21 @@ namespace Football_Team_Generator.Core
             }
         }
 
+        private void AddPlayerToTeam(string[] args, Player player)
+        {
+            var teamName = args[1];
+
+            var currentTeam = this.teamsList.FirstOrDefault(x => x.Name == teamName);
+
+            if (currentTeam == null)
+            {
+                throw new NullReferenceException
+                    (string.Format(DataValidationExceptions.UnavailableTeamException(), teamName));
+            }
+
+            currentTeam.AddPlayer(player);
+        }
+
         private void RemovePlayer(string[] args)
         {
             var teamName = args[1];
@@ -126,14 +135,6 @@ namespace Football_Team_Generator.Core
             var currentPlayer = new Player(playerName);
 
             currentTeam.RemovePlayer(currentPlayer);
-        }
-
-        private void TeamAdd(string[] args)
-        {
-            var teamName = args[1];
-            var team = new FootballTeam(teamName);
-
-            this.teamsList.Add(team);
         }
     }
 }
