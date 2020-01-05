@@ -16,13 +16,13 @@ namespace Shopping_Spree.Core
 
         public void Run()
         {
-            string[] inputPersonsInfo = Console.ReadLine()
+            string[] inputPeopleInfo = Console.ReadLine()
                 .Split(";", StringSplitOptions.RemoveEmptyEntries);
 
             string[] inputProductsInfo = Console.ReadLine()
                 .Split(";", StringSplitOptions.RemoveEmptyEntries);
 
-            foreach (var input in inputPersonsInfo)
+            foreach (var input in inputPeopleInfo)
             {
                 string[] args = input
                     .Split("=", StringSplitOptions.RemoveEmptyEntries);
