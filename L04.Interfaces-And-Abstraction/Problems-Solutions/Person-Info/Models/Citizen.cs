@@ -2,7 +2,7 @@
 {
     using System.Text;
 
-    public class Citizen : IPerson
+    public class Citizen : IPerson, IIdentifiable, IBirthable
     {
         public Citizen(string name, int age, string id, string birthDate)
         {
