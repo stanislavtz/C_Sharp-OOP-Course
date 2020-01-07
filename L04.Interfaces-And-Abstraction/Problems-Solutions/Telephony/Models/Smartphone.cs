@@ -20,7 +20,6 @@ namespace Telephony.Models
         public string Browse(string url)
         {
             Regex reg = new Regex(@"([--:\w?@%&+~#=]*\.[a-z]{2,4}\/{0,2})((?:[?&](?:\w+)=(?:\w+))+|[--:\w?@%&+~#=]+)?");
-            
 
             if (!reg.IsMatch(url) || url.Any(u => char.IsDigit(u)))
             {

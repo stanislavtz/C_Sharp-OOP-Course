@@ -14,11 +14,11 @@ namespace Telephony.Core
             List<string> phoneNumbers = Console.ReadLine().Split().ToList();
             List<string> urls = Console.ReadLine().Split().ToList();
 
-            ICallable phone = new Smartphone();
-            IBrowseable browser = new Smartphone();
+            Smartphone phone = new Smartphone();
+            //IBrowseable browser = new Smartphone();
 
             CallingNumbers(phoneNumbers, phone);
-            BrowsingURLs(urls, browser);
+            BrowsingURLs(urls, phone);
         }
 
         private static void BrowsingURLs(List<string> urls, IBrowseable phone)
