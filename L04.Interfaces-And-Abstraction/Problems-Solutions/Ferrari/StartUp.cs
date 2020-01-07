@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Ferrari.Core;
 
 namespace Ferrari
 {
@@ -6,11 +6,9 @@ namespace Ferrari
     {
         static void Main(string[] args)
         {
-            string name = Console.ReadLine();
+            var engine = new Engine();
 
-            var car = new Ferrari(name);
-
-            Console.WriteLine(car);
+            engine.Run();
         }
     }
 }

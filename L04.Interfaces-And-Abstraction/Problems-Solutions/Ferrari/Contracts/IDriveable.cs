@@ -1,6 +1,6 @@
-﻿namespace Ferrari
+﻿namespace Ferrari.Contracts
 {
-    public interface IFerrari
+    public interface IDriveable
     {
         string PushBreaks();
 
