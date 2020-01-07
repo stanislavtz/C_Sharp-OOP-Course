@@ -15,7 +15,6 @@ namespace Telephony.Core
             List<string> urls = Console.ReadLine().Split().ToList();
 
             Smartphone phone = new Smartphone();
-            //IBrowseable browser = new Smartphone();
 
             CallingNumbers(phoneNumbers, phone);
             BrowsingURLs(urls, phone);
