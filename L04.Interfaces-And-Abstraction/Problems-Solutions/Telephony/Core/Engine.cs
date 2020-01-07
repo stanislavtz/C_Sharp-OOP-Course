@@ -29,7 +29,7 @@ namespace Telephony.Core
                 {
                     Console.WriteLine(phone.Browse(url));
                 }
-                catch (InvalidURL ex)
+                catch (InvalidURLException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -44,7 +44,7 @@ namespace Telephony.Core
                 {
                     Console.WriteLine(phone.Call(phoneNumber));
                 }
-                catch (InvalidNumber ex)
+                catch (InvalidNumberException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }

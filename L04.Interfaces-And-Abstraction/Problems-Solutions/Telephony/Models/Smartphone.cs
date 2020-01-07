@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 using Telephony.Contracts;
 using Telephony.Exceptions;
 
@@ -10,7 +11,7 @@ namespace Telephony.Models
         {
             if (phoneNumber.Any(n => !char.IsDigit(n)))
             {
-                throw new InvalidNumber();
+                throw new InvalidNumberException();
             }
 
             return $"Calling... {phoneNumber}";
@@ -18,9 +19,12 @@ namespace Telephony.Models
 
         public string Browse(string url)
         {
-            if (url.Any(u => char.IsDigit(u)))
+            Regex reg = new Regex(@"([--:\w?@%&+~#=]*\.[a-z]{2,4}\/{0,2})((?:[?&](?:\w+)=(?:\w+))+|[--:\w?@%&+~#=]+)?");
+            
+
+            if (!reg.IsMatch(url) || url.Any(u => char.IsDigit(u)))
             {
-                throw new InvalidURL();
+                throw new InvalidURLException();
             }
 
             return $"Browsing: {url}!";

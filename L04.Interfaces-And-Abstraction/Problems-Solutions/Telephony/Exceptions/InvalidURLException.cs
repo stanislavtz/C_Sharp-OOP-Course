@@ -2,7 +2,7 @@
 
 namespace Telephony.Exceptions
 {
-    public class InvalidURL : Exception
+    public class InvalidURLException : Exception
     {
         public override string Message => "Invalid URL!";
     }
