@@ -9,24 +9,34 @@ namespace Telephony.Core
 {
     public class Engine
     {
+        private readonly Smartphone phone;
+
+        public Engine()
+        {
+            this.phone = new Smartphone();
+        }
+
+        public Engine(Smartphone phone)
+        {
+            this.phone = phone;
+        }
+
         public void Run()
         {
             List<string> phoneNumbers = Console.ReadLine().Split().ToList();
             List<string> urls = Console.ReadLine().Split().ToList();
 
-            Smartphone phone = new Smartphone();
-
-            CallingNumbers(phoneNumbers, phone);
-            BrowsingURLs(urls, phone);
+            CallingNumbers(phoneNumbers);
+            BrowsingURLs(urls);
         }
 
-        private static void BrowsingURLs(List<string> urls, IBrowseable phone)
+        private void BrowsingURLs(List<string> urls)
         {
             foreach (var url in urls)
             {
                 try
                 {
-                    Console.WriteLine(phone.Browse(url));
+                    Console.WriteLine(this.phone.Browse(url));
                 }
                 catch (InvalidURLException ex)
                 {
@@ -35,13 +45,13 @@ namespace Telephony.Core
             }
         }
 
-        private static void CallingNumbers(List<string> phoneNumbers, ICallable phone)
+        private void CallingNumbers(List<string> phoneNumbers)
         {
             foreach (var phoneNumber in phoneNumbers)
             {
                 try
                 {
-                    Console.WriteLine(phone.Call(phoneNumber));
+                    Console.WriteLine(this.phone.Call(phoneNumber));
                 }
                 catch (InvalidNumberException ex)
                 {
