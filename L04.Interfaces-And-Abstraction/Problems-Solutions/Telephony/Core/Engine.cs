@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Linq;
-using Telephony.Models;
-using Telephony.Exceptions;
 using System.Collections.Generic;
-using Telephony.Contracts;
+using System.Linq;
+using Telephony.Exceptions;
+using Telephony.Models;
 
 namespace Telephony.Core
 {
@@ -30,21 +29,6 @@ namespace Telephony.Core
             BrowsingURLs(urls);
         }
 
-        private void BrowsingURLs(List<string> urls)
-        {
-            foreach (var url in urls)
-            {
-                try
-                {
-                    Console.WriteLine(this.phone.Browse(url));
-                }
-                catch (InvalidURLException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-        }
-
         private void CallingNumbers(List<string> phoneNumbers)
         {
             foreach (var phoneNumber in phoneNumbers)
@@ -54,6 +38,21 @@ namespace Telephony.Core
                     Console.WriteLine(this.phone.Call(phoneNumber));
                 }
                 catch (InvalidNumberException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
+        private void BrowsingURLs(List<string> urls)
+        {
+            foreach (var url in urls)
+            {
+                try
+                {
+                    Console.WriteLine(this.phone.Browse(url));
+                }
+                catch (InvalidURLException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
