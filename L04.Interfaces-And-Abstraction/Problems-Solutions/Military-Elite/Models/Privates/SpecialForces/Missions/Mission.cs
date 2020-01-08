@@ -19,10 +19,10 @@ namespace Military_Elite
 
         public State State { get; set; }
 
-        //public void CompleateMission()
-        //{
-        //    this.State = State.Finished;
-        //}
+        public void CompleateMission()
+        {
+            this.State = State.Finished;
+        }
 
         public override string ToString()
         {

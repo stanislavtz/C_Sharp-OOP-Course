@@ -50,11 +50,11 @@ namespace Military_Elite.Core
                     {
                         decimal salary = decimal.Parse(args[4]);
 
-                        string[] idNumbers = args.Skip(5).ToArray();
-
                         soldier = new LieutenantGeneral(id, firstName, lastName, salary);
 
                         ILieutenantGeneral lieutenantGeneral = soldier as ILieutenantGeneral;
+
+                        string[] idNumbers = args.Skip(5).ToArray();
 
                         foreach (var idNumber in idNumbers)
                         {
@@ -68,9 +68,9 @@ namespace Military_Elite.Core
                         decimal salary = decimal.Parse(args[4]);
                         string corps = args[5];
 
-                        string[] repairsInfo = args.Skip(6).ToArray();
-
                         soldier = new Engineer(id, firstName, lastName, salary, corps);
+
+                        string[] repairsInfo = args.Skip(6).ToArray();
 
                         for (int i = 0; i < repairsInfo.Length; i += 2)
                         {
@@ -89,9 +89,9 @@ namespace Military_Elite.Core
                         decimal salary = decimal.Parse(args[4]);
                         string corps = args[5];
 
-                        string[] missions = args.Skip(6).ToArray();
-
                         soldier = new Commando(id, firstName, lastName, salary, corps);
+
+                        string[] missions = args.Skip(6).ToArray();
 
                         for (int i = 0; i < missions.Length; i += 2)
                         {
