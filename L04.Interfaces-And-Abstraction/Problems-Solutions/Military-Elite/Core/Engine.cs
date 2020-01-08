@@ -50,17 +50,17 @@ namespace Military_Elite.Core
                     {
                         decimal salary = decimal.Parse(args[4]);
 
-                        string[] ids = args.Skip(5).ToArray();
+                        string[] idNumbers = args.Skip(5).ToArray();
 
                         soldier = new LieutenantGeneral(id, firstName, lastName, salary);
 
-                        foreach (var item in ids)
+                        ILieutenantGeneral lieutenantGeneral = soldier as ILieutenantGeneral;
+
+                        foreach (var idNumber in idNumbers)
                         {
-                            var currentPrivate = army.First(p => p.Id == item);
+                            var currentPrivate = army.First(p => p.Id == idNumber);
 
-                            ILieutenantGeneral ltg = soldier as ILieutenantGeneral;
-
-                            ltg.AddSoldier((IPrivate)currentPrivate);
+                            lieutenantGeneral.AddSoldier((IPrivate)currentPrivate);
                         }
                     }
                     else if (soldierType == "Engineer")
