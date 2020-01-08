@@ -7,5 +7,7 @@ namespace Military_Elite.Contracts.SpecialForces
         string CodeName { get; }
 
         State State { get; set; }
+
+       //void CompleateMission();
     }
 }

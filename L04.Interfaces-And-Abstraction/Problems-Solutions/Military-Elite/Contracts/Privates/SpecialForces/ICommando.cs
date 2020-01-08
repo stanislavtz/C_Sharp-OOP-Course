@@ -9,7 +9,5 @@ namespace Military_Elite
         IReadOnlyCollection<IMission> Missions { get; }
 
         void AddMission(IMission mission);
-
-        void CompleteMission(IMission mission);
     }
 }

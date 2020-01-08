@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using System.Text;
+﻿using Military_Elite.Contracts.SpecialForces;
 using System.Collections.Generic;
-using Military_Elite.Contracts.SpecialForces;
-using Military_Elite.Enumerators;
+using System.Text;
 
 namespace Military_Elite.Models
 {
@@ -10,7 +8,7 @@ namespace Military_Elite.Models
     {
         private const string PATTERN = "  ";
 
-        private List<IMission> missions;
+        private readonly List<IMission> missions;
 
         public Commando(string id, string firstName, string lastName, decimal salary, string corps)
             : base(id, firstName, lastName, salary, corps)
@@ -23,16 +21,6 @@ namespace Military_Elite.Models
         public void AddMission(IMission mission)
         {
             this.missions.Add(mission);
-        }
-
-        public void CompleteMission(IMission mission)
-        {
-            IMission currentMission = missions.FirstOrDefault(m => m.CodeName == mission.CodeName);
-
-            if (currentMission != null)
-            {
-                currentMission.State = State.Finished;
-            }
         }
 
         public override string ToString()

@@ -18,7 +18,12 @@ namespace Military_Elite
         public string CodeName { get; private set; }
 
         public State State { get; set; }
-        
+
+        //public void CompleateMission()
+        //{
+        //    this.State = State.Finished;
+        //}
+
         public override string ToString()
         {
             return $"Code Name: {this.CodeName} State: {this.State}";

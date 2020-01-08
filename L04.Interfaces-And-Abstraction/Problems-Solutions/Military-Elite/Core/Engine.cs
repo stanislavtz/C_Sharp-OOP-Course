@@ -32,22 +32,19 @@ namespace Military_Elite.Core
 
                 try
                 {
+                    ISoldier soldier = null;
+
                     if (soldierType == "Private")
                     {
                         decimal salary = decimal.Parse(args[4]);
 
-                        ISoldier soldier = new Private(id, firstName, lastName, salary);
-
-                        this.army.Add(soldier);
+                        soldier = new Private(id, firstName, lastName, salary);
                     }
                     else if (soldierType == "Spy")
                     {
                         int codeNumber = int.Parse(args[4]);
 
-                        ISoldier soldier = new Spy(id, firstName, lastName, codeNumber);
-
-                        this.army.Add(soldier);
-
+                        soldier = new Spy(id, firstName, lastName, codeNumber);
                     }
                     else if (soldierType == "LieutenantGeneral")
                     {
@@ -55,7 +52,7 @@ namespace Military_Elite.Core
 
                         string[] ids = args.Skip(5).ToArray();
 
-                        ISoldier soldier = new LieutenantGeneral(id, firstName, lastName, salary);
+                        soldier = new LieutenantGeneral(id, firstName, lastName, salary);
 
                         foreach (var item in ids)
                         {
@@ -65,8 +62,6 @@ namespace Military_Elite.Core
 
                             ltg.AddSoldier((IPrivate)currentPrivate);
                         }
-
-                        this.army.Add(soldier);
                     }
                     else if (soldierType == "Engineer")
                     {
@@ -75,7 +70,7 @@ namespace Military_Elite.Core
 
                         string[] repairsInfo = args.Skip(6).ToArray();
 
-                        ISoldier soldier = new Engineer(id, firstName, lastName, salary, corps);
+                        soldier = new Engineer(id, firstName, lastName, salary, corps);
 
                         for (int i = 0; i < repairsInfo.Length; i += 2)
                         {
@@ -88,8 +83,6 @@ namespace Military_Elite.Core
 
                             engineer.AddRepair(currentRepair);
                         }
-
-                        this.army.Add(soldier);
                     }
                     else if (soldierType == "Commando")
                     {
@@ -98,7 +91,7 @@ namespace Military_Elite.Core
 
                         string[] missions = args.Skip(6).ToArray();
 
-                        ISoldier soldier = new Commando(id, firstName, lastName, salary, corps);
+                        soldier = new Commando(id, firstName, lastName, salary, corps);
 
                         for (int i = 0; i < missions.Length; i += 2)
                         {
@@ -114,10 +107,13 @@ namespace Military_Elite.Core
                             }
                             catch (InvalidMissionStatmentException imsex)
                             {
-                                Console.WriteLine(imsex.Message);
+                               Console.WriteLine(imsex.Message);
                             }
                         }
+                    }
 
+                    if (soldier != null)
+                    {
                         this.army.Add(soldier);
                     }
                 }
