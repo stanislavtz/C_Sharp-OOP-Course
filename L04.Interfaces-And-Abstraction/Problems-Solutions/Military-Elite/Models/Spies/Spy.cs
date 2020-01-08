@@ -13,7 +13,9 @@ namespace Military_Elite.Models
 
         public int CodeNumber { get; private set; }
 
-        public override string ToString() =>
-            $"{base.ToString()} {Environment.NewLine} Code Number: {this.CodeNumber}";
+        public override string ToString()
+        {
+            return $"{base.ToString()}{Environment.NewLine}Code Number: {this.CodeNumber}";
+        }
     }
 }

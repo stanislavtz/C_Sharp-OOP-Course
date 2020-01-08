@@ -1,5 +1,6 @@
 ﻿using Military_Elite.Contracts;
 using Military_Elite.Contracts.SpecialForces;
+using Military_Elite.Exceptions;
 using Military_Elite.Models;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,11 @@ namespace Military_Elite.Core
 {
     public class Engine
     {
-        private readonly List<IPrivate> privates;
-        private readonly List<ISoldier> soldiers;
+        private readonly List<ISoldier> army;
 
         public Engine()
         {
-           this.privates = new List<IPrivate>();
-           this.soldiers = new List<ISoldier>();
+           this.army = new List<ISoldier>();
         }
 
         public void Run()
@@ -37,18 +36,17 @@ namespace Military_Elite.Core
                     {
                         decimal salary = decimal.Parse(args[4]);
 
-                        IPrivate soldier = new Private(id, firstName, lastName, salary);
+                        ISoldier soldier = new Private(id, firstName, lastName, salary);
 
-                        this.privates.Add(soldier);
-                        this.soldiers.Add(soldier);
+                        this.army.Add(soldier);
                     }
                     else if (soldierType == "Spy")
                     {
                         int codeNumber = int.Parse(args[4]);
 
-                        ISpy soldier = new Spy(id, firstName, lastName, codeNumber);
+                        ISoldier soldier = new Spy(id, firstName, lastName, codeNumber);
 
-                        this.soldiers.Add(soldier);
+                        this.army.Add(soldier);
 
                     }
                     else if (soldierType == "LieutenantGeneral")
@@ -57,36 +55,41 @@ namespace Military_Elite.Core
 
                         string[] ids = args.Skip(5).ToArray();
 
-                        ILieutenantGeneral soldier = new LieutenantGeneral(id, firstName, lastName, salary);
+                        ISoldier soldier = new LieutenantGeneral(id, firstName, lastName, salary);
 
                         foreach (var item in ids)
                         {
-                            var currentPrivate = privates.First(p => p.Id == item);
-                            soldier.AddSoldier(currentPrivate);
+                            var currentPrivate = army.First(p => p.Id == item);
+
+                            ILieutenantGeneral ltg = soldier as ILieutenantGeneral;
+
+                            ltg.AddSoldier((IPrivate)currentPrivate);
                         }
 
-                        this.soldiers.Add(soldier);
+                        this.army.Add(soldier);
                     }
                     else if (soldierType == "Engineer")
                     {
                         decimal salary = decimal.Parse(args[4]);
                         string corps = args[5];
 
-                        string[] repairs = args.Skip(6).ToArray();
+                        string[] repairsInfo = args.Skip(6).ToArray();
 
-                        IEngineer soldier = new Engineer(id, firstName, lastName, salary, corps);
+                        ISoldier soldier = new Engineer(id, firstName, lastName, salary, corps);
 
-                        for (int i = 0; i < repairs.Length; i += 2)
+                        for (int i = 0; i < repairsInfo.Length; i += 2)
                         {
-                            string partName = repairs[i];
-                            int hoursWorked = int.Parse(repairs[i + 1]);
+                            string partName = repairsInfo[i];
+                            int hoursWorked = int.Parse(repairsInfo[i + 1]);
 
                             IRepair currentRepair = new Repair(partName, hoursWorked);
 
-                            soldier.AddRepair(currentRepair);
+                            IEngineer engineer = soldier as IEngineer;
+
+                            engineer.AddRepair(currentRepair);
                         }
 
-                        this.soldiers.Add(soldier);
+                        this.army.Add(soldier);
                     }
                     else if (soldierType == "Commando")
                     {
@@ -95,7 +98,7 @@ namespace Military_Elite.Core
 
                         string[] missions = args.Skip(6).ToArray();
 
-                        ICommando soldier = new Commando(id, firstName, lastName, salary, corps);
+                        ISoldier soldier = new Commando(id, firstName, lastName, salary, corps);
 
                         for (int i = 0; i < missions.Length; i += 2)
                         {
@@ -104,26 +107,29 @@ namespace Military_Elite.Core
                             try
                             {
                                 IMission currentMission = new Mission(name, state);
-                                soldier.AddMission(currentMission);
+
+                                ICommando commando = soldier as ICommando;
+
+                                commando.AddMission(currentMission);
                             }
-                            catch (Exception)
+                            catch (InvalidMissionStatmentException imsex)
                             {
-                                
+                                Console.WriteLine(imsex.Message);
                             }
                         }
 
-                        this.soldiers.Add(soldier);
+                        this.army.Add(soldier);
                     }
                 }
-                catch (Exception)
+                catch (InvalidCorpsException icex)
                 {
-
+                    Console.WriteLine(icex.Message); ;
                 }
 
                 input = Console.ReadLine();
             }
 
-            Console.WriteLine(string.Join(Environment.NewLine, this.soldiers));
+            Console.WriteLine(string.Join(Environment.NewLine, this.army));
         }
     }
 }

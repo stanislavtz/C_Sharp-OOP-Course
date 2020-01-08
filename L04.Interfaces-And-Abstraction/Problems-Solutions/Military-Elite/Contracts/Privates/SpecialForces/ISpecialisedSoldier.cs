@@ -1,7 +1,9 @@
-﻿namespace Military_Elite.Contracts
+﻿using Military_Elite.Enumerators;
+
+namespace Military_Elite.Contracts
 {
     public interface ISpecialisedSoldier : IPrivate
     {
-        string Corps { get; }
+        Corps Corps { get; }
     }
 }

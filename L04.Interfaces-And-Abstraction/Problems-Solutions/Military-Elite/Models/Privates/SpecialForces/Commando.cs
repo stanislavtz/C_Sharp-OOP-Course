@@ -2,11 +2,14 @@
 using System.Text;
 using System.Collections.Generic;
 using Military_Elite.Contracts.SpecialForces;
+using Military_Elite.Enumerators;
 
 namespace Military_Elite.Models
 {
     public class Commando : SpecialisedSoldier, ICommando
     {
+        private const string PATTERN = "  ";
+
         private List<IMission> missions;
 
         public Commando(string id, string firstName, string lastName, decimal salary, string corps)
@@ -24,11 +27,11 @@ namespace Military_Elite.Models
 
         public void CompleteMission(IMission mission)
         {
-            var currentMission = (Mission)missions.FirstOrDefault(m => m.CodeName == mission.CodeName);
+            IMission currentMission = missions.FirstOrDefault(m => m.CodeName == mission.CodeName);
 
             if (currentMission != null)
             {
-                 currentMission.State = "Finished";
+                currentMission.State = State.Finished;
             }
         }
 
@@ -36,12 +39,12 @@ namespace Military_Elite.Models
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine(base.ToString());
-            sb.AppendLine($"Missions:");
+            sb.AppendLine(base.ToString())
+              .AppendLine($"Missions:");
 
             foreach (var mission in this.Missions)
             {
-                sb.AppendLine($"  {mission}");
+                sb.AppendLine($"{PATTERN}{mission}");
             }
 
             return sb.ToString().TrimEnd();
