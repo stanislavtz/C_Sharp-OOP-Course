@@ -8,6 +8,6 @@ namespace Military_Elite.Contracts.SpecialForces
 
         State State { get; set; }
 
-       //void CompleateMission();
+        void CompleateMission();
     }
 }

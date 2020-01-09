@@ -1,5 +1,4 @@
 ﻿using Military_Elite.Contracts;
-using Military_Elite.Contracts.SpecialForces;
 using Military_Elite.Exceptions;
 using Military_Elite.Models;
 using System;
@@ -52,7 +51,7 @@ namespace Military_Elite.Core
 
                         soldier = new LieutenantGeneral(id, firstName, lastName, salary);
 
-                        ILieutenantGeneral lieutenantGeneral = soldier as ILieutenantGeneral;
+                        var lieutenantGeneral = soldier as ILieutenantGeneral;
 
                         string[] idNumbers = args.Skip(5).ToArray();
 
@@ -77,9 +76,9 @@ namespace Military_Elite.Core
                             string partName = repairsInfo[i];
                             int hoursWorked = int.Parse(repairsInfo[i + 1]);
 
-                            IRepair currentRepair = new Repair(partName, hoursWorked);
+                            var currentRepair = new Repair(partName, hoursWorked);
 
-                            IEngineer engineer = soldier as IEngineer;
+                            var engineer = soldier as IEngineer;
 
                             engineer.AddRepair(currentRepair);
                         }
@@ -97,11 +96,12 @@ namespace Military_Elite.Core
                         {
                             string name = missions[i];
                             string state = missions[i + 1];
+
                             try
                             {
-                                IMission currentMission = new Mission(name, state);
+                                var currentMission = new Mission(name, state);
 
-                                ICommando commando = soldier as ICommando;
+                                var commando = soldier as ICommando;
 
                                 commando.AddMission(currentMission);
                             }
