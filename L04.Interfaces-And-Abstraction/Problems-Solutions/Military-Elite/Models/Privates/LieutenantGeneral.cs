@@ -6,17 +6,17 @@ namespace Military_Elite.Models
 {
     public class LieutenantGeneral : Private, ILieutenantGeneral
     {
-        private readonly List<IPrivate> privates;
+        private readonly List<ISoldier> privates;
 
         public LieutenantGeneral(string id, string firstName, string lastName, decimal salary) 
             : base(id, firstName, lastName, salary)
         {
-            this.privates = new List<IPrivate>();
+            this.privates = new List<ISoldier>();
         }
 
-        public IReadOnlyCollection<IPrivate> Privates => this.privates;
+        public IReadOnlyCollection<ISoldier> Privates => this.privates;
 
-        public void AddSoldier(IPrivate soldier)
+        public void AddSoldier(ISoldier soldier)
         {
             this.privates.Add(soldier);
         }
