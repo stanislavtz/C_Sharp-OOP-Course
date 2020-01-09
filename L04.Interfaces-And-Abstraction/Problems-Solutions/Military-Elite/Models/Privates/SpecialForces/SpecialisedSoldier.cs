@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Military_Elite.Contracts;
 using Military_Elite.Enumerators;
 using Military_Elite.Exceptions;
