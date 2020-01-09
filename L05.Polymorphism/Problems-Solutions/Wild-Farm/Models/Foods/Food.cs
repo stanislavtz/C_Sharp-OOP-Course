@@ -9,6 +9,6 @@ namespace Wild_Farm.Models.Foods
             this.Quantity = quantity;
         }
 
-        public int Quantity { get; }
+        public int Quantity { get; private set; }
     }
 }

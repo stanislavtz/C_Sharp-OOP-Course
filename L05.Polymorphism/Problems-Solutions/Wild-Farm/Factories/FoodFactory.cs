@@ -1,5 +1,6 @@
 ﻿using System;
 using Wild_Farm.Contracts;
+using Wild_Farm.Exceptions;
 using Wild_Farm.Models.Foods;
 
 namespace Wild_Farm
@@ -31,7 +32,7 @@ namespace Wild_Farm
             }
             else
             {
-                throw new InvalidOperationException("Invalid food!");
+                throw new InvalidOperationException(ExceptionMessages.InvalidFoodException);
             }
 
             return food;

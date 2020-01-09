@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using Wild_Farm.Contracts;
+﻿using System;
+using System.Collections.Generic;
+using Wild_Farm.Models.Foods;
 
 namespace Wild_Farm.Models.Animals.Mammall
 {
@@ -7,25 +8,20 @@ namespace Wild_Farm.Models.Animals.Mammall
 
     {
         private const double FOOD_MODIFIER = 0.40;
-        private readonly List<string> foodCollection = new List<string>
-        {
-            "Meat"
-        };
 
-        public Dog(string name, double weight, int foodEaten, string livingRegion)
-            : base(name, weight, foodEaten, livingRegion)
+        public Dog(string name, double weight, string livingRegion)
+            : base(name, weight, livingRegion)
         {
         }
+
+        protected override List<Type> PrefferedFoodTpes =>
+            new List<Type> { typeof(Meat) };
+
+        protected override double WeightMultiplier => FOOD_MODIFIER;
 
         public override string AskFood()
         {
             return "Woof!";
-        }
-
-
-        public override double EatFood(IFood food)
-        {
-            return GainWeight(food, FOOD_MODIFIER, foodCollection);
         }
 
         public override string ToString()

@@ -1,46 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using Wild_Farm.Contracts;
+using Wild_Farm.Exceptions;
 
 namespace Wild_Farm.Models.Animals
 {
     public abstract class Animal : IAnimal
     {
-        public Animal(string name, double weight, int foodEaten)
+        public Animal(string name, double weight)
         {
             this.Name = name;
             this.Weight = weight;
-            this.FoodEaten = foodEaten;
         }
 
         public string Name { get; private set; }
 
-        public double Weight { get; protected set; }
+        public double Weight { get; private set; }
 
-        public int FoodEaten { get;  set; }
+        public int FoodEaten { get; private set; }
+
+        protected abstract List<Type> PrefferedFoodTpes { get; }
+
+        protected abstract double WeightMultiplier { get; }
 
         public abstract string AskFood();
-
-        public abstract double EatFood(IFood food);
-
-        protected double GainWeight(IFood food, double foodModifier, List<string> foods)
+       
+        public void Feed(IFood food)
         {
-            var animalType = this.GetType().Name;
-            var foodType = food.GetType().Name;
-
-            if (!foods.Contains(foodType))
+            if (!PrefferedFoodTpes.Contains(food.GetType()))
             {
-                throw new InvalidOperationException($"{animalType} does not eat {foodType}!");
+                throw new InvalidOperationException(
+                    string.Format(ExceptionMessages.InvalidFoodTypeException, this.GetType().Name, food.GetType().Name));
             }
 
-            this.Weight += food.Quantity * foodModifier;
-
-            return this.Weight;
+            this.Weight += food.Quantity * this.WeightMultiplier;
+            this.FoodEaten += food.Quantity;
         }
 
         public override string ToString()
         {
             return $"{this.GetType().Name} [{this.Name},";
         }
+
     }
 }
