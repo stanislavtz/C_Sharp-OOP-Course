@@ -1,36 +1,26 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using Wild_Farm.Contracts;
 using Wild_Farm.Exceptions;
-using Wild_Farm.Models.Foods;
 
 namespace Wild_Farm
 {
     public class FoodFactory
     {
-        public IFood CreatFood(params string[] foodArgs)
+        public IFood ProduceFood(params string[] foodArgs)
         {
-            string type = foodArgs[0];
+            string foodType = foodArgs[0];
             int quantity = int.Parse(foodArgs[1]);
 
-            IFood food;
+            Type type = Assembly
+                .GetExecutingAssembly()
+                .GetTypes()
+                .FirstOrDefault(x => x.Name == foodType);
 
-            if (type == "Fruit")
-            {
-                food =  new Fruit(quantity);
-            }
-            else if (type == "Meat")
-            {
-                food = new Meat(quantity);
-            }
-            else if (type == "Seeds")
-            {
-                food = new Seeds(quantity);
-            }
-            else if (type == "Vegetable")
-            {
-                food = new Vegetable(quantity);
-            }
-            else
+            IFood food = (IFood)Activator.CreateInstance(type, new object[] { quantity });
+
+            if (food == null)
             {
                 throw new InvalidOperationException(ExceptionMessages.InvalidFoodException);
             }

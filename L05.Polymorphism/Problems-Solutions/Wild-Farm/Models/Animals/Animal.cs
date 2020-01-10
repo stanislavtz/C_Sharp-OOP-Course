@@ -41,6 +41,5 @@ namespace Wild_Farm.Models.Animals
         {
             return $"{this.GetType().Name} [{this.Name},";
         }
-
     }
 }

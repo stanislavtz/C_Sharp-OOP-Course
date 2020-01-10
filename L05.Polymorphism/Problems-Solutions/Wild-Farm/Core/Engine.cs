@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 using Wild_Farm.Contracts;
 using Wild_Farm.Factories;
 
@@ -37,12 +37,11 @@ namespace Wild_Farm.Core
                 try
                 {
                     animal = new AnimalFactory().CreatAnimal(animalArgs);
-                    var food = new FoodFactory().CreatFood(foodArgs);
+                    var food = new FoodFactory().ProduceFood(foodArgs);
 
                     Console.WriteLine(animal.AskFood());
 
                     animal.Feed(food);
-
                 }
                 catch (InvalidOperationException ioe)
                 {
