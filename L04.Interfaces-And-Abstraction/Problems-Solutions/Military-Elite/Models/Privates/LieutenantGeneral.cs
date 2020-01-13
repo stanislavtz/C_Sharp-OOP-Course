@@ -1,6 +1,6 @@
 ﻿using System.Text;
-using System.Collections.Generic;
 using Military_Elite.Contracts;
+using System.Collections.Generic;
 
 namespace Military_Elite.Models
 {

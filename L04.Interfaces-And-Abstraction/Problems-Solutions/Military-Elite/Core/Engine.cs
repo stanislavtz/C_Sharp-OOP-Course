@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using Military_Elite.Contracts;
+﻿using Military_Elite.Contracts;
 using Military_Elite.Exceptions;
 using Military_Elite.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Military_Elite.Core
 {

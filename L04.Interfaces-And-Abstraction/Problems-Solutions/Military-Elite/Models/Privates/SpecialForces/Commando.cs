@@ -1,6 +1,6 @@
-﻿using System.Text;
+﻿using Military_Elite.Contracts.SpecialForces;
 using System.Collections.Generic;
-using Military_Elite.Contracts.SpecialForces;
+using System.Text;
 
 namespace Military_Elite.Models
 {
