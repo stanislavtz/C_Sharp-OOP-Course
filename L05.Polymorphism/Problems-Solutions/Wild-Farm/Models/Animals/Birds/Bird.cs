@@ -2,8 +2,8 @@
 {
     public abstract class Bird : Animal
     {
-        public Bird(string name, double weight, int foodEaten, double wingSize) 
-            : base(name, weight, foodEaten)
+        public Bird(string name, double weight, double wingSize) 
+            : base(name, weight)
         {
             this.WingSize = wingSize;
         }

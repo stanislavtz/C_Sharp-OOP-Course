@@ -1,29 +1,26 @@
-﻿using System.Collections.Generic;
-using Wild_Farm.Contracts;
+﻿using System;
+using System.Collections.Generic;
+using Wild_Farm.Models.Foods;
 
 namespace Wild_Farm.Models.Animals.Birds
 {
     public class Owl : Bird
     {
         private const double FOOD_MODIFIER = 0.25;
-        private readonly List<string> foodCollection = new List<string>
-        {
-            "Meat"
-        };
 
-        public Owl(string name, double weight, int foodEaten, double wingSize) 
-            : base(name, weight, foodEaten, wingSize)
+        public Owl(string name, double weight, double wingSize) 
+            : base(name, weight, wingSize)
         {
         }
+
+        protected override List<Type> PrefferedFoodTpes =>
+            new List<Type> { typeof(Meat) };
+
+        protected override double WeightMultiplier => FOOD_MODIFIER;
 
         public override string AskFood()
         {
             return "Hoot Hoot";
-        }
-
-        public override double EatFood(IFood food)
-        {
-            return GainWeight(food, FOOD_MODIFIER, foodCollection);
         }
     }
 }

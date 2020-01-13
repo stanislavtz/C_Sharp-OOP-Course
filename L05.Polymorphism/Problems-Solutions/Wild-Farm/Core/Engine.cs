@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Wild_Farm.Contracts;
 using Wild_Farm.Factories;
@@ -7,55 +8,55 @@ namespace Wild_Farm.Core
 {
     public class Engine
     {
+        private List<IAnimal> animals;
+
+        public Engine()
+        {
+            this.animals = new List<IAnimal>();
+        }
+
         public void Run()
         {
-            List<IAnimal> animals = new List<IAnimal>();
+            string command = Console.ReadLine();
 
-            string[] animalArgs = Console.ReadLine().Split();
-            string firstElement = animalArgs[0];
+            IAnimal animal = null;
 
-            while (firstElement != "End")
+            while (command != "End")
             {
-                IAnimal animal = GetAnimal(animalArgs);
+                string[] animalArgs = command.Split().ToArray();
 
-                IFood food = GetFood();
+                command = Console.ReadLine();
 
-                Console.WriteLine(animal.AskFood());
+                if (command == "End")
+                {
+                    return;
+                }
 
-                animals.Add(animal);
+                string[] foodArgs = command.Split().ToArray();
 
                 try
                 {
-                    animal.EatFood(food);
-                    animal.FoodEaten += food.Quantity;
+                    animal = new AnimalFactory().CreatAnimal(animalArgs);
+                    var food = new FoodFactory().ProduceFood(foodArgs);
+
+                    Console.WriteLine(animal.AskFood());
+
+                    animal.Feed(food);
                 }
-                catch (Exception ex)
+                catch (InvalidOperationException ioe)
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ioe.Message);
                 }
 
-                animalArgs = Console.ReadLine().Split();
-                firstElement = animalArgs[0];
+                if (animal != null)
+                {
+                    animals.Add(animal);
+                }
+
+                command = Console.ReadLine();
             }
 
-            foreach (var animal in animals)
-            {
-                Console.WriteLine(animal);
-            }
-        }
-
-        private static IFood GetFood()
-        {
-            string[] foodArgs = Console.ReadLine().Split();
-
-            var food = new FoodFactory().CreatFood(foodArgs);
-
-            return food;
-        }
-
-        private static IAnimal GetAnimal(string[] animalArgs)
-        {
-            return new AnimalFactory().CreatAnimal(animalArgs);
+            Console.WriteLine(string.Join(Environment.NewLine, animals));
         }
     }
 }
