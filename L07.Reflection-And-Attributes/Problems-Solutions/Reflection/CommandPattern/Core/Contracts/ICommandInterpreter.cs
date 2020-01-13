@@ -2,6 +2,6 @@
 {
     public interface ICommandInterpreter
     {
-        string Read(string args);
+        string Read(string inputLine);
     }
 }

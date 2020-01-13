@@ -6,7 +6,7 @@ namespace CommandPattern.Core.Models
     {
         public string Execute(string[] args)
         {
-            string result = $"Hello, {args[0]}";
+            string result = $"Hello, {string.Join(" ", args)}";
 
             return result;
         }

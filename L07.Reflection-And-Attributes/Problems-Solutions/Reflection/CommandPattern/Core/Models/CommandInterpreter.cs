@@ -12,31 +12,31 @@ namespace CommandPattern.Core.Models
 
         public string Read(string inputLine)
         {
-            string[] tokens = inputLine
+            string[] inputArgs = inputLine
                 .Split(" ", StringSplitOptions.RemoveEmptyEntries)
                 .ToArray();
 
-            if (tokens.Length == 0)
+            if (inputArgs.Length == 0)
             {
                 throw new IndexOutOfRangeException("Invalid input!");
             }
 
-            string commandName = tokens[0] + COMMAND_POSTFIX;
-
-            string[] commandArgs = tokens
-                .Skip(1)
-                .ToArray();
+            string commandName = inputArgs[0] + COMMAND_POSTFIX;
 
             Assembly assembly = Assembly.GetCallingAssembly();
 
             Type currentCommandType = assembly
                 .GetTypes()
-                .FirstOrDefault(x => x.Name == commandName);
+                .FirstOrDefault(x => x.Name.ToLower() == commandName.ToLower());
 
             if (currentCommandType == null)
             {
                 throw new ArgumentException("Invalid type!");
             }
+            
+            string[] commandArgs = inputArgs
+                .Skip(1)
+                .ToArray();
 
             var command = (ICommand)Activator
                 .CreateInstance(currentCommandType);
